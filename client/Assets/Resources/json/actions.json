@@ -1,6 +1,7 @@
 {
-    "actions" : {
-        "dummy" : {
+    "actions" : [
+        {
+            "name" : "dummy",
             "icon" : "something.png",
             "sub_icon" : "something_else.png",
             "enabled" : false,
@@ -17,31 +18,36 @@
             "on_miss" : {},
             "passive" : {}
         },
-        "shot" : {
+        {
+            "name" : "shot",
             "icon" : "fire.png",
             "on_hit" : {
                 "target_modifier" : -1
             }
         },
-        "heal" : {
+        {
+            "name" : "heal",
             "icon" : "plus.png",
             "passive" : {
                 "player_modifier" : 1
             }
         },
-        "move" : {
+        {
+            "name" : "move",
             "icon" : "arrow.png",
             "passive" : {
                 "move" : 1
             }
         },
-        "backup" : {
+        {
+            "name" : "backup",
             "icon" : "back_arrow.png",
             "passive" : {
                 "move" : -1
             }
         },
-        "vampire_shot" : {
+        {
+            "name" : "vampire_shot",
             "icon" : "fire.png",
             "sub_icon" : "blood.png",
             "on_hit" : {
@@ -51,7 +57,8 @@
                 ]
             }
         },
-        "bazooka" : {
+        {
+            "name" : "bazooka",
             "icon" : "bazooka.png",
             "passive" : {
                 "move" : -1
@@ -61,5 +68,5 @@
                 "target_move" : 1
             }
         }
-    }
+    ]
 }
