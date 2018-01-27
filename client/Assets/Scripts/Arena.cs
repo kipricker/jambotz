@@ -56,9 +56,12 @@ public class Arena : MonoBehaviour {
     private float m_sx;
     private float m_sy;
 
-    void LoadMap(WorldData world)
+    public void LoadMap(WorldData world)
     {
         ClearMap();
+
+        string json = Resources.Load<TextAsset>("json/tiles").text;
+        m_tiles = JsonUtility.FromJson<Tiles>(json);
 
         m_world = world;
         int w = world.width;
@@ -179,13 +182,7 @@ public class Arena : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        string json = Resources.Load<TextAsset>("json/tiles").text;
-        m_tiles = JsonUtility.FromJson<Tiles>(json);
-
-        // Testing crap.
-        string json_map = Resources.Load<TextAsset>("test_map").text;
-        WorldData world = JsonUtility.FromJson<WorldData>(json_map);
-        LoadMap(world);
+        
 	}
 	
 	// Update is called once per frame

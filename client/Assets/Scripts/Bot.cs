@@ -55,6 +55,7 @@ public class Bot : MonoBehaviour {
 
         gameObject.transform.parent = m_arena.transform;
         gameObject.transform.position = new Vector3(arena.GridX(m_x_position), 0.0f, arena.GridY(m_y_position));
+        gameObject.transform.eulerAngles = new Vector3(0.0f, 90.0f, 0.0f);
     }
 
     public Status GetStatus()
@@ -114,18 +115,17 @@ public class Bot : MonoBehaviour {
         m_status = Status.Turning;
     }
 
-    // Update is called once per frame
-    void Update ()
+    void FixedUpdate ()
     {
         Arena arena = m_arena.GetComponent<Arena>();
         float z = 0.0f;
         if (m_status == Status.Falling && m_animation_state > 0.5f)
         {
             float t = m_animation_state - 0.5f;
-            float ax = 180.0f * t * (m_target_y - m_y_position);
-            float az = -180.0f * t * (m_target_x - m_x_position);
+            float ax = -180.0f * t * (m_target_y - m_y_position);
+            float az = 180.0f * t * (m_target_x - m_x_position);
             z = -10.0f * t * t;
-            gameObject.transform.eulerAngles = new Vector3(ax, 0.0f, az);
+            gameObject.transform.eulerAngles = new Vector3(az, 90.0f, ax);
         }
         switch (m_status)
         {
@@ -154,6 +154,7 @@ public class Bot : MonoBehaviour {
                     a = m_orientation;
                     m_status = Status.Idle;
                 }
+                a -= 1.0f;
                 gameObject.transform.eulerAngles = new Vector3(0.0f, -a * 90.0f, 0.0f);
                 break;
         }
