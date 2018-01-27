@@ -10,8 +10,8 @@ struct JoinResponse {
 }
 
 [System.Serializable]
-struct GameState {
-	
+struct GameAction {
+	public int move;
 }
 
 public class Network : MonoBehaviour {
@@ -24,15 +24,11 @@ public class Network : MonoBehaviour {
 
 	string host = "localhost:3000";
 
-	Queue transactionQueue = new Queue();
+	Queue<GameAction> gameActionQueue = new Queue<GameAction>();
 
 	void Start () {
-//		joinLobby();
+		joinLobby();
 //		StartCoroutine (heartbeat());
-	}
-	
-	void Update () {
-		
 	}
 
 	public void joinLobby() {
@@ -50,12 +46,7 @@ public class Network : MonoBehaviour {
 		if (www.isNetworkError || www.isHttpError) {
 			Debug.Log (www.error);
 		} else {
-			// TODO: deserialize JSON to object and enqueue
-			Debug.Log (www.downloadHandler.text);
 			joinResponse = JsonUtility.FromJson<JoinResponse> (www.downloadHandler.text);
-			Debug.Log (joinResponse.gameID);
-//			transactionQueue.Enqueue("Hello");
-
 			StartCoroutine (heartbeat());
 		}
 	}
@@ -74,9 +65,16 @@ public class Network : MonoBehaviour {
 			if (www.isNetworkError || www.isHttpError) {
 				Debug.Log (www.error);
 			} else {
-				// TODO: deserialize JSON to object and enqueue
-				Debug.Log (www.downloadHandler.text);
-//				transactionQueue.Enqueue("Hello");
+				string json = www.downloadHandler.text;
+				json = json.Substring (1, json.Length - 2);
+				if (json.Length > 0) {
+					string[] objects = json.Split (',');
+					foreach (string obj in objects) {
+						GameAction gameAction = JsonUtility.FromJson<GameAction> (obj);
+						lastSeen++;
+						gameActionQueue.Enqueue (gameAction);
+					}
+				}
 			}
 
 			yield return new WaitForSeconds(1);

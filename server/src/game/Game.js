@@ -10,7 +10,12 @@ export default class Game {
     id = '';
     players = [];
     active = false;
-    states = [];
+    actions = [
+        { move: 1},
+        { move: 1},
+        { move: 1},
+        { move: 1},
+    ];
 
     constructor() {
         this.id = crypto.randomBytes(16).toString('hex');
@@ -23,9 +28,9 @@ export default class Game {
         }
     }
 
-    getStateSince(lastSeen) {
-        if (this.states.length > 0) {
-            return this.states.slice(lastSeen + 1);
+    getActionsSince(lastSeen) {
+        if (this.actions.length > 0) {
+            return this.actions.slice(lastSeen + 1);
         } else {
             return [];
         }
