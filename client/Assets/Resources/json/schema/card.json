@@ -1,6 +1,7 @@
 {
     "name" : "card_name",
     "priority" : 1,
+    "rarity" : 1,
     "name" : "Card Title",
     "flavor" : "Add spice to card, no purpose.",
     "parent" : "parent_card_name",
