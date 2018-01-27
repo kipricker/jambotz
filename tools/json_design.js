@@ -1,12 +1,17 @@
 $(function() {
     var cards_json = "../json/cards.json";
     var actions_json = "../json/actions.json";
+    var tiles_json = "../json/tiles.json";
     var cards;
     var actions;
-    $.getJSON(cards_json).done( function(json) {
-        cards = JSON.parse(json);
+    var tiles;
+    $.getJSON(cards_json, function(json) {
+       cards = json;
     });
     $.getJSON(actions_json, function(json) {
-        actions = JSON.parse(json);
+       actions = json;
+    });
+    $.getJSON(tiles_json, function(json) {
+       tiles = json;
     });
 });
