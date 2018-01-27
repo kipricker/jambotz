@@ -38,7 +38,7 @@
         "uturn" : {
             "name" : "U-turn",
             "flavor" : "Nu-uh.",
-            "actions" : ["uturn"]
+            "actions" : ["turn_left", "turn_left"]
         },
         "turn_left" : {
             "name" : "Turn Left",

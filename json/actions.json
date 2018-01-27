@@ -4,6 +4,7 @@
             "icon" : "something.png",
             "sub_icon" : "something_else.png",
             "enabled" : false,
+            "priority_modifier" : 1.1,
             "on_hit" : {
                 "target_modifier" : -1,
                 "player_modifier" : 1,
@@ -32,6 +33,12 @@
             "icon" : "arrow.png",
             "passive" : {
                 "move" : 1
+            }
+        },
+        "backup" : {
+            "icon" : "back_arrow.png",
+            "passive" : {
+                "move" : -1
             }
         },
         "vampire_shot" : {

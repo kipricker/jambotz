@@ -8,6 +8,9 @@ Actions:
         "sub_icon" : "something_else.png",
         # obligitory enabled/disabled flag, so we don't have to delete actions
         "enabled" : false,
+        # multiplier of base priority, so "sharpshooter would become default
+        # faster than a move
+        "priority_modifier" : 1.1,
         # three outcome-sets of this action
         "on_hit" : {
             # health modifier of target (that got hit)
