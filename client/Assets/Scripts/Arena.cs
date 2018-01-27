@@ -122,6 +122,8 @@ public class Arena : MonoBehaviour {
 
     public bool GridSafe(int x, int y)
     {
+        if (x < 0 || y < 0 || x >= m_world.width || y >= m_world.height)
+            return false;
         return m_grid[x, y].type > 0;
     }
 
