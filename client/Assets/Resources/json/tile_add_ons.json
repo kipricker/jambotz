@@ -1,34 +1,36 @@
-[
-    {
-        "name" : "wall",
-        "asset" : "obj_wall"
-    },
-    {
-        "name" : "button",
-        "asset" : "obj_button",
-        "actions" : [
-        
-        ]
-    },
-    {
-        "name" : "door",
-        "asset" : "obj_door",
-        "actions" : [
-        
-        ]
-    },
-    {
-        "name" : "trip_laser",
-        "asset" : "obj_trip_laser",
-        "actions" : [
-            "trigger"
-        ]
-    },
-    {
-        "name" : "laser",
-        "asset" : "obj_laser",
-        "actions" : [
-            "damage_target"
-        ]
-    }
-]
+{
+    "tile_add_ons" : [
+        {
+            "name" : "wall",
+            "asset" : "objects/obj_wall"
+        },
+        {
+            "name" : "button",
+            "asset" : "objects/obj_button",
+            "actions" : [
+            
+            ]
+        },
+        {
+            "name" : "door",
+            "asset" : "objects/obj_door",
+            "actions" : [
+            
+            ]
+        },
+        {
+            "name" : "trip_laser",
+            "asset" : "objects/obj_trip_laser",
+            "actions" : [
+                "trigger"
+            ]
+        },
+        {
+            "name" : "laser",
+            "asset" : "objects/obj_laser",
+            "actions" : [
+                "damage_target"
+            ]
+        }
+    ]
+}

@@ -1,10 +1,12 @@
-[
-    {
-        "name" : "blank",
-        "asset" : "tile_blank"
-    },
-    {
-        "name" : "conveyour",
-        "asset" : "tile_belt"
-    }
-]
+{
+    "tiles" : [
+        {
+            "name" : "blank",
+            "asset" : "tilesets/tile_blank"
+        },
+        {
+            "name" : "conveyour",
+            "asset" : "tilesets/tile_belt"
+        }
+    ]
+}

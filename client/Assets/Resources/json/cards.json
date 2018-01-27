@@ -1,76 +1,94 @@
 {
-	"cards": {
-		"fire_1": {
-			"name": "One Shot",
+	"cards": [
+		{ 
+ 			"name" : "fire_1",
+			"title": "One Shot",
 			"flavor": "One shot, one kill.",
 			"actions": ["fire"]
 		},
-		"fire_2": {
-			"name": "Double Tap",
+		{ 
+			"name" : "fire_2",
+			"title": "Double Tap",
 			"flavor": "Pow pow!",
 			"actions": ["fire", "fire"]
 		},
-		"fire_3": {
-			"name": "Triple Threat",
+		{ 
+ 			"name" : "fire_3",
+			"title": "Triple Threat",
 			"flavor": "Ooof.",
 			"actions": ["fire", "fire", "fire"]
 		},
-		"move_1": {
-			"name": "Move it!",
+		{ 
+ 			"name" : "move_1",
+			"title": "Move it!",
 			"flavor": "Git!",
 			"actions": ["move"]
 		},
-		"move_2": {
-			"name": "Double Time",
+		{ 
+ 			"name" : "move_2",
+			"title": "Double Time",
 			"flavor": "One, Two, One, Two...",
 			"actions": ["move", "move"]
 		},
-		"move_3": {
-			"name": "Sprint",
+		{ 
+			"name" : "move_3",
+			"title": "Sprint",
 			"flavor": "Huff Huff.",
 			"actions": ["move", "move", "move"]
 		},
-		"backup": {
-			"name": "Backup",
+		{ 
+ 			"name" : "backup",
+			"title": "Backup",
 			"flavor": "Uh, just a second here.",
 			"actions": ["backup"]
 		},
-		"uturn": {
-			"name": "U-turn",
+		{ 
+ 			"name" : "uturn",
+			"title": "U-turn",
 			"flavor": "Nu-uh.",
 			"actions": ["turn_left", "turn_left"]
 		},
-		"turn_left": {
-			"name": "Turn Left",
+		{ 
+ 			"name" : "turn_left",
+			"title": "Turn Left",
 			"flavor": "How Hansel won.",
 			"actions": ["turn_left"]
 		},
-		"turn_right": {
-			"name": "Turn Right",
+		{ 
+			"name" : "turn_right",
+			"title": "Turn Right",
 			"flavor": "I can't turn left...",
 			"actions": ["turn_right"]
 		},
-		"look_left": {
-			"name": "Look Left",
+		{ 
+			"name" : "look_left",
+			"title": "Look Left",
 			"flavor": "Nothing there...",
 			"actions": ["look_left"]
 		},
-		"look_right": {
+		{ 
+			"name" : "look_right",
 			"name": "Look Right",
 			"flavor": "There's a chicken...",
 			"actions": ["look_right"]
 		},
-		"face_front": {},
-		"turn_facing": {},
-		"vampiric_shot" : {
-			"name" : "Leech bullet",
+		{ 
+			 "name" : "face_front",
+		},
+		{ 
+			 "name" : "turn_facing",
+		},
+		{ 
+			"name" : "vampiric_shot",
+			"title" : "Leech bullet",
 			"flavor" : "What's yours is now mine!",
 			"actions" : ["vampiric_shot"]
 		},
-		"bazooka" : {
-			"name" : "Big Shot",
+		{ 
+ 			"name" : "bazooka",
+			"title" : "Big Shot",
 			"flavor" : "Whoa!",
 			"actions" : ["bazooka"]
 		}
-	}
+	]
 }
