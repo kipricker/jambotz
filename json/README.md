@@ -37,3 +37,31 @@ Cards:
     # list of actions in order
     "actions" : ["fire", "fire", "fire", "fire"]
 }
+
+Maps:
+**Example snippet
+{
+    "height" : 5,
+    "width" : 5,
+    # Multiple start locations, can be randomly chosen by server for players
+    "starting_locations" : [
+        [0,0],
+        [4,4]
+    ],
+    # unordered list of tiles and usage
+    "map_data" : [
+        {
+            # row, column
+            "location" : [0,0],
+            "tile" : "blank_tile",
+            # N S E W
+            "walls" : [0,0,1,1],
+            # which wall has the special
+            "special" : "bumper",
+            "special_wall" : "north",
+            # for things like conveyours, horizontal or vertical
+            "orientation" : "vertical",
+            # tiles have variations, this should match one in the tile's list
+            "variation" : "slow",
+        }
+}
