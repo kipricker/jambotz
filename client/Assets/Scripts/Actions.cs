@@ -9,14 +9,14 @@ public struct Action
     public struct Trigger
     {
         public string name;
-        public Action[] actions;
+        public string[] actions;
     }
 
     [System.Serializable]
     public struct Spawn
     {
         public string name;
-        public Action[] actions;
+        public string[] actions;
     }
 
     [System.Serializable]
@@ -31,7 +31,7 @@ public struct Action
         public bool trigger;
         public string state_change;
         public Spawn[] spawn;
-        public Action[] actions;
+        public string[] actions;
     }
 
     public string name;
@@ -53,7 +53,7 @@ public class Actions
 {
     public Action[] actions;
 
-    Action GetAction(string name)
+    public Action GetAction(string name)
     {
         foreach(Action action in actions)
         {

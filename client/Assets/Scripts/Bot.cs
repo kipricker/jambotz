@@ -38,8 +38,8 @@ public class Bot : MonoBehaviour {
         // Testing
         Spawn(0);
         Move(1);
-        //Invoke("Test2", 3.0f);
-        Invoke("TurnLeft", 3.0f);
+        Invoke("Test2", 3.0f);
+        //Invoke("TurnLeft", 3.0f);
 	}
 
     void Test2()
