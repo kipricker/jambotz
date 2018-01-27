@@ -1,199 +1,212 @@
-{
-    "actions" : [
-        {
-            "name" : "toggle",
-            "passive" : {
-                "state_change" : "toggle"
-            }
-        },
-        {
-            "name" : "activate",
-            "passive" : {
-                "state_change" : "activate"
-            }
-        },
-        {
-            "name" : "trigger_bombs",
-            "icon" : "bomb_blow.png",
-            "trigger" : {
-                "name" : "bombs",
-                "actions" : ["activate"]
-            },
-            "passive" : {
-                "trigger" : true
-            }
-        },
-        {
-            "name" : "trigger_player_bombs",
-            "icon" : "bomb_blow.png",
-            "sub_icon" : "all.png",
-            "trigger" : {
-                "name" : "player_bombs",
-                "actions" : ["activate"]
-            },
-            "passive" : {
-                "trigger" : true
-            }
-        },
-        {
-            "name" : "damage_target",
-            "passive" : {
-                "target_modifier" : -1
-            }
-
-        },
-        {
-            "name" : "damage_self",
-            "passive" : {
-                "player_modifier" : -1
-            }
-
-        },
-        {
-            "name" : "heal_target",
-            "passive" : {
-                "target_modifier" : 1
-            }
-
-        },
-        {
-            "name" : "heal_self",
-            "passive" : {
-                "player_modifier" : 1
-            }
-
-        },
-        {
-            "name" : "shot",
-            "icon" : "fire.png",
-            "on_hit" : {
-                "actions" : [ 
-                    "damage_target"
-                ]
-            }
-        },
-        {
-            "name" : "heal",
-            "icon" : "plus.png",
-            "passive" : {
-                "actions" : [
-                    "heal_self"
-                ]
-            }
-        },
-        {
-            "name" : "turn_left",
-            "passive" : {
-                "turn" : -1
-            }
-
-        },
-        {
-            "name" : "turn_right",
-            "passive" : {
-                "turn" : 1
-            }
-
-        },
-        {
-            "name" : "look_left",
-            "passive" : {
-                "look" : -1
-            }
-
-        },
-        {
-            "name" : "look_right",
-            "passive" : {
-                "look" : 1
-            }
-
-        },
-        {
-            "name" : "push_target",
-            "passive" : {
-                "target_move" : 1
-            }
-        },
-        {
-            "name" : "push_player",
-            "passive" : {
-                "player_move" : 1
-            }
-        },
-        {
-            "name" : "pull_target",
-            "passive" : {
-                "target_move" : -1
-            }
-        },
-        {
-            "name" : "pull_player",
-            "passive" : {
-                "player_move" : -1
-            }
-        },
-        {
-            "name" : "push",
-            "icon" : "hand.png",
-            "passive" : {
-                "actions" : [
-                    "push_target"
-                ]
-            }
-        },
-        {
-            "name" : "pull",
-            "icon" : "magnet.png",
-            "passive" : {
-                "actions" : [
-                    "pull_target"
-                ]
-            }
-        },
-        {
-            "name" : "move",
-            "icon" : "arrow.png",
-            "passive" : {
-                "actions" : [
-                    "push_player"
-                ]
-            }
-        },
-        {
-            "name" : "backup",
-            "icon" : "back_arrow.png",
-            "passive" : {
-                "actions" : [
-                    "pull_player"
-                ]
-            }
-        },
-        {
-            "name" : "vampiric_shot",
-            "icon" : "fire.png",
-            "sub_icon" : "blood.png",
-            "on_hit" : {
-                "actions" : [
-                    "damage_target",
-                    "heal_self"
-                ]
-            }
-        },
-        {
-            "name" : "bazooka",
-            "icon" : "bazooka.png",
-            "passive" : {
-                "actions" : [
-                    "pull_player"
-                ]
-            },
-            "on_hit" : {
-                "actions" : [
-                    "damage_target",
-                    "push_target"
-                ]
-            }
+[
+    {
+        "name" : "toggle",
+        "passive" : {
+            "state_change" : "toggle"
         }
-    ]
-}
+    },
+    {
+        "name" : "activate",
+        "passive" : {
+            "state_change" : "activate"
+        }
+    },
+    {
+        "name" : "trigger_bombs",
+        "icon" : "bomb_blow.png",
+        "trigger" : {
+            "name" : "bombs",
+            "actions" : ["activate"]
+        },
+        "passive" : {
+            "trigger" : true
+        }
+    },
+    {
+        "name" : "trigger_player_bombs",
+        "icon" : "bomb_blow.png",
+        "sub_icon" : "all.png",
+        "trigger" : {
+            "name" : "player_bombs",
+            "actions" : ["activate"]
+        },
+        "passive" : {
+            "trigger" : true
+        }
+    },
+    {
+        "name" : "damage_target",
+        "passive" : {
+            "target_modifier" : -1
+        }
+
+    },
+    {
+        "name" : "damage_self",
+        "passive" : {
+            "player_modifier" : -1
+        }
+
+    },
+    {
+        "name" : "heal_target",
+        "passive" : {
+            "target_modifier" : 1
+        }
+
+    },
+    {
+        "name" : "heal_self",
+        "passive" : {
+            "player_modifier" : 1
+        }
+
+    },
+    {
+        "name" : "shot",
+        "icon" : "fire.png",
+        "on_hit" : {
+            "actions" : [ 
+                "damage_target"
+            ]
+        }
+    },
+    {
+        "name" : "heal",
+        "icon" : "plus.png",
+        "passive" : {
+            "actions" : [
+                "heal_self"
+            ]
+        }
+    },
+    {
+        "name" : "turn_left",
+        "passive" : {
+            "turn_body" : -1
+        }
+
+    },
+    {
+        "name" : "turn_right",
+        "passive" : {
+            "turn_body" : 1
+        }
+
+    },
+    {
+        "name" : "look_left",
+        "passive" : {
+            "turn_turret" : -1
+        }
+
+    },
+    {
+        "name" : "look_right",
+        "passive" : {
+            "turn_turret" : 1
+        }
+
+    },
+    {
+        "name" : "push_target",
+        "passive" : {
+            "target_move" : 1
+        }
+    },
+    {
+        "name" : "push_player",
+        "passive" : {
+            "player_move" : 1
+        }
+    },
+    {
+        "name" : "pull_target",
+        "passive" : {
+            "target_move" : -1
+        }
+    },
+    {
+        "name" : "pull_player",
+        "passive" : {
+            "player_move" : -1
+        }
+    },
+    {
+        "name" : "push",
+        "icon" : "hand.png",
+        "passive" : {
+            "actions" : [
+                "push_target"
+            ]
+        }
+    },
+    {
+        "name" : "pull",
+        "icon" : "magnet.png",
+        "passive" : {
+            "actions" : [
+                "pull_target"
+            ]
+        }
+    },
+    {
+        "name" : "move",
+        "icon" : "arrow.png",
+        "passive" : {
+            "actions" : [
+                "push_player"
+            ]
+        }
+    },
+    {
+        "name" : "backup",
+        "icon" : "back_arrow.png",
+        "passive" : {
+            "actions" : [
+                "pull_player"
+            ]
+        }
+    },
+    {
+        "name" : "turn_to_turret",
+        "icon" : "target.png",
+        "passive" : {
+            "align_body_to_turret" : true
+        }
+    },
+    {
+        "name" : "turn_to_body",
+        "icon" : "reset.png",
+        "passive" : {
+            "align_turret_to_body" : true
+        }
+    },
+    {
+        "name" : "vampiric_shot",
+        "icon" : "fire.png",
+        "sub_icon" : "blood.png",
+        "on_hit" : {
+            "actions" : [
+                "damage_target",
+                "heal_self"
+            ]
+        }
+    },
+    {
+        "name" : "bazooka",
+        "icon" : "bazooka.png",
+        "passive" : {
+            "actions" : [
+                "pull_player"
+            ]
+        },
+        "on_hit" : {
+            "actions" : [
+                "damage_target",
+                "push_target"
+            ]
+        }
+    }
+
+]
