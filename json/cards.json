@@ -1,0 +1,69 @@
+{
+    "cards" : {
+        "fire_1" : {
+            "name" : "One Shot",
+            "flavor" : "One shot, one kill.",
+            "actions" : ["fire"]
+        },
+        "fire_2" : {
+            "name" : "Double Tap",
+            "flavor" : "Pow pow!",
+            "actions" : ["fire", "fire"]
+        },
+        "fire_3" : {
+            "name" : "Triple Threat",
+            "flavor" : "Ooof.",
+            "actions" : ["fire", "fire", "fire"]
+        },
+        "move_1" : {
+            "name" : "Move it!",
+            "flavor" : "Git!",
+            "actions" : ["move"]
+        },
+        "move_2" : {
+            "name" : "Double Time",
+            "flavor" : "One, Two, One, Two...",
+            "actions" : ["move", "move"]
+        },
+        "move_3" : {
+            "name" : "Sprint",
+            "flavor" : "Huff Huff.",
+            "actions" : ["move", "move", "move"]
+        },
+        "backup" : {
+            "name" : "Backup",
+            "flavor" : "Uh, just a second here.",
+            "actions" : ["backup"]
+        },
+        "uturn" : {
+            "name" : "U-turn",
+            "flavor" : "Nu-uh.",
+            "actions" : ["uturn"]
+        },
+        "turn_left" : {
+            "name" : "Turn Left",
+            "flavor" : "How Hansel won.",
+            "actions" : ["turn_left"]
+        },
+        "turn_right" : {
+            "name" : "Turn Right",
+            "flavor" : "I can't turn left...",
+            "actions" : ["turn_right"]
+        },
+        "look_left" : {
+            "name" : "Look Left",
+            "flavor" : "Nothing there...",
+            "actions" : ["look_left"]
+        },
+        "look_right" : {
+            "name" : "Look Right",
+            "flavor" : "There's a chicken...",
+            "actions" : ["look_right"]
+        },
+        "face_front" : {},
+        "turn_facing" : {},
+        "face_front" : {},
+        "face_front" : {},
+        "face_front" : {},
+    }
+}
