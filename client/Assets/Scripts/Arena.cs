@@ -26,6 +26,19 @@ public struct WorldData
     public MapData[] map_data;
 }
 
+[System.Serializable]
+public struct Tiles
+{
+    [System.Serializable]
+    public struct Tile
+    {
+        public string name;
+        public string asset;
+    }
+
+    public Tile[] tiles;
+}
+
 public class Arena : MonoBehaviour {
 
     public struct Tile
@@ -39,6 +52,7 @@ public class Arena : MonoBehaviour {
 
     private WorldData m_world;
     private Tile[,] m_grid;
+    private Tiles m_tiles;
     private float m_sx;
     private float m_sy;
 
@@ -65,7 +79,7 @@ public class Arena : MonoBehaviour {
         {
             int x = tile.x;
             int y = tile.y;
-            m_grid[x, y].type = 1;
+            m_grid[x, y].type = FindTile(tile.tile);
         }
 
         m_sx = -(w - 1) * m_world_scale / 2.0f;
@@ -78,10 +92,10 @@ public class Arena : MonoBehaviour {
 
                 if (tile_type > 0)
                 {
-                    GameObject tile = Instantiate(Resources.Load("tileset/tile_blank") as GameObject);
+                    string asset = m_tiles.tiles[tile_type - 1].asset;
+                    GameObject tile = Instantiate(Resources.Load(asset) as GameObject);
 
                     tile.transform.position = new Vector3(GridX(x), 0, GridY(y));
-                    //tile.transform.localScale = new Vector3(100f, 100f, 100f);
                     tile.transform.parent = gameObject.transform;
                 }
 
@@ -113,6 +127,16 @@ public class Arena : MonoBehaviour {
                 }
             }
         }
+    }
+
+    int FindTile(string name)
+    {
+        for (int i = 0; i < m_tiles.tiles.Length; ++i)
+        {
+            if (m_tiles.tiles[i].name == name)
+                return i + 1;
+        }
+        return 0;
     }
 
     public bool CanMove(int x0, int y0, int x1, int y1)
@@ -155,6 +179,9 @@ public class Arena : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        string json = Resources.Load<TextAsset>("json/tiles").text;
+        m_tiles = JsonUtility.FromJson<Tiles>(json);
+
         // Testing crap.
         string json_map = Resources.Load<TextAsset>("test_map").text;
         WorldData world = JsonUtility.FromJson<WorldData>(json_map);

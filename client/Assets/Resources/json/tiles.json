@@ -2,11 +2,11 @@
     "tiles" : [
         {
             "name" : "blank",
-            "asset" : "tilesets/tile_blank"
+            "asset" : "tileset/tile_blank"
         },
         {
             "name" : "conveyour",
-            "asset" : "tilesets/tile_belt"
+            "asset" : "tileset/tile_belt"
         }
     ]
 }
