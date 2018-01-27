@@ -3,7 +3,7 @@ $(function() {
     var actions_json = "../json/actions.json";
     var cards;
     var actions;
-    $.getJSON(cards_json, function(json) {
+    $.getJSON(cards_json).done( function(json) {
         cards = JSON.parse(json);
     });
     $.getJSON(actions_json, function(json) {
