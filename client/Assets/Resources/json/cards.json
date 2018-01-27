@@ -61,6 +61,16 @@
 			"actions": ["look_right"]
 		},
 		"face_front": {},
-		"turn_facing": {}
+		"turn_facing": {},
+		"vampiric_shot" : {
+			"name" : "Leech bullet",
+			"flavor" : "What's yours is now mine!",
+			"actions" : ["vampiric_shot"]
+		},
+		"bazooka" : {
+			"name" : "Big Shot",
+			"flavor" : "Whoa!",
+			"actions" : ["bazooka"]
+		}
 	}
 }

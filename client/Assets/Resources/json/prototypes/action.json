@@ -1,0 +1,49 @@
+{
+    "name" : "action_name",
+    "icon" : "action_icon.png",
+    "sub_icon" : "",
+    "enabled" : true,
+    "parent" : "",
+    "priority_modifier" : 1,
+    "area_of_effect" : 1,
+    "trigger" : {
+        "name" : "",
+        "actions" : []
+    },
+    "on_hit" : {
+        "target_modifier" : 0,
+        "player_modifier" : 0,
+        "target_move" : 0,
+        "player_move" : 0,
+        "turn" : 0,
+        "look" : 0,
+        "trigger" : false,
+        "state_change" : "",
+        "spawn" : [],
+        "actions" : []
+    },
+    "on_miss" : {
+        "target_modifier" : 0,
+        "player_modifier" : 0,
+        "target_move" : 0,
+        "player_move" : 0,
+        "turn" : 0,
+        "look" : 0,
+        "trigger" : false,
+        "state_change" : "",
+        "spawn" : [],
+        "actions" : []
+    },
+    "passive" : {
+        "target_modifier" : 0,
+        "player_modifier" : 0,
+        "target_move" : 0,
+        "player_move" : 0,
+        "turn" : 0,
+        "look" : 0,
+        "trigger" : false,
+        "state_change" : "",
+        "spawn" : [],
+        "actions" : []
+    }
+}

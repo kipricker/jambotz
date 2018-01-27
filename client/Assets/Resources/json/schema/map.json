@@ -1,0 +1,31 @@
+{
+    "name" : "Map Name",
+    "height" : 1,
+    "width" : 1,
+    "starting_locations" : [
+        {"x" : 0, "y" : 0}
+    ],
+    "map_data" : [
+        {
+            "x" : 0, "y" : 0,
+            "tile" : "tile_name",
+            "tile_add_ons" : [
+                {
+                    "name" : "tile_add_on_name",
+                    "trigger" : {
+                        "name" : "trigger_link_name",
+                        "actions" : []
+                    },
+                    "edge" : [
+                        "north", 
+                        "south", 
+                        "east", 
+                        "west"
+                    ]
+                }
+            ],
+            "orientation" : "vertical",
+            "variation" : "tile_variation"
+        }
+    ]
+}

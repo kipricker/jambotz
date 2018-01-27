@@ -1,0 +1,64 @@
+{
+    "name" : "action_name",
+    "icon" : "action_icon.png",
+    "sub_icon" : "optional_action_sub_icon.png",
+    "enabled" : false,
+    "parent" : "parent_action_name",
+    "priority_modifier" : 1.1,
+    "area_of_effect" : 1,
+    "trigger" : {
+        "name" : "trigger_link_name",
+        "actions" : []
+    },
+    "on_hit" : {
+        "target_modifier" : -1,
+        "player_modifier" : 1,
+        "target_move" : 1,
+        "player_move" : 1,
+        "turn" : 1,
+        "look" : 1,
+        "trigger" : false,
+        "state_change" : "idle",
+        "spawn" : [
+            {
+                "name" : "object_name",
+                "actions" : []
+            }
+        ],
+        "actions" : []
+    },
+    "on_miss" : {
+        "target_modifier" : -1,
+        "player_modifier" : 1,
+        "target_move" : 1,
+        "player_move" : 1,
+        "turn" : 1,
+        "look" : 1,
+        "trigger" : false,
+        "state_change" : "idle",
+        "spawn" : [
+            {
+                "name" : "object_name",
+                "actions" : []
+            }
+        ],
+        "actions" : []
+    },
+    "passive" : {
+        "target_modifier" : -1,
+        "player_modifier" : 1,
+        "target_move" : 1,
+        "player_move" : 1,
+        "turn" : 1,
+        "look" : 1,
+        "trigger" : false,
+        "state_change" : "idle",
+        "spawn" : [
+            {
+                "name" : "object_name",
+                "actions" : []
+            }
+        ],
+        "actions" : []
+    }
+}

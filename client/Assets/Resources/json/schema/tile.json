@@ -1,0 +1,6 @@
+{
+    "name" : "tile_name",
+    "asset" : "tile_asset_base_name",
+    "parent" : "parent_tile",
+    "invalid_add_ons" : []
+}

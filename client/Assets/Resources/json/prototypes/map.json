@@ -1,0 +1,17 @@
+{
+    "name" : "",
+    "height" : 1,
+    "width" : 1,
+    "starting_locations" : [
+        {"x" : 0, "y" : 0}
+    ],
+    "map_data" : [
+        {
+            "x" : 0, "y" : 0,
+            "tile" : "blank",
+            "tile_add_ons" : [],
+            "orientation" : "",
+            "variation" : ""
+        }
+    ]
+}

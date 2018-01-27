@@ -1,0 +1,34 @@
+[
+    {
+        "name" : "wall",
+        "asset" : "obj_wall"
+    },
+    {
+        "name" : "button",
+        "asset" : "obj_button",
+        "actions" : [
+        
+        ]
+    },
+    {
+        "name" : "door",
+        "asset" : "obj_door",
+        "actions" : [
+        
+        ]
+    },
+    {
+        "name" : "trip_laser",
+        "asset" : "obj_trip_laser",
+        "actions" : [
+            "trigger"
+        ]
+    },
+    {
+        "name" : "laser",
+        "asset" : "obj_laser",
+        "actions" : [
+            "damage_target"
+        ]
+    }
+]
