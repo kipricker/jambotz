@@ -30,17 +30,14 @@ export default class Game {
         this.players.push(player);
         this.playersLUT[player.id] = player;
         if (this.players.length >= this.config.playerCount) {
-            return this.startGame();
+            this.startGame();
         }
-        return Promise.resolve();
     }
 
     startGame() {
-        return new Promise((resolve, reject) => {
-            this.active = true;
-            this.deck.shuffle();
-            this.deal();
-        });
+        this.active = true;
+        this.deck.shuffle();
+        this.deal();
     }
 
     deal() {

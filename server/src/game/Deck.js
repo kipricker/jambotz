@@ -1,9 +1,12 @@
-import randomNumber from 'random-number-csprng';
+import crypto from 'crypto';
 
 import Card from './Card';
 
-function randomInt (low, high) {
-    return Math.floor(Math.random() * (high - low) + low);
+function randomInt(low, high) {
+    const bytes = 4;
+    const max = Math.pow(2, bytes * 8);
+    const rnd = parseInt(crypto.randomBytes(bytes).toString('hex'), 16);
+    return Math.floor((rnd / max) * (high - low) + low);
 }
 
 export default class Deck {
@@ -45,7 +48,6 @@ export default class Deck {
         if (this.cards.length === 0) {
             this.shuffleInDiscarded();
         }
-
         const card = this.cards[0];
         this.cards = this.cards.splice(1);
         return card;
