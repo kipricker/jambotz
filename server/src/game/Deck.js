@@ -31,15 +31,15 @@ export default class Deck {
             const cardIndex = randomInt(0, this.cards.length);
             shuffled.push(this.cards.splice(cardIndex, 1)[0]);
         }
-
         if (this.cards.length > 0) {
             shuffled.push(this.cards.splice(0, 1)[0]);
         }
-
         this.cards = shuffled;
     }
 
     shuffleInDiscarded() {
+
+
         this.cards = this.discarded;
         this.shuffle();
     }
