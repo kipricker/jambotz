@@ -26,17 +26,22 @@ public class Bot : MonoBehaviour {
     private float m_animation_state = 0.0f;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        // Testing
+        Spawn(0);
+        Forward();
+	}
+
+    void Spawn(int n)
+    {
         Arena arena = m_arena.GetComponent<Arena>();
         m_x_position = arena.GetSpawnX(0);
         m_y_position = arena.GetSpawnY(0);
 
         gameObject.transform.parent = m_arena.transform;
-        gameObject.transform.position = new Vector3(arena.GridX(m_x_position), 50.0f, arena.GridY(m_y_position));
-
-        // Testing
-        Forward();
-	}
+        gameObject.transform.position = new Vector3(arena.GridX(m_x_position), 0.5f, arena.GridY(m_y_position));
+    }
 
     public Status GetStatus()
     {
@@ -87,7 +92,7 @@ public class Bot : MonoBehaviour {
                     y = arena.GridX(m_y_position);
                     m_status = Status.Idle;
                 }
-                gameObject.transform.position = new Vector3(x, 50, y);
+                gameObject.transform.position = new Vector3(x, 0.5f, y);
                 break;
         }
 	}

@@ -35,7 +35,7 @@ public class Arena : MonoBehaviour {
         public int[] walls;
     }
 
-    public float m_world_scale = 100.0f;
+    public float m_world_scale = 1.0f;
 
     private WorldData m_world;
     private Tile[,] m_grid;
@@ -82,7 +82,7 @@ public class Arena : MonoBehaviour {
                     GameObject tile = Instantiate(Resources.Load("tileset/tile_blank") as GameObject);
 
                     tile.transform.position = new Vector3(GridX(x), 0, GridY(y));
-                    tile.transform.localScale = new Vector3(100f, 100f, 100f);
+                    //tile.transform.localScale = new Vector3(100f, 100f, 100f);
                     tile.transform.parent = gameObject.transform;
                 }
 
@@ -106,7 +106,7 @@ public class Arena : MonoBehaviour {
                     wall.transform.position = new Vector3(GridX(x) + dx * m_world_scale, m_world_scale / 2.0f, GridY(y) + dy * m_world_scale);
                     if ((i & 1) > 0)
                         wall.transform.Rotate(0.0f, 90.0f, 0.0f);
-                    wall.transform.localScale = new Vector3(100, 100, 1);
+                    wall.transform.localScale = new Vector3(1, 1, 0.02f);
                     wall.transform.parent = gameObject.transform;
 
                     Renderer rend = wall.GetComponent<Renderer>();
