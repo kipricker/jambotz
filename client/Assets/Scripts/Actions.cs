@@ -26,7 +26,8 @@ public struct Action
         public int player_modifier;
         public int target_move;
         public int player_move;
-        public int turn;
+        public int turn_body;
+        public int turn_turret;
         public int move;
         public bool trigger;
         public string state_change;

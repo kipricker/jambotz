@@ -30,24 +30,10 @@ public class Bot : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        Invoke("Test", 0.1f);
+
     }
 
-    void Test()
-    {
-        // Testing
-        Spawn(0);
-        Move(1);
-        Invoke("Test2", 3.0f);
-        //Invoke("TurnLeft", 3.0f);
-	}
-
-    void Test2()
-    {
-        Move(1);
-    }
-
-    void Spawn(int n)
+    public void Spawn(int n)
     {
         Arena arena = m_arena.GetComponent<Arena>();
         m_x_position = arena.GetSpawnX(0);
@@ -103,14 +89,14 @@ public class Bot : MonoBehaviour {
 
     public void TurnLeft()
     {
-        m_target_orientation = (m_orientation + 1) % 4;
+        m_target_orientation = (m_orientation + 3) % 4;
         m_animation_state = 0.0f;
         m_status = Status.Turning;
     }
 
     public void TurnRight()
     {
-        m_target_orientation = (m_orientation + 3) % 4;
+        m_target_orientation = (m_orientation + 1) % 4;
         m_animation_state = 0.0f;
         m_status = Status.Turning;
     }
@@ -122,10 +108,9 @@ public class Bot : MonoBehaviour {
         if (m_status == Status.Falling && m_animation_state > 0.5f)
         {
             float t = m_animation_state - 0.5f;
-            float ax = -180.0f * t * (m_target_y - m_y_position);
-            float az = 180.0f * t * (m_target_x - m_x_position);
             z = -10.0f * t * t;
-            gameObject.transform.eulerAngles = new Vector3(az, 90.0f, ax);
+            Vector3 axis = new Vector3(m_y_position - m_target_y, 0.0f, m_target_x - m_x_position);
+            gameObject.transform.Rotate(axis, -180.0f * m_animation_rate, Space.World);
         }
         switch (m_status)
         {
@@ -146,16 +131,25 @@ public class Bot : MonoBehaviour {
                 gameObject.transform.position = new Vector3(x, z, y);
                 break;
             case Status.Turning:
-                float a = (1.0f - m_animation_state) * m_orientation + m_animation_state * m_target_orientation;
+                float a0 = (1 - m_orientation) * 90.0f;
+                float a1 = (1 - m_target_orientation) * 90.0f;
+                if (a1 - a0 > 180.0f)
+                {
+                    a0 += 360.0f;
+                }
+                if (a0 - a1 > 180.0f)
+                {
+                    a1 += 360.0f;
+                }
+                float a = (1.0f - m_animation_state) * a0 + m_animation_state * a1;
                 m_animation_state += m_animation_rate;
                 if (m_animation_state >= 1.0f)
                 {
                     m_orientation = m_target_orientation;
-                    a = m_orientation;
+                    a = (1 - m_orientation) * 90.0f;
                     m_status = Status.Idle;
                 }
-                a -= 1.0f;
-                gameObject.transform.eulerAngles = new Vector3(0.0f, -a * 90.0f, 0.0f);
+                gameObject.transform.eulerAngles = new Vector3(0.0f, a, 0.0f);
                 break;
         }
 	}
