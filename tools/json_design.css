@@ -19,14 +19,17 @@ button.tool {
 }
 
 .key {
-    width: 30%;
+    width: 20%;
     text-align: right;
     display: inline-block;
     margin-right: 10px;
 }
 
-input {
-    width: 60%;
+input.text {
+    width: 50%;
     text-align: left;
+    display: inline-block;
+}
+input.check {
     display: inline-block;
 }

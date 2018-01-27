@@ -1,18 +1,24 @@
 $(function() {
-    var data_types = ["card", "action", "tile", "tile_add_on", "map"];
+    var data_types = ["card", "action", "tile", "tile_add_on"];//, "map"];
 
     var tools = {};
 
-    function SetupWorkspace(tool, item) {
-        var $workspace = $(".tool_workspace").empty();
+    function SetupWorkspace(tool, item, devider) {
+        var $workspace = $(".tool_workspace");
+        if (!devider) {
+            $workspace.empty();
+            $workspace.append("<div class='header'>" + tool.name + "</div>");
+        } else {
+            $workspace.append("<hr>");
+        }
 
-        $workspace.append("<div class='header'>" + tool.name + "</div>");
         Object.keys(tool.schema).forEach((key) => {
             var value = item[key];
-            var enabled = item[key] != undefined;
-            $workspace.append('<input type="checkbox" state="' + enabled + '"/>');
+            var enabled = value != undefined;
+
             $workspace.append('<span class="key">' + key + '</span>');
-            $workspace.append('<input type="text" placeholder="' + value + '" value="' + value + '"/>');
+            $workspace.append('<input class="text" type="text" placeholder="' + value + '" value="' + value + '"/>');
+            $workspace.append('<input class="check" type="checkbox" ' + (enabled ? "checked" : "uncheched") + '/>');
             $workspace.append('<br/>');
         });
     };
@@ -36,10 +42,12 @@ $(function() {
             console.log( "Loaded " + tool_name + " instances." );
         });
         tool.button = $("<button class='tool'>" + tool_name + "</button>").click(() => {
+            var tool = tools[tool_name];
             var more_than_one = false;
-            Object.keys(tool.instances).forEach((key) => {
-                if (more_than_one)
-                SetupWorkspace(tool, tool.instances[key]);
+            var items = tool.instances[tool_name + "s"];
+            Object.keys(items).forEach((key) => {
+                SetupWorkspace(tool, items[key], more_than_one);
+                more_than_one = true;
             })
         });
 

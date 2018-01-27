@@ -68,15 +68,21 @@
 		},
 		{ 
 			"name" : "look_right",
-			"name": "Look Right",
+			"title": "Look Right",
 			"flavor": "There's a chicken...",
 			"actions": ["look_right"]
 		},
 		{ 
 			 "name" : "face_front",
+			 "title" : "Orient to Turret",
+			 "flavor" : "I see where I wanna go.",
+			 "actions" : ["align_body_to_turret"]
 		},
 		{ 
 			 "name" : "turn_facing",
+			 "title" : "Orient to Body",
+			 "flavor" : "I should look where I'm going!",
+			 "actions" : ["align_turret_to_body"]
 		},
 		{ 
 			"name" : "vampiric_shot",

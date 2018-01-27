@@ -137,36 +137,28 @@
             "name" : "push",
             "icon" : "hand.png",
             "passive" : {
-                "actions" : [
-                    "push_target"
-                ]
+                "target_move" : 1
             }
         },
         {
             "name" : "pull",
             "icon" : "magnet.png",
             "passive" : {
-                "actions" : [
-                    "pull_target"
-                ]
+                "target_move" : -1
             }
         },
         {
             "name" : "move",
             "icon" : "arrow.png",
             "passive" : {
-                "actions" : [
-                    "push_player"
-                ]
+                "player_move" : 1
             }
         },
         {
             "name" : "backup",
             "icon" : "back_arrow.png",
             "passive" : {
-                "actions" : [
-                    "pull_player"
-                ]
+                "player_move" : -1
             }
         },
         {
