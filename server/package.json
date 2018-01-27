@@ -1,8 +1,15 @@
 {
+  "scripts": {
+    "debug": "babel-watch ./src/app.js --inspect"
+  },
   "dependencies": {
-    "expressjs": "^1.0.1"
+    "expressjs": "^1.0.1",
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "babel-watch": "^2.0.7",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1"
