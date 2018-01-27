@@ -1,3 +1,6 @@
+require("babel-core/register");
+require("babel-polyfill");
+
 import express from 'express';
 import lobby from './routes/lobby';
 import game from './routes/game';
