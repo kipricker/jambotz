@@ -1,0 +1,10 @@
+{
+    "tiles" : {
+        "blank" : {
+            "mesh" : "blank_tile"
+        },
+        "button" : {
+            "mesh" : "button_tile"
+        }
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "tiles" : {
+        "blank" : {
+            "mesh" : "tile_blank.prefab"
+        }
+    }
+}
