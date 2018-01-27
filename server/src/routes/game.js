@@ -3,16 +3,17 @@ import Game from '../game/Game';
 
 const router = express.Router();
 
-global.activeGames = {};
+global.games = {};
 
 router.post('/heartbeat', express.urlencoded(), (req, res, next) => {
-    if (global.activeGames[req.body.gameID]) {
-        const latestActions = global.activeGames[req.body.gameID].getActionsSince(req.body.lastSeen);
-        res.status(200).json(latestActions);
-    } else {
-        res.status(200).json([]);
+    let latestActions = [];
+    let active = false;
+    let game = global.games[req.body.gameID];
+    if (game) {
+        active = game.active;
+        latestActions = game.getActionsSince(req.body.lastSeen);
     }
-
+    res.status(200).json({ exists: !!game, active, latestActions });
 });
 
 export default router;

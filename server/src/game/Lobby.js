@@ -14,11 +14,12 @@ export default class Lobby {
         } else {
             game = new Game();
             this.pendingGames.push(game);
+            global.games[game.id] = game;
         }
+
         game.join(player);
         if (game.active) {
             this.pendingGames = this.pendingGames.slice(1);
-            global.activeGames[game.id] = game;
         }
         return game;
     }

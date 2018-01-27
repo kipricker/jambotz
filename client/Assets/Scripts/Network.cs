@@ -14,6 +14,13 @@ struct GameAction {
 	public int move;
 }
 
+[System.Serializable]
+struct GameUpdate {
+	public bool exists;
+	public bool active;
+	public GameAction[] latestActions;
+}
+
 public class Network : MonoBehaviour {
 	bool waiting = false;
 	bool active = false;
@@ -28,7 +35,6 @@ public class Network : MonoBehaviour {
 
 	void Start () {
 		joinLobby();
-//		StartCoroutine (heartbeat());
 	}
 
 	public void joinLobby() {
@@ -66,14 +72,10 @@ public class Network : MonoBehaviour {
 				Debug.Log (www.error);
 			} else {
 				string json = www.downloadHandler.text;
-				json = json.Substring (1, json.Length - 2);
-				if (json.Length > 0) {
-					string[] objects = json.Split (',');
-					foreach (string obj in objects) {
-						GameAction gameAction = JsonUtility.FromJson<GameAction> (obj);
-						lastSeen++;
-						gameActionQueue.Enqueue (gameAction);
-					}
+				GameUpdate gameUpdate = JsonUtility.FromJson<GameUpdate> (json);
+				foreach (GameAction gameAction in gameUpdate.latestActions) {
+					gameActionQueue.Enqueue (gameAction);
+					lastSeen++;
 				}
 			}
 
