@@ -51,22 +51,21 @@ public class Arena : MonoBehaviour {
         int h = world.height;
 
         m_grid = new Tile[w, h];
-        foreach(WorldData.MapData tile in world.map_data)
-        {
-            int x = tile.x;
-            int y = tile.y;
-            m_grid[x, y].type = 1;
-            m_grid[x, y].walls = new int[4];
-        }
-
         for (int y = 0; y < h; ++y)
         {
             for (int x = 0; x < w; ++x)
             {
+                m_grid[x, y].type = 0;
                 m_grid[x, y].walls = new int[4];
                 for (int i = 0; i < 4; ++i)
                     m_grid[x, y].walls[i] = 0;
             }
+        }
+        foreach (WorldData.MapData tile in world.map_data)
+        {
+            int x = tile.x;
+            int y = tile.y;
+            m_grid[x, y].type = 1;
         }
 
         m_sx = -(w - 1) * m_world_scale / 2.0f;
@@ -114,6 +113,16 @@ public class Arena : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public bool CanMove(int x0, int y0, int x1, int y1)
+    {
+        return true;
+    }
+
+    public bool GridSafe(int x, int y)
+    {
+        return m_grid[x, y].type > 0;
     }
 
     public float GridX(int x)
