@@ -2,17 +2,72 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct WorldData
+{
+    [System.Serializable]
+    public struct MapData
+    {
+        public int x;
+        public int y;
+        public string tile;
+    }
+
+    [System.Serializable]
+    public struct Position
+    {
+        public int x;
+        public int y;
+    }
+
+    public int width;
+    public int height;
+    public Position[] starting_locations;
+    public MapData[] map_data;
+}
+
 public class Arena : MonoBehaviour {
+
+    public struct Tile
+    {
+        public int type;
+        public int orientation;
+        public int[] walls;
+    }
 
     public float m_world_scale = 100.0f;
 
-    private List<GameObject> m_objects;
+    private WorldData m_world;
+    private Tile[,] m_grid;
     private float m_sx;
     private float m_sy;
 
-    void LoadMap(int w, int h, byte[] world)
+    void LoadMap(WorldData world)
     {
         ClearMap();
+
+        m_world = world;
+        int w = world.width;
+        int h = world.height;
+
+        m_grid = new Tile[w, h];
+        foreach(WorldData.MapData tile in world.map_data)
+        {
+            int x = tile.x;
+            int y = tile.y;
+            m_grid[x, y].type = 1;
+            m_grid[x, y].walls = new int[4];
+        }
+
+        for (int y = 0; y < h; ++y)
+        {
+            for (int x = 0; x < w; ++x)
+            {
+                m_grid[x, y].walls = new int[4];
+                for (int i = 0; i < 4; ++i)
+                    m_grid[x, y].walls[i] = 0;
+            }
+        }
 
         m_sx = -(w - 1) * m_world_scale / 2.0f;
         m_sy = -(h - 1) * m_world_scale / 2.0f;
@@ -20,35 +75,20 @@ public class Arena : MonoBehaviour {
         {
             for (int x = 0; x < w; ++x)
             {
-                byte tile_data = world[w * y + x];
-                byte tile_type = (byte)(tile_data & 0xf);
-
-                bool nwall = (tile_data & 0x80) > 0;
-                bool ewall = (tile_data & 0x40) > 0;
+                int tile_type = m_grid[x, y].type;
 
                 if (tile_type > 0)
                 {
                     GameObject tile = Instantiate(Resources.Load("tileset/tile_blank") as GameObject);
-                    //GameObject tile = Instantiate(Resources.Load("tile_blank") as GameObject);
-                    // m_objects.Add(tile);
-                    // tile.AddComponent<Rigidbody>();
+
                     tile.transform.position = new Vector3(GridX(x), 0, GridY(y));
                     tile.transform.localScale = new Vector3(100f, 100f, 100f);
                     tile.transform.parent = gameObject.transform;
-
-                    //Renderer rend = tile.GetComponent<Renderer>();
-                    //rend.material = new Material(Shader.Find("Diffuse"));
                 }
 
                 for (int i = 0; i < 4; ++i)
                 {
-                    if (i == 0 && (y > 0 || tile_type == 0))
-                        continue;
-                    if (i == 1 && (x > 0 || tile_type == 0))
-                        continue;
-                    if (i == 2 && !ewall)
-                        continue;
-                    if (i == 3 && !nwall)
+                    if (m_grid[x, y].walls[i] == 0)
                         continue;
 
                     float dx = 0.0f;
@@ -86,6 +126,16 @@ public class Arena : MonoBehaviour {
         return m_sy + y * m_world_scale;
     }
 
+    public int GetSpawnX(int n)
+    {
+        return m_world.starting_locations[n].x;
+    }
+
+    public int GetSpawnY(int n)
+    {
+        return m_world.starting_locations[n].y;
+    }
+
     void ClearMap()
     {
 
@@ -95,9 +145,9 @@ public class Arena : MonoBehaviour {
 	void Start ()
     {
         // Testing crap.
-        byte[] world = new byte[100];
-        for (int i = 0; i < 100; ++i) world[i] = (byte)((i % 16) + 64 * (i % 4));
-        LoadMap(10, 10, world);
+        string json_map = Resources.Load<TextAsset>("test_map").text;
+        WorldData world = JsonUtility.FromJson<WorldData>(json_map);
+        LoadMap(world);
 	}
 	
 	// Update is called once per frame
