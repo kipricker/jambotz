@@ -7,13 +7,15 @@ public class Arena : MonoBehaviour {
     public float m_world_scale = 100.0f;
 
     private List<GameObject> m_objects;
+    private float m_sx;
+    private float m_sy;
 
     void LoadMap(int w, int h, byte[] world)
     {
         ClearMap();
 
-        float sx = -(w - 1) * m_world_scale / 2.0f;
-        float sy = -(h - 1) * m_world_scale / 2.0f;
+        m_sx = -(w - 1) * m_world_scale / 2.0f;
+        m_sy = -(h - 1) * m_world_scale / 2.0f;
         for (int y = 0; y < h; ++y)
         {
             for (int x = 0; x < w; ++x)
@@ -29,7 +31,7 @@ public class Arena : MonoBehaviour {
                     GameObject tile = GameObject.CreatePrimitive(PrimitiveType.Plane);
                     // m_objects.Add(tile);
                     // tile.AddComponent<Rigidbody>();
-                    tile.transform.position = new Vector3(sx + x * m_world_scale, 0, sy + y * m_world_scale);
+                    tile.transform.position = new Vector3(GridX(x), 0, GridY(y));
                     tile.transform.localScale = new Vector3(10, 10, 10);
                     tile.transform.parent = gameObject.transform;
 
@@ -60,7 +62,7 @@ public class Arena : MonoBehaviour {
                     }
 
                     GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    wall.transform.position = new Vector3(sx + (x + dx) * m_world_scale, m_world_scale / 2.0f, sy + (y + dy) * m_world_scale);
+                    wall.transform.position = new Vector3(GridX(x) + dx * m_world_scale, m_world_scale / 2.0f, GridY(y) + dy * m_world_scale);
                     if ((i & 1) > 0)
                         wall.transform.Rotate(0.0f, 90.0f, 0.0f);
                     wall.transform.localScale = new Vector3(100, 100, 1);
@@ -71,6 +73,16 @@ public class Arena : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public float GridX(int x)
+    {
+        return m_sx + x * m_world_scale;
+    }
+
+    public float GridY(int y)
+    {
+        return m_sy + y * m_world_scale;
     }
 
     void ClearMap()
