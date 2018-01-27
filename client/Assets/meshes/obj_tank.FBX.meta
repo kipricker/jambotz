@@ -1,30 +1,25 @@
 fileFormatVersion: 2
-guid: 025853bbeb1c5564d88fd71d4f30d194
-timeCreated: 1517089281
+guid: 9d9afdaecfa18dd4e9a25f6f27e712c3
+timeCreated: 1517092073
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Arrow
-    100002: //RootNode
-    100004: tread_mesh
-    100006: turret
-    100008: turret_mesh
-    400000: Arrow
-    400002: //RootNode
-    400004: tread_mesh
-    400006: turret
-    400008: turret_mesh
+    100000: //RootNode
+    100002: tread_mesh
+    100004: turret
+    100006: turret_mesh
+    400000: //RootNode
+    400002: tread_mesh
+    400004: turret
+    400006: turret_mesh
     2100000: No Name
-    2300000: Arrow
-    2300002: tread_mesh
-    2300004: turret_mesh
-    3300000: Arrow
-    3300002: tread_mesh
-    3300004: turret_mesh
-    4300000: Arrow
+    2300000: tread_mesh
+    2300002: turret_mesh
+    3300000: tread_mesh
+    3300002: turret_mesh
+    4300000: tread_mesh
     4300002: turret_mesh
-    4300004: tread_mesh
     9500000: //RootNode
   externalObjects: {}
   materials:
