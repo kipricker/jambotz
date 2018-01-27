@@ -69,6 +69,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4427440231669388}
   - component: {fileID: 95764978612767210}
+  - component: {fileID: 114051756202217848}
   m_Layer: 0
   m_Name: obj_tank
   m_TagString: Untagged
@@ -230,3 +231,16 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114051756202217848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1807984109080000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b72d7b090c9dcb459733c3e1e5ecd4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_arena: {fileID: 0}
+  m_animation_rate: 0.01
