@@ -28,15 +28,16 @@ public class Arena : MonoBehaviour {
 
                 if (tile_type > 0)
                 {
-                    GameObject tile = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                    GameObject tile = Instantiate(Resources.Load("tileset/tile_blank") as GameObject);
+                    //GameObject tile = Instantiate(Resources.Load("tile_blank") as GameObject);
                     // m_objects.Add(tile);
                     // tile.AddComponent<Rigidbody>();
                     tile.transform.position = new Vector3(GridX(x), 0, GridY(y));
-                    tile.transform.localScale = new Vector3(10, 10, 10);
+                    tile.transform.localScale = new Vector3(100f, 100f, 100f);
                     tile.transform.parent = gameObject.transform;
 
-                    Renderer rend = tile.GetComponent<Renderer>();
-                    rend.material = new Material(Shader.Find("Diffuse"));
+                    //Renderer rend = tile.GetComponent<Renderer>();
+                    //rend.material = new Material(Shader.Find("Diffuse"));
                 }
 
                 for (int i = 0; i < 4; ++i)
