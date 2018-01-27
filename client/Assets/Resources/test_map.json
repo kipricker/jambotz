@@ -46,7 +46,7 @@
     {
       "x": 1,
       "y": 2,
-      "tile": "blank"
+      "tile": "conveyour"
     },
     {
       "x": 1,
@@ -62,12 +62,12 @@
     {
       "x": 2,
       "y": 1,
-      "tile": "blank"
+      "tile": "conveyour"
     },
     {
       "x": 2,
       "y": 3,
-      "tile": "blank"
+      "tile": "conveyour"
     },
 
     {
@@ -83,7 +83,7 @@
     {
       "x": 3,
       "y": 2,
-      "tile": "blank"
+      "tile": "conveyour"
     },
     {
       "x": 3,
