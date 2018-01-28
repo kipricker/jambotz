@@ -63,6 +63,12 @@ public struct Addons
 
 public class Arena : MonoBehaviour
 {
+    public struct HitInfo
+    {
+        public bool hit;
+        public float distance;
+    }
+
     public float m_world_scale = 1.0f;
 
     private WorldData m_world;
@@ -96,6 +102,9 @@ public class Arena : MonoBehaviour
         m_sx = -(w - 1) * m_world_scale / 2.0f;
         m_sy = -(h - 1) * m_world_scale / 2.0f;
 
+        GameObject tanks = new GameObject("tanks");
+        tanks.transform.parent = gameObject.transform;
+        tanks.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
         for (int y = 0; y < h; ++y)
         {
             GameObject row = new GameObject(string.Format("Row{0}", y));

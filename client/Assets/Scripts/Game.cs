@@ -52,8 +52,8 @@ public class Game : MonoBehaviour
             bot.Spawn(1);
         }
 
-        string[] hand1 = new string[] { "turn_right", "move_1", "turn_left", "move_3", "turn_right" };
-        string[] hand2 = new string[] { "turn_left", "move_1", "turn_left", "move_3", "turn_right" };
+        string[] hand1 = new string[] { "turn_right", "move_1", "turn_left", "move_3", "fire_1" };
+        string[] hand2 = new string[] { "turn_left", "move_1", "turn_left", "move_3", "fire_1" };
         PlayHands(new string[][] { hand1, hand2 });
     }
 
@@ -115,6 +115,10 @@ public class Game : MonoBehaviour
                 else if (action.passive.turn_body < 0)
                 {
                     bot.TurnLeft();
+                }
+                else if (action.name == "fire")
+                {
+                    bot.Fire();
                 }
             }
         }
