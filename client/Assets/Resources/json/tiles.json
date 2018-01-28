@@ -7,6 +7,10 @@
         {
             "name" : "conveyour",
             "asset" : "tileset/tile_belt"
+        },
+        {
+            "name" : "pusher",
+            "asset" : "tileset/tile_pusher"
         }
     ]
 }

@@ -76,7 +76,7 @@
         {
             "x" : 1, "y" : 2,
             "tile" : "conveyour",
-            "orientation" : "horizontal"
+            "orientation" : "west"
         },
         {
             "x" : 1, "y" : 3,
@@ -96,12 +96,12 @@
         {
             "x" : 2, "y" : 1,
             "tile" : "conveyour",
-            "orientation" : "vertical"
+            "orientation" : "south"
         },
         {
             "x" : 2, "y" : 3,
             "tile" : "conveyour",
-            "orientation" : "vertical"
+            "orientation" : "north"
         },
 
         {
@@ -116,18 +116,13 @@
         },
         {
             "x" : 3, "y" : 1,
-            "tile" : "blank",
-            "tile_add_ons" : [
-                {
-                    "name" : "pusher",
-                    "edge" : "east"
-                }
-            ]
+            "tile" : "pusher",
+            "orientation" : "east"
         },
         {
             "x" : 3, "y" : 2,
             "tile" : "conveyour",
-            "orientation" : "horizontal"
+            "orientation" : "east"
         },
         {
             "x" : 3, "y" : 3,
