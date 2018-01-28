@@ -54,7 +54,7 @@ public class Game : MonoBehaviour
             bot.Spawn(1);
         }
 
-        string[] hand1 = new string[] { "move_1", "turn_right", "move_2", "look_left", "turn_facing" };
+        string[] hand1 = new string[] { "move_1", "turn_right", "move_2", "fire_1", "vampiric_shot" };
         string[] hand2 = new string[] { "turn_left", "move_1", "turn_left", "move_3", "fire_1" };
         PlayHands(new string[][] { hand1, hand2 });
     }
@@ -135,11 +135,15 @@ public class Game : MonoBehaviour
                 {
                     m_target_bot.Modifier(action.passive.target_modifier);
                 }
+                else if (action.passive.player_modifier != 0)
+                {
+                    bot.Modifier(action.passive.player_modifier);
+                }
                 else if (action.passive.target_move != 0)
                 {
                     m_target_bot.ForcedMove(m_target_dir);
                 }
-                else if (action.name == "fire")
+                else if (action.name == "fire" || action.name == "vampiric_shot")
                 {
                     Arena.HitInfo hitinfo = bot.Fire();
                     if (hitinfo.hit)

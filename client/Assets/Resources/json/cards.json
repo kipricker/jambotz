@@ -115,7 +115,7 @@
 		{ 
 			"name" : "vampiric_shot",
 			"title" : "Leech bullet",
-			"rarity" : 0,
+			"rarity" : 4,
 			"flavor" : "What's yours is now mine!",
 			"actions" : ["vampiric_shot"]
 		},
