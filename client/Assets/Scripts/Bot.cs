@@ -56,6 +56,12 @@ public class Bot : MonoBehaviour {
         gameObject.transform.parent = m_arena.transform.Find("tanks");
         gameObject.transform.position = new Vector3(arena.GridX(m_x_position), 0.0f, arena.GridY(m_y_position));
         gameObject.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+
+        Animator anim = gameObject.GetComponent<Animator>();
+        if (anim != null)
+        {
+            anim.speed = 0.0f;
+        }
     }
 
     public Status GetStatus()
@@ -141,9 +147,15 @@ public class Bot : MonoBehaviour {
         if (!arena.CanMove(m_x_position, m_y_position, m_target_x, m_target_y))
             return false;
 
+        Animator anim = gameObject.GetComponent<Animator>();
         m_animation_state = 0.0f;
         if (!arena.GridSafe(m_target_x, m_target_y))
         {
+            if (anim != null)
+            {
+                anim.speed = 1.0f;
+            }
+
             m_status = Status.Falling;
             return true;
         }
@@ -170,9 +182,17 @@ public class Bot : MonoBehaviour {
             {
                 m_target_status = Status.Falling;
             }
+            if (anim != null)
+            {
+                anim.speed = 1.0f;
+            }
             return true;
         }
 
+        if (anim != null)
+        {
+            anim.speed = 1.0f;
+        }
         m_status = Status.Moving;
         return true;
     }
@@ -182,6 +202,12 @@ public class Bot : MonoBehaviour {
         m_target_orientation = (m_orientation + 1) % 4;
         m_animation_state = 0.0f;
         m_status = Status.Turning;
+
+        Animator anim = gameObject.GetComponent<Animator>();
+        if (anim != null)
+        {
+            anim.speed = 1.0f;
+        }
     }
 
     public void TurnRight()
@@ -189,6 +215,12 @@ public class Bot : MonoBehaviour {
         m_target_orientation = (m_orientation + 3) % 4;
         m_animation_state = 0.0f;
         m_status = Status.Turning;
+
+        Animator anim = gameObject.GetComponent<Animator>();
+        if (anim != null)
+        {
+            anim.speed = 1.0f;
+        }
     }
 
     public void TurnTurretLeft()
@@ -302,6 +334,11 @@ public class Bot : MonoBehaviour {
                             {
                                 m_tile_anim.speed = 0.0f;
                             }
+                            Animator anim = gameObject.GetComponent<Animator>();
+                            if (anim != null)
+                            {
+                                anim.speed = 0.0f;
+                            }
                         }
                     }
                 }
@@ -325,6 +362,12 @@ public class Bot : MonoBehaviour {
                     m_orientation = m_target_orientation;
                     a = m_orientation * 90.0f;
                     m_status = Status.Idle;
+
+                    Animator anim = gameObject.GetComponent<Animator>();
+                    if (anim != null)
+                    {
+                        anim.speed = 0.0f;
+                    }
                 }
                 gameObject.transform.localEulerAngles = new Vector3(0.0f, -a, 0.0f);
                 break;
