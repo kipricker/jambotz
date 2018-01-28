@@ -35,11 +35,10 @@ export default class Game {
 
     startGame() {
         this.active = true;
+        this.actions.push({ gameStarted: true });
+
         this.deck.shuffle();
         this.deal();
-
-        this.actions.push({ gameStarted: true });
-        this.actions.push({ handsDealt: true });
     }
 
     deal() {
@@ -50,6 +49,7 @@ export default class Game {
                 player.dealCard(card);
             });
         }
+        this.actions.push({ handsDealt: true });
     }
 
     playHand(playerID, hand) {
@@ -60,12 +60,13 @@ export default class Game {
                 player_played_hand: { playerNumber: player.number, hand }, 
             });
         }            
-        if (this.turnHands === this.config.playerCount) {
+        if (this.turnHands.length === this.config.playerCount) {
             this.players.forEach((player) => {
                 const hand = player.discardHand();
                 this.deck.discardCards(hand);
             });
-            this.actions.concat(this.turnHands);
+
+            this.actions = this.actions.concat(this.turnHands);
             this.turnHands = [];
 
             this.deal();

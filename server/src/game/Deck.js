@@ -58,6 +58,6 @@ export default class Deck {
     }
 
     discardCards(cards) {
-        this.discarded.concat(cards);
+        this.discarded = this.discarded.concat(cards);
     }
 }
