@@ -12,10 +12,11 @@
             "tile_add_ons" : [
                 {
                     "name" : "wall",
-                    "edge" : [
-                        "north",
-                        "west"
-                    ]
+                    "edge" : "north",
+                },
+                {
+                    "name" : "wall",
+                    "edge" : "west"
                 }
             ]
         },
@@ -25,9 +26,7 @@
             "tile_add_ons" : [
                 {
                     "name" : "wall",
-                    "edge" : [
-                        "north"
-                    ]
+                    "edge" : "north"
                 }
             ]
         },
@@ -37,9 +36,7 @@
             "tile_add_ons" : [
                 {
                     "name" : "wall",
-                    "edge" : [
-                        "north"
-                    ]
+                    "edge" : "north"
                 }
             ]
         },
@@ -49,10 +46,11 @@
             "tile_add_ons" : [
                 {
                     "name" : "wall",
-                    "edge" : [
-                        "north",
-                        "east"
-                    ]
+                    "edge" : "north"
+                },
+                {
+                    "name" : "wall",
+                    "edge" : "east"
                 }
             ]
         },
@@ -63,15 +61,11 @@
             "tile_add_ons" : [
                 {
                     "name" : "wall",
-                    "edge" : [
-                        "west"
-                    ]
+                    "edge" : "west"
                 },
                 {
                     "name" : "laser",
-                    "edge" : [
-                        "west"
-                    ]
+                    "edge" : "west"
                 }
             ]
         },
@@ -81,7 +75,8 @@
         },
         {
             "x" : 1, "y" : 2,
-            "tile" : "blank"
+            "tile" : "conveyour",
+            "orientation" : "horizontal"
         },
         {
             "x" : 1, "y" : 3,
@@ -93,28 +88,20 @@
             "tile_add_ons" : [
                 {
                     "name" : "wall",
-                    "edge" : [
-                        "east"
-                    ]
+                    "edge" : "east"
                 }
             ]
         },
 
         {
             "x" : 2, "y" : 1,
-            "tile" : "blank",
-            "tile_add_ons" : [
-                {
-                    "name" : "pusher",
-                    "edge" : [
-                        "east"
-                    ]
-                }
-            ]
+            "tile" : "conveyour",
+            "orientation" : "vertical"
         },
         {
             "x" : 2, "y" : 3,
-            "tile" : "blank"
+            "tile" : "conveyour",
+            "orientation" : "vertical"
         },
 
         {
@@ -123,19 +110,24 @@
             "tile_add_ons" : [
                 {
                     "name" : "wall",
-                    "edge" : [
-                        "west"
-                    ]
+                    "edge" : "west"
                 }
             ]
         },
         {
             "x" : 3, "y" : 1,
-            "tile" : "blank"
+            "tile" : "blank",
+            "tile_add_ons" : [
+                {
+                    "name" : "pusher",
+                    "edge" : "east"
+                }
+            ]
         },
         {
             "x" : 3, "y" : 2,
-            "tile" : "blank"
+            "tile" : "conveyour",
+            "orientation" : "horizontal"
         },
         {
             "x" : 3, "y" : 3,
@@ -147,9 +139,7 @@
             "tile_add_ons" : [
                 {
                     "name" : "wall",
-                    "edge" : [
-                        "east"
-                    ]
+                    "edge" : "east"
                 }
             ]
         },
@@ -160,10 +150,11 @@
             "tile_add_ons" : [
                 {
                     "name" : "wall",
-                    "edge" : [
-                        "west",
-                        "south"
-                    ]
+                    "edge" : "west"
+                },
+                {
+                    "name" : "wall",
+                    "edge" : "south"
                 }
             ]
         },
@@ -173,9 +164,7 @@
             "tile_add_ons" : [
                 {
                     "name" : "wall",
-                    "edge" : [
-                        "south"
-                    ]
+                    "edge" : "south"
                 }
             ]
         },
@@ -185,9 +174,7 @@
             "tile_add_ons" : [
                 {
                     "name" : "wall",
-                    "edge" : [
-                        "south"
-                    ]
+                    "edge" : "south"
                 }
             ]
         },
@@ -197,10 +184,11 @@
             "tile_add_ons" : [
                 {
                     "name" : "wall",
-                    "edge" : [
-                        "east",
-                        "south"
-                    ]
+                    "edge" : "east"
+                },
+                {
+                    "name" : "wall",
+                    "edge" : "south"
                 }
             ]
         }

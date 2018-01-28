@@ -16,12 +16,8 @@
                         "name" : "trigger_link_name",
                         "actions" : []
                     },
-                    "edge" : [
-                        "north", 
-                        "south", 
-                        "east", 
-                        "west"
-                    ]
+                    "edge" : "north",
+                    "start_state" : "default"
                 }
             ],
             "orientation" : "vertical",

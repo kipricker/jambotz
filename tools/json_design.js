@@ -15,9 +15,11 @@ $(function() {
         Object.keys(tool.schema).forEach((key) => {
             var value = item[key];
             var enabled = value != undefined;
+            if (value == undefined)
+                value = tool.schema[key];
 
             $workspace.append('<span class="key">' + key + '</span>');
-            $workspace.append('<input class="text" type="text" placeholder="' + value + '" value="' + value + '"/>');
+            $workspace.append('<input class="text" type="text" placeholder="' + value + '" value="' + value + '" ' + (enabled ? "enabled" : "disabled") + '/>'));
             $workspace.append('<input class="check" type="checkbox" ' + (enabled ? "checked" : "uncheched") + '/>');
             $workspace.append('<br/>');
         });
