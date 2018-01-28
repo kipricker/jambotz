@@ -28,6 +28,8 @@ public struct Action
         public int player_move;
         public int turn_body;
         public int turn_turret;
+        public bool align_turret_to_body;
+        public bool align_body_to_turret;
         public int move;
         public bool trigger;
         public string state_change;

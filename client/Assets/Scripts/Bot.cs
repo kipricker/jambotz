@@ -12,6 +12,7 @@ public class Bot : MonoBehaviour {
         Pushing,
         Falling,
         Turning,
+        TurretTurning,
         Firing,
         Action
     };
@@ -34,7 +35,9 @@ public class Bot : MonoBehaviour {
     private GameObject m_pro_obj;
 
     private int m_orientation = 0;
+    private int m_turret_orientation = 0;
     private int m_target_orientation;
+    private int m_target_turret_orientation;
     private Status m_status = Status.Idle;
     private float m_animation_state = 0.0f;
 
@@ -188,6 +191,27 @@ public class Bot : MonoBehaviour {
         m_status = Status.Turning;
     }
 
+    public void TurnTurretLeft()
+    {
+        m_target_turret_orientation = (m_turret_orientation + 1) % 4;
+        m_animation_state = 0.0f;
+        m_status = Status.TurretTurning;
+    }
+
+    public void TurnTurretRight()
+    {
+        m_target_turret_orientation = (m_turret_orientation + 3) % 4;
+        m_animation_state = 0.0f;
+        m_status = Status.TurretTurning;
+    }
+
+    public void AlignTurret()
+    {
+        m_target_turret_orientation = 0;
+        m_animation_state = 0.0f;
+        m_status = Status.TurretTurning;
+    }
+
     public void Modifier(int n)
     {
         if (m_status == Status.Dead)
@@ -204,7 +228,7 @@ public class Bot : MonoBehaviour {
     public Arena.HitInfo Fire()
     {
         Arena arena = m_arena.GetComponent<Arena>();
-        Arena.HitInfo hit = arena.Trace(m_x_position, m_y_position, m_orientation);
+        Arena.HitInfo hit = arena.Trace(m_x_position, m_y_position, (m_orientation + m_turret_orientation) % 4);
 
         m_pro_dist = hit.distance;
         m_animation_state = 0.0f;
@@ -302,7 +326,29 @@ public class Bot : MonoBehaviour {
                     a = m_orientation * 90.0f;
                     m_status = Status.Idle;
                 }
-                gameObject.transform.eulerAngles = new Vector3(0.0f, -a, 0.0f);
+                gameObject.transform.localEulerAngles = new Vector3(0.0f, -a, 0.0f);
+                break;
+            case Status.TurretTurning:
+                float ta0 = m_turret_orientation * 90.0f;
+                float ta1 = m_target_turret_orientation * 90.0f;
+                if (ta1 - ta0 > 180.0f)
+                {
+                    ta0 += 360.0f;
+                }
+                if (ta0 - ta1 > 180.0f)
+                {
+                    ta1 += 360.0f;
+                }
+                float ta = (1.0f - m_animation_state) * ta0 + m_animation_state * ta1;
+                m_animation_state += m_animation_rate;
+                if (m_animation_state >= 1.0f)
+                {
+                    m_turret_orientation = m_target_turret_orientation;
+                    ta = m_turret_orientation * 90.0f;
+                    m_status = Status.Idle;
+                }
+                Transform root = gameObject.transform.Find("turret");
+                root.localEulerAngles = new Vector3(0.0f, -ta, 0.0f);
                 break;
             case Status.Firing:
                 float pos = m_animation_state;

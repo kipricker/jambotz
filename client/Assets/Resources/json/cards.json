@@ -110,7 +110,7 @@
 			 "rarity" : 3,
 			 "priority" : 490,
 			 "flavor" : "I should look where I'm going!",
-			 "actions" : ["align_turret_to_body"]
+			 "actions" : ["turn_to_body"]
 		},
 		{ 
 			"name" : "vampiric_shot",
