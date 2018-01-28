@@ -82,6 +82,17 @@
             }
         },
         {
+            "name" : "heal_all",
+            "icon" : "heal",
+            "sub-icon" : "all",
+            "passive" : {
+                "actions" : [
+                    "heal_self",
+                    "heal_target"
+                ]
+            }
+        },
+        {
             "name" : "turn_left",
             "icon" : "left",
             "passive" : {

@@ -36,14 +36,47 @@ $(function() {
     };
 
     function SetupMapSpace(map) {
+
+        var map_layout = [];
+
         var $workspace = $(".tool_space");
         $workspace.empty();
         $(".tool_header").empty().append(map.name);
+<<<<<<< HEAD
 
         var $map_space = $("<div class='map_space'></div>");
         $workspace.append($map_space);
 
         var map_layout = [];
+=======
+
+        var $map_space = $("<div class='map_space'></div>");
+
+        var $reset = $("<button>Reset</button>");
+        var $save = $("<button>Save</button>").click(() => {
+            var new_map = map;
+            new_map.tile_add_ons = [];
+            for (i=0; i < new_map.width; i++) {
+                for (j=0; j < new_map.height; j++) {
+                    var cell = map_layout[i][j];
+                    var type = "";
+                    if (cell.hasClass("tile_blank")) {
+                        type = "blank";
+                    } else if (cell.hasClass("tile_conveyour")) {
+                        type = "conveyour";   
+                    } else if (cell.hasClass("tile_pusher")) {
+                        type = "pusher";
+                    }
+                }
+            }
+        });
+
+        $workspace.append($reset);
+        $workspace.append($save);
+        
+        $workspace.append($map_space);
+
+>>>>>>> map editor wip
         var unit = 34;
         for(i=0; i < map.height; i++) {
             var row = [];

@@ -112,6 +112,34 @@
 			 "flavor" : "I should look where I'm going!",
 			 "actions" : ["turn_to_body"]
 		},
+		{
+			"name" : "heal_1",
+			"title" : "Repair Kit",
+			"flavor" : "Mmmm, spare nuts and bolts.",
+			"rarity" : 11,
+			"actions" : ["heal"]
+		},
+		{
+			"name" : "heal_2",
+			"title" : "Spare Tread",
+			"flavor" : "Nothing like a new pair of shoes.",
+			"rarity" : 8,
+			"actions" : ["heal", "heal"]
+		},
+		{
+			"name" : "heal_3",
+			"title" : "Premium Detail",
+			"flavor" : "Best $200 you can spend.",
+			"rarity" : 3,
+			"actions" : ["heal", "heal", "heal"]
+		},
+		{
+			"name" : "heal_all",
+			"title" : "Heal All",
+			"flavor" : "Bees! Bees!",
+			"rarity" : 3,
+			"actions" : ["heal_all"]
+		},
 		{ 
 			"name" : "vampiric_shot",
 			"title" : "Leech bullet",
