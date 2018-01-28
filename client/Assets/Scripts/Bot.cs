@@ -7,6 +7,7 @@ public class Bot : MonoBehaviour {
     public enum Status
     {
         Idle = 0,
+        Dead,
         Moving,
         Falling,
         Turning,
@@ -16,6 +17,8 @@ public class Bot : MonoBehaviour {
 
     public GameObject m_arena;
     public float m_animation_rate = 0.01f;
+
+    private int m_health = 5;
 
     private int m_x_position;
     private int m_y_position;
@@ -105,7 +108,17 @@ public class Bot : MonoBehaviour {
         m_status = Status.Turning;
     }
 
-    public bool Fire()
+    public void Modifier(int n)
+    {
+        m_health += n;
+        if (m_health <= 0)
+        {
+            m_status = Status.Dead;
+            GameObject.Destroy(gameObject.transform.Find("turret").gameObject);
+        }
+    }
+
+    public Arena.HitInfo Fire()
     {
         Arena arena = m_arena.GetComponent<Arena>();
         Arena.HitInfo hit = arena.Trace(m_x_position, m_y_position, m_orientation);
@@ -119,7 +132,12 @@ public class Bot : MonoBehaviour {
         m_pro_obj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
         m_pro_obj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
-        return hit.hit;
+        return hit;
+    }
+
+    public bool At(int x, int y)
+    {
+        return (x == m_x_position && y == m_y_position);
     }
 
     void FixedUpdate ()

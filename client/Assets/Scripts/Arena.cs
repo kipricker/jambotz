@@ -67,6 +67,7 @@ public class Arena : MonoBehaviour
     {
         public bool hit;
         public float distance;
+        public Bot bot;
     }
 
     public float m_world_scale = 1.0f;
@@ -218,7 +219,22 @@ public class Arena : MonoBehaviour
             {
                 result.hit = false;
                 result.distance = dist + 0.5f;
-                break;
+                impact = true; ;
+            }
+            else
+            {
+                Transform root = gameObject.transform.Find("tanks");
+                for (int i = 0; i < root.childCount; ++i)
+                {
+                    Bot bot = root.GetChild(i).gameObject.GetComponent<Bot>();
+                    if (bot.At(x, y))
+                    {
+                        result.hit = true;
+                        result.distance = dist + 1.0f;
+                        result.bot = bot;
+                        impact = true;
+                    }
+                }
             }
             ++dist;
         }

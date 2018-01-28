@@ -22,6 +22,7 @@ public class Game : MonoBehaviour
     Stack<string> m_action_sequence;
     Stack<string> m_card_sequence;
     Stack<int> m_player_sequence;
+    Bot m_target_bot;
 
 	// Use this for initialization
 	void Start ()
@@ -52,8 +53,8 @@ public class Game : MonoBehaviour
             bot.Spawn(1);
         }
 
-        string[] hand1 = new string[] { "turn_right", "move_1", "turn_left", "move_3", "fire_1" };
-        string[] hand2 = new string[] { "turn_left", "move_1", "turn_left", "fire_1", "move_3" };
+        string[] hand1 = new string[] { "move_1", "turn_right", "move_1", "fire_2", "fire_3" };
+        string[] hand2 = new string[] { "turn_left", "move_1", "turn_left", "move_3", "fire_1" };
         PlayHands(new string[][] { hand1, hand2 });
     }
 
@@ -116,9 +117,24 @@ public class Game : MonoBehaviour
                 {
                     bot.TurnLeft();
                 }
+                else if (action.passive.target_modifier != 0)
+                {
+                    m_target_bot.Modifier(action.passive.target_modifier);
+                }
                 else if (action.name == "fire")
                 {
-                    bool hit = bot.Fire();
+                    Arena.HitInfo hitinfo = bot.Fire();
+                    if (hitinfo.hit)
+                    {
+                        m_target_bot = hitinfo.bot;
+                        if (action.on_hit.actions != null)
+                        {
+                            for (int i = action.on_hit.actions.Length - 1; i >= 0; --i)
+                            {
+                                m_action_sequence.Push(action.on_hit.actions[i]);
+                            }
+                        }
+                    }
                 }
             }
         }
