@@ -291,6 +291,12 @@ public class Game : MonoBehaviour
             if (m_card_sequence.Count > 0 && bot.GetStatus() == Bot.Status.Idle)
             {
                 Card card = m_cards.GetCard(m_card_sequence.Pop());
+                
+                HandBehaviour player_hand = m_player_hand.GetComponent<HandBehaviour> ();
+                HandBehaviour opponent_hand = m_opponent_hand.GetComponent<HandBehaviour> ();
+
+                player_hand.SelectCard(card);
+                opponent_hand.SelectCard(card);
                 ActionSequence(m_player_sequence.Pop(), card.actions);
             }
         }

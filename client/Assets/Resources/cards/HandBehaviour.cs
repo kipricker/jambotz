@@ -44,6 +44,17 @@ public class HandBehaviour : MonoBehaviour {
 		cardObjs.Clear ();
 	}
 
+	public void SelectCard(Card card_search) {
+		Card card;
+		for (int i=0; i<m_cards.Count; i++) {
+			card = m_cards[i];
+			if (card.id == card_search.id) {
+				Debug.Log(string.Format("Select {0}:{1}",i,card.id));
+				ToggleCardSelect(cardObjs[i], true, true);
+			}
+		}
+	}
+
 	public void SetHand(Card[] cards) {
 		m_cards.Clear ();
 		foreach (GameObject card in cardObjs) {
