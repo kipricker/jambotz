@@ -188,8 +188,8 @@ public class Network : MonoBehaviour {
 			if (www.isNetworkError || www.isHttpError) {
 				Debug.Log (www.error);
 			} else {
-				if (!m_game.GetComponent<Game> ().RoundActive())
-				{
+				//if (!m_game.GetComponent<Game> ().RoundActive())
+				//{
 					string json = www.downloadHandler.text;
 					GameUpdate gameUpdate = JsonUtility.FromJson<GameUpdate> (json);
 					Card[][] hands = null;
@@ -224,7 +224,7 @@ public class Network : MonoBehaviour {
 					if (hands != null) {
 						m_game.GetComponent<Game> ().PlayHands (hands);
 					}
-				}
+				//}
 			}
 
 			yield return new WaitForSeconds(1);
