@@ -312,11 +312,17 @@ public class Arena : MonoBehaviour
             int x = x0 + (dist + 1) * dx;
             int y = y0 + (dist + 1) * dy;
 
+            if (x < 0 || y < 0 || x >= m_world.width || y >= m_world.height)
+            {
+                result.hit = false;
+                result.distance = dist + 0.5f;
+                impact = true;
+            }
             if (!CanMove(x0, y0, x, y))
             {
                 result.hit = false;
                 result.distance = dist + 0.5f;
-                impact = true; ;
+                impact = true;
             }
             else
             {
@@ -340,8 +346,6 @@ public class Arena : MonoBehaviour
 
     public bool CanMove(int x0, int y0, int x1, int y1)
     {
-        if (x1 < 0 || y1 < 0 || x1 >= m_world.width || y1 >= m_world.height)
-            return false;
         int dx = (int)Mathf.Sign(x1 - x0);
         int dy = (int)Mathf.Sign(y1 - y0);
         if (x0 == x1)
@@ -379,7 +383,7 @@ public class Arena : MonoBehaviour
         Transform root = gameObject.transform.Find(string.Format("Row{0}/Col{1}", y, x));
         return root.childCount > 4;
     }
-
+    
     public float GridX(int x)
     {
         return m_sx + x * m_world_scale;
