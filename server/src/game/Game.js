@@ -121,7 +121,9 @@ export default class Game {
             if (now - this.createdOn > 60) {
                 this.ended = true;
             } 
-        }
+        } else if (this.players.length < this.config.playerCount && this.active) {
+            this.ended = true;
+        )
     }
 
     getActionsSince(lastSeen) {
