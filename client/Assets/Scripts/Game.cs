@@ -110,12 +110,12 @@ public class Game : MonoBehaviour
     {
         // Add to UI
 
-        Debug.Log("assign player hand.");
-        HandBehaviour player_hand = m_player_hand.GetComponent<HandBehaviour> ();
-        player_hand.SetHand(cards[0]);
-        Debug.Log("assign opponent hand.");
-        HandBehaviour opponent_hand = m_opponent_hand.GetComponent<HandBehaviour> ();
-        opponent_hand.SetHand(cards[1]);
+        // Debug.Log("assign player hand.");
+        // HandBehaviour player_hand = m_player_hand.GetComponent<HandBehaviour> ();
+        // player_hand.SetHand(cards[0]);
+        // Debug.Log("assign opponent hand.");
+        // HandBehaviour opponent_hand = m_opponent_hand.GetComponent<HandBehaviour> ();
+        // opponent_hand.SetHand(cards[1]);
 
         m_card_sequence.Clear();
         m_player_sequence.Clear();

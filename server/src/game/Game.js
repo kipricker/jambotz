@@ -123,7 +123,7 @@ export default class Game {
             } 
         } else if (this.players.length < this.config.playerCount && this.active) {
             this.ended = true;
-        )
+        }
     }
 
     getActionsSince(lastSeen) {
