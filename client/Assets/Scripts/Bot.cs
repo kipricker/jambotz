@@ -59,6 +59,18 @@ public class Bot : MonoBehaviour {
         return m_status;
     }
 
+    public Tiles.Tile GetTile()
+    {
+        Arena arena = m_arena.GetComponent<Arena>();
+        return arena.GetTile(m_x_position, m_y_position);
+    }
+
+    public string GetTileDir()
+    {
+        Arena arena = m_arena.GetComponent<Arena>();
+        return arena.GetTileDir(m_x_position, m_y_position);
+    }
+
     public bool ForcedMove(string dir)
     {
         m_target_x = m_x_position;
@@ -66,16 +78,16 @@ public class Bot : MonoBehaviour {
         switch (dir)
         {
             case "west":
-                ++m_target_y;
-                break;
-            case "north":
-                --m_target_x;
-                break;
-            case "east":
                 --m_target_y;
                 break;
-            case "south":
+            case "north":
                 ++m_target_x;
+                break;
+            case "east":
+                ++m_target_y;
+                break;
+            case "south":
+                --m_target_x;
                 break;
         }
 
@@ -89,6 +101,7 @@ public class Bot : MonoBehaviour {
             return false;
         }
 
+        m_animation_state = 0.0f;
         m_status = Status.Moving;
         return true;
     }

@@ -18,11 +18,12 @@ public class Game : MonoBehaviour
     private Player[] m_players;
 
     int m_action_player = 0;
-    int m_action_current;
+    bool m_arena_acted;
     Stack<string> m_action_sequence;
     Stack<string> m_card_sequence;
     Stack<int> m_player_sequence;
     Bot m_target_bot;
+    string m_target_dir;
 
 	// Use this for initialization
 	void Start ()
@@ -87,6 +88,7 @@ public class Game : MonoBehaviour
             m_action_sequence.Push(actions[i]);
         }
         m_action_player = player;
+        m_arena_acted = false;
     }
 	
 	void FixedUpdate ()
@@ -121,6 +123,10 @@ public class Game : MonoBehaviour
                 {
                     m_target_bot.Modifier(action.passive.target_modifier);
                 }
+                else if (action.passive.target_move != 0)
+                {
+                    m_target_bot.ForcedMove(m_target_dir);
+                }
                 else if (action.name == "fire")
                 {
                     Arena.HitInfo hitinfo = bot.Fire();
@@ -135,6 +141,24 @@ public class Game : MonoBehaviour
                             }
                         }
                     }
+                }
+            }
+        }
+        else if (!m_arena_acted)
+        {
+            Bot bot = m_players[m_action_player].bot.GetComponent<Bot>();
+            if (bot.GetStatus() == Bot.Status.Idle)
+            {
+                m_arena_acted = true;
+                Tiles.Tile tile = bot.GetTile();
+                if (tile.actions != null)
+                {
+                    for (int i = tile.actions.Length - 1; i >= 0; --i)
+                    {
+                        m_action_sequence.Push(tile.actions[i]);
+                    }
+                    m_target_bot = bot;
+                    m_target_dir = bot.GetTileDir();
                 }
             }
         }

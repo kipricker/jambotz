@@ -43,6 +43,7 @@ public struct Tiles
     {
         public string name;
         public string asset;
+        public string[] actions;
     }
 
     public Tile[] tiles;
@@ -184,6 +185,32 @@ public class Arena : MonoBehaviour
                 }
             }
         }
+    }
+
+    public Tiles.Tile GetTile(int x, int y)
+    {
+        int tile_type = -1;
+        foreach (WorldData.MapData tile_data in m_world.map_data)
+        {
+            if (x == tile_data.x && y == tile_data.y)
+            {
+                tile_type = FindTile(tile_data.tile);
+            }
+        }
+        if (tile_type < 0)
+            tile_type = FindTile("blank");
+        return m_tiles.tiles[tile_type - 1];
+    }
+
+    public string GetTileDir(int x, int y)
+    {
+        string dir = "west";
+        foreach (WorldData.MapData tile_data in m_world.map_data)
+        {
+            if (x == tile_data.x && y == tile_data.y && tile_data.orientation != "")
+                dir = tile_data.orientation;
+        }
+        return dir;
     }
 
     int FindTile(string name)
