@@ -4,10 +4,10 @@ $(function() {
     var tools = {};
 
     function SetupWorkspace(tool, item, devider) {
-        var $workspace = $(".tool_workspace");
+        var $workspace = $(".tool_space");
         if (!devider) {
             $workspace.empty();
-            $workspace.append("<div class='header'>" + tool.name + "</div>");
+            $(".tool_header").empty().append(tool.name + "s");
         } else {
             $workspace.append("<hr>");
         }
@@ -18,13 +18,20 @@ $(function() {
             if (value == undefined)
                 value = tool.schema[key];
 
-            $workspace.append('<div class="variable"><span class="key">' + key + '</span>');
-            $workspace.append('<input class="text" type="text" placeholder="' + value + '" value="' + value + '" ' + (enabled ? "enabled" : "disabled") + '/>');
-            $workspace.append($('<input class="check" type="checkbox" ' + (enabled ? "checked" : "unchecked") + '/>').change(function() {
+            var $item = $('<div class="variable"></div>');
+            $item.append('<span class="key">' + key + '</span>');
+            if (typeof tool.schema[key] == "boolean") {
+                $item.append('<input class="text" type="checkbox" ' + (value ? "checked" : "unchecked") + " " + (enabled ? "enabled" : "disabled") + '/>');
+
+            } else {
+                $item.append('<input class="text" type="text" placeholder="' + value + '" value="' + value + '" ' + (enabled ? "enabled" : "disabled") + '/>');
+            }
+            $item.append($('<input class="check" type="checkbox" ' + (enabled ? "checked" : "unchecked") + '/>').change(function() {
                 var enabled = $(this).prop( "checked" );
                 $(this).siblings(".text").prop('disabled', !enabled);
             }));
-            $workspace.append('<br/></div>');
+            $item.append('<br/>');
+            $workspace.append($item);
         });
     };
 
@@ -57,6 +64,12 @@ $(function() {
         });
 
         tools[tool_name] = tool;
-        $(".tool_list").append(tool.button);
+        $(".tools").append(tool.button);
     });
+
+    var mapper = $("<select name='maps'></select>");
+    Object.keys(maps).forEach((key, map_name) => {
+        $(mapper).append("<option value='" + map_name + "'>");
+    })
+    $(".tools").append(mapper);
 });

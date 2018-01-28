@@ -2,7 +2,7 @@
     "name" : "action_name",
     "icon" : "action_icon.png",
     "sub_icon" : "optional_action_sub_icon.png",
-    "enabled" : false,
+    "enabled" : true,
     "parent" : "parent_action_name",
     "priority_modifier" : 1.1,
     "area_of_effect" : 1,

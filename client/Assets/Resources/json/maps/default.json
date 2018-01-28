@@ -2,8 +2,16 @@
     "height" : 5,
     "width" : 5,
     "starting_locations" : [
-        {"x" : 0, "y" : 0},
-        {"x" : 4, "y" : 4}
+        {
+            "x" : 0, 
+            "y" : 0,
+            "orientation" : "east"
+        },
+        {
+            "x" : 4, 
+            "y" : 4,
+            "orientation" : "west"
+        }
     ],
     "map_data" : [
         {
