@@ -1,7 +1,8 @@
 import axios from 'axios';
 import qs from 'qs';
 
-axios.defaults.baseURL = 'http://localhost:3000';
+// axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'https://dry-spire-78198.herokuapp.com/';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let params = qs.stringify({  

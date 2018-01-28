@@ -29,7 +29,7 @@ public class Network : MonoBehaviour {
 
 	JoinResponse joinResponse = new JoinResponse();
 
-	string host = "localhost:3000";
+	string host = "https://dry-spire-78198.herokuapp.com/";
 
 	Queue<GameAction> gameActionQueue = new Queue<GameAction>();
 
