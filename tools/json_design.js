@@ -42,13 +42,119 @@ $(function() {
         var $workspace = $(".tool_space");
         $workspace.empty();
         $(".tool_header").empty().append(map.name);
-<<<<<<< HEAD
 
         var $map_space = $("<div class='map_space'></div>");
-        $workspace.append($map_space);
 
-        var map_layout = [];
-=======
+        var $reset = $("<button>Reset</button>");
+        var $save = $("<button>Save</button>").click(() => {
+            var new_map = map;
+            new_map.map_data = [];
+            for (i=0; i < new_map.width; i++) {
+                for (j=0; j < new_map.height; j++) {
+                    var cell = map_layout[i][j];
+                    var type = "";
+                    if (cell.hasClass("tile_blank")) {
+                        type = "blank";
+                    } else if (cell.hasClass("tile_conveyour")) {
+                        type = "conveyour";   
+                    } else if (cell.hasClass("tile_pusher")) {
+                        type = "pusher";
+                    }
+
+                    if (type != "") {
+                        var new_tile = {
+                            "tile" : type,
+                            "x" : i,
+                            "y" : j,
+                            "tile_add_ons" : []
+                        };
+
+                        if (type != "blank") {
+                            var orientation = cell.find(".orientation");
+
+                            if (orientation.hasClass("tile_orientation_north")){
+                                new_tile.orientation = "north";
+                            } else if (orientation.hasClass("tile_orientation_south")){
+                                new_tile.orientation = "south";
+                            } else if (orientation.hasClass("tile_orientation_east")){
+                                new_tile.orientation = "east";
+                            } else if (orientation.hasClass("tile_orientation_west")){
+                                new_tile.orientation = "west";
+                            }
+                        }
+
+                        if (cell.hasClass("tile_wall_north")){
+                            new_tile.tile_add_ons.push({
+                                "name" : "wall",
+                                "edge" : "north"
+                            })
+                        }
+                        if (cell.hasClass("tile_wall_south")){
+                            new_tile.tile_add_ons.push({
+                                "name" : "wall",
+                                "edge" : "south"
+                            })
+                        }
+                        if (cell.hasClass("tile_wall_east")){
+                            new_tile.tile_add_ons.push({
+                                "name" : "wall",
+                                "edge" : "east"
+                            })
+                        }
+                        if (cell.hasClass("tile_wall_west")){
+                            new_tile.tile_add_ons.push({
+                                "name" : "wall",
+                                "edge" : "west"
+                            })
+                        }
+
+                        // Laser
+                        var laser = cell.find(".laser");
+
+                        if (laser.hasClass("tile_laser_north")){
+                            new_tile.tile_add_ons.push({
+                                "name" : "laser",
+                                "edge" : "north"
+                            })
+                        }
+                        if (laser.hasClass("tile_laser_south")){
+                            new_tile.tile_add_ons.push({
+                                "name" : "laser",
+                                "edge" : "south"
+                            })
+                        }
+                        if (laser.hasClass("tile_laser_east")){
+                            new_tile.tile_add_ons.push({
+                                "name" : "laser",
+                                "edge" : "east"
+                            })
+                        }
+                        if (laser.hasClass("tile_laser_west")){
+                            new_tile.tile_add_ons.push({
+                                "name" : "laser",
+                                "edge" : "west"
+                            })
+                        }
+
+                        new_map.map_data.push(new_tile);
+                    }
+                }
+            }
+
+            var json = JSON.stringify(new_map);
+            var blob = new Blob([json], {type: "application/json"});
+            var url  = URL.createObjectURL(blob);
+
+            var anchor = document.createElement('a');
+            anchor.href = url;
+            anchor.download = map_name + ".json";
+            anchor.click();
+        });
+
+        $workspace.append($reset);
+        $workspace.append($save);
+        
+        $workspace.append($map_space);
 
         var $map_space = $("<div class='map_space'></div>");
 
@@ -76,12 +182,16 @@ $(function() {
         
         $workspace.append($map_space);
 
->>>>>>> map editor wip
         var unit = 34;
         for(i=0; i < map.height; i++) {
             var row = [];
             for(j=0; j < map.width; j++) {
                 var cell = $("<div class='tile'></div>").css("top", (i * unit) + "pt").css("left", (j * unit) + "pt");
+                var orientation = $("<div class='orientation'></div>");
+                var laser = $("<div class='laser'></div>");
+                cell.append(laser);
+                laser.append(orientation);
+
                 row.push(cell);
                 $map_space.append(cell);
             }
@@ -145,7 +255,7 @@ $(function() {
                         orientation: {
                             name: "Direction",
                             type: "select",
-                            options: ["north", "south", "east", "west"],
+                            options: {"north" : "north", "south":"south", "east":"east", "west":"west"},
                             visible: function(key, opt) {
                                 return !opt.inputs.blank.$input.prop("checked");
                             }
@@ -222,6 +332,10 @@ $(function() {
                     var data = {};
                     Object.values(dirs).forEach((dir) => {
                         data["wall_" + dir] = $this.hasClass("tile_wall_" + dir);
+                        data["laser_" + dir] = $this.children(".laser").hasClass("tile_laser_" + dir);
+                        if ($this.find(".orientation").hasClass("tile_orientation_" + dir)) {
+                            data["orientation"] = dir;
+                        }
                     });
                     if ($this.hasClass("tile_blank")) {
                         data["tile_type"] = "blank";
@@ -244,7 +358,11 @@ $(function() {
                         $this.children(".laser").removeClass("tile_laser_" + dir);
                         if (data["laser_" + dir])
                             $this.children(".laser").addClass("tile_laser_" + dir);
+                        $this.find(".orientation").removeClass("tile_orientation_" + dir);
+                        if (data["orientation"] == dir)
+                            $this.find(".orientation").addClass("tile_orientation_" + dir);
                     });
+
                     $this.removeClass("tile_blank");
                     $this.removeClass("tile_conveyour");
                     $this.removeClass("tile_pusher");
@@ -261,10 +379,11 @@ $(function() {
         });
 
         Object.values(map.map_data).forEach((tile) => {
-            var laser = $("<div class='laser'></div>");
             var cell = map_layout[tile.x][tile.y];
             cell.addClass('tile_' + tile.tile);
-            cell.append(laser);
+
+            if (tile.orientation != undefined)
+                orientation.addClass("tile_orientation_" + tile.orientation);
 
             if (tile.tile_add_ons != undefined) {
                 Object.values(tile.tile_add_ons).forEach((add_on) => {
@@ -333,7 +452,7 @@ $(function() {
     });
 
     $(mapper).change(function() {
-        SetupMapSpace(maps[this.value]);
+        SetupMapSpace(maps[this.value], this.value);
     });
     $(".tools").append(mapper);
 });

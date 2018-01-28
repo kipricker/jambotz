@@ -101,15 +101,22 @@ input.check {
     border: solid rgba(0,0,0,0) 2pt;
     background-color:rgba(0, 0, 0, 0);
 }
+.orientation {
+    pointer-events:none;
+    width: 0;
+    height: 0;
+    border: solid rgba(0,0,0,0) 13pt;
+    background-color:rgba(0, 0, 0, 0);
+}
 
 .tile_blank {
-    background-color: brown;
+    background-color: rgb(94, 93, 93);
 }
 .tile_conveyour {
-    background-color: blue;
+    background-color: lightblue;
 }
 .tile_pusher {
-    background-color: orange;
+    background-color: lightsalmon;
 }
 
 .tile_wall_north {
@@ -136,4 +143,25 @@ input.check {
 }
 .tile_laser_west {
     border-left: solid red;
+}
+
+.tile_orientation_north {
+    border-bottom: solid blue 20pt;
+    top: -7pt;
+    position: absolute;
+}
+.tile_orientation_south {
+    border-top: solid blue 20pt;
+    bottom: -7pt;
+    position: absolute;
+}
+.tile_orientation_east {
+    border-left: solid blue 20pt;
+    right: -7pt;
+    position: absolute;
+}
+.tile_orientation_west {
+    border-right: solid blue 20pt;
+    left: -7pt;
+    position: absolute;
 }
