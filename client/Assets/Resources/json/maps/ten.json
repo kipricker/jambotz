@@ -1,0 +1,199 @@
+{
+    "name" : "Battle Royale x10",
+    "height" : 10,
+    "width" : 10,
+    "starting_locations" : [
+        {
+            "x" : 0, 
+            "y" : 0,
+            "orientation" : "east"
+        },
+        {
+            "x" : 4, 
+            "y" : 4,
+            "orientation" : "west"
+        }
+    ],
+    "map_data" : [
+        {
+            "x" : 0, "y" : 0,
+            "tile" : "blank",
+            "tile_add_ons" : [
+                {
+                    "name" : "wall",
+                    "edge" : "north"
+                },
+                {
+                    "name" : "wall",
+                    "edge" : "west"
+                }
+            ]
+        },
+        {
+            "x" : 0, "y" : 1,
+            "tile" : "blank",
+            "tile_add_ons" : [
+                {
+                    "name" : "wall",
+                    "edge" : "north"
+                }
+            ]
+        },
+        {
+            "x" : 0, "y" : 3,
+            "tile" : "blank",
+            "tile_add_ons" : [
+                {
+                    "name" : "wall",
+                    "edge" : "north"
+                }
+            ]
+        },
+        {
+            "x" : 0, "y" : 4,
+            "tile" : "blank",
+            "tile_add_ons" : [
+                {
+                    "name" : "wall",
+                    "edge" : "north"
+                },
+                {
+                    "name" : "wall",
+                    "edge" : "east"
+                }
+            ]
+        },
+
+        {
+            "x" : 1, "y" : 0,
+            "tile" : "blank",
+            "tile_add_ons" : [
+                {
+                    "name" : "wall",
+                    "edge" : "west"
+                },
+                {
+                    "name" : "laser",
+                    "edge" : "west"
+                }
+            ]
+        },
+        {
+            "x" : 1, "y" : 1,
+            "tile" : "blank"
+        },
+        {
+            "x" : 1, "y" : 2,
+            "tile" : "conveyour",
+            "orientation" : "west"
+        },
+        {
+            "x" : 1, "y" : 3,
+            "tile" : "blank"
+        },
+        {
+            "x" : 1, "y" : 4,
+            "tile" : "blank",
+            "tile_add_ons" : [
+                {
+                    "name" : "wall",
+                    "edge" : "east"
+                }
+            ]
+        },
+
+        {
+            "x" : 2, "y" : 1,
+            "tile" : "conveyour",
+            "orientation" : "south"
+        },
+        {
+            "x" : 2, "y" : 3,
+            "tile" : "conveyour",
+            "orientation" : "north"
+        },
+
+        {
+            "x" : 3, "y" : 0,
+            "tile" : "blank",
+            "tile_add_ons" : [
+                {
+                    "name" : "wall",
+                    "edge" : "west"
+                }
+            ]
+        },
+        {
+            "x" : 3, "y" : 1,
+            "tile" : "blank"
+        },
+        {
+            "x" : 3, "y" : 2,
+            "tile" : "conveyour",
+            "orientation" : "east"
+        },
+        {
+            "x" : 3, "y" : 3,
+            "tile" : "blank"
+        },
+        {
+            "x" : 3, "y" : 4,
+            "tile" : "blank",
+            "tile_add_ons" : [
+                {
+                    "name" : "wall",
+                    "edge" : "east"
+                }
+            ]
+        },
+
+        {
+            "x" : 4, "y" : 0,
+            "tile" : "blank",
+            "tile_add_ons" : [
+                {
+                    "name" : "wall",
+                    "edge" : "west"
+                },
+                {
+                    "name" : "wall",
+                    "edge" : "south"
+                }
+            ]
+        },
+        {
+            "x" : 4, "y" : 1,
+            "tile" : "blank",
+            "tile_add_ons" : [
+                {
+                    "name" : "wall",
+                    "edge" : "south"
+                }
+            ]
+        },
+        {
+            "x" : 4, "y" : 3,
+            "tile" : "blank",
+            "tile_add_ons" : [
+                {
+                    "name" : "wall",
+                    "edge" : "south"
+                }
+            ]
+        },
+        {
+            "x" : 4, "y" : 4,
+            "tile" : "blank",
+            "tile_add_ons" : [
+                {
+                    "name" : "wall",
+                    "edge" : "east"
+                },
+                {
+                    "name" : "wall",
+                    "edge" : "south"
+                }
+            ]
+        }
+    ]
+}

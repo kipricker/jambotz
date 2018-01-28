@@ -17,7 +17,6 @@ body {
 }
 
 .tools {
-
     padding-top: 5px;
 }
 
@@ -37,6 +36,11 @@ button.tool, select, option {
     display: inline-block;
     background-color: lightgrey;
     padding-top: 5px;
+}
+
+.map_space {
+    display: inline-block;
+    margin: 10px;
     position: relative;
 }
 
@@ -81,14 +85,17 @@ input.check {
 
 .tile {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    border-width: 2px;
+    width: 30pt;
+    height: 30pt;
+    border: solid rgba(0,0,0,0) 2pt;
+    background-color: rgba(100,200,100,.25);
+    outline: 1px black dashed;
 }
 .laser {
-    width: 100%;
-    height: 100%;
-    border-width: 2px;
+    pointer-events:none;
+    width: 26pt;
+    height: 26pt;
+    border: solid rgba(0,0,0,0) 2pt;
     background-color:rgba(0, 0, 0, 0);
 }
 

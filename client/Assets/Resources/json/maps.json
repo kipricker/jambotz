@@ -1,5 +1,7 @@
 {
     "maps" : [
-        "default"
+        "default",
+        "fifteen",
+        "ten"
     ]
 }

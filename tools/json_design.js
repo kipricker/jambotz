@@ -39,36 +39,53 @@ $(function() {
         var $workspace = $(".tool_space");
         $workspace.empty();
         $(".tool_header").empty().append(map.name);
-    
-        // //
-        // "x" : 0, "y" : 0,
-        // "tile" : "tile_name",
-        // "tile_add_ons" : [
-        //     {
-        //         "name" : "tile_add_on_name",
-        //         "trigger" : {
-        //             "name" : "trigger_link_name",
-        //             "actions" : []
-        //         },
-        //         "edge" : "north",
-        //         "start_state" : "default"
-        //     }
-        // ],
-        // "orientation" : "vertical",
-        // "variation" : "tile_variation"
+
+        var $map_space = $("<div class='map_space'></div>");
+        $workspace.append($map_space);
 
         var map_layout = [];
+        var unit = 34;
         for(i=0; i < map.height; i++) {
             var row = [];
             for(j=0; j < map.width; j++) {
-                var cell = $("<div class='tile'></div>").css("top", (i * 20) + "px").css("left", (j * 20) + "px");
+                var cell = $("<div class='tile'></div>").css("top", (i * unit) + "pt").css("left", (j * unit) + "pt");
                 row.push(cell);
-                $workspace.append(cell);
+                $map_space.append(cell);
             }
             map_layout.push(row);
         }
 
-        $workspace.contextMenu({
+        $(".tile").click((tile) => {
+            var type = "";
+            var $this = $(tile.target);
+            if ($this.hasClass("tile_blank")) {
+                type = "blank";
+            } else if ($this.hasClass("tile_conveyour")) {
+                type = "conveyour";   
+            } else if ($this.hasClass("tile_pusher")) {
+                type = "pusher";
+            }
+
+            $this.removeClass("tile_blank");
+            $this.removeClass("tile_conveyour");
+            $this.removeClass("tile_pusher");
+
+            switch(type) {
+                case "blank":
+                case "conveyour":
+                case "pusher":
+                    type = "";
+                    break;
+                case "":
+                    type = "blank";
+                    break;
+            }
+
+            if (type != "")
+                $this.addClass("tile_" + type);
+        });
+
+        $map_space.contextMenu({
             selector: '.tile', 
             items: {
                 tile_type: {
@@ -95,7 +112,10 @@ $(function() {
                         orientation: {
                             name: "Direction",
                             type: "select",
-                            options: ["north", "south", "east", "west"]
+                            options: ["north", "south", "east", "west"],
+                            visible: function(key, opt) {
+                                return !opt.inputs.blank.$input.prop("checked");
+                            }
                         }
                     }
                 },
@@ -127,7 +147,7 @@ $(function() {
                 lasers: {
                     name: "Lasers",
                     items: {
-                        north: {
+                        laser_north: {
                             name: "North",
                             type: "checkbox",
                             value: "north",
@@ -135,7 +155,7 @@ $(function() {
                                 return !opt.inputs.wall_north.$input.prop("checked");
                             }
                         },
-                        south: {
+                        laser_south: {
                             name: "South",
                             type: "checkbox",
                             value: "south",
@@ -143,7 +163,7 @@ $(function() {
                                 return !opt.inputs.wall_south.$input.prop("checked");
                             }
                         },
-                        east: {
+                        laser_east: {
                             name: "East",
                             type: "checkbox",
                             value: "east",
@@ -151,7 +171,7 @@ $(function() {
                                 return !opt.inputs.wall_east.$input.prop("checked");
                             }
                         },
-                        west: {
+                        laser_west: {
                             name: "West",
                             type: "checkbox",
                             value: "west",
@@ -161,25 +181,50 @@ $(function() {
                         }
                     }
                 },
-            }//, 
-            // events: {
-            //     show: function(opt) {
-            //         // this is the trigger element
-            //         var $this = this;
-            //         // import states from data store 
-            //         $.contextMenu.setInputValues(opt, $this.data());
-            //         // this basically fills the input commands from an object
-            //         // like {name: "foo", yesno: true, radio: "3", &hellip;}
-            //     }, 
-            //     hide: function(opt) {
-            //         // this is the trigger element
-            //         var $this = this;
-            //         // export states to data store
-            //         $.contextMenu.getInputValues(opt, $this.data());
-            //         // this basically dumps the input commands' values to an object
-            //         // like {name: "foo", yesno: true, radio: "3", &hellip;}
-            //     }
-            // }
+            }, 
+            events: {
+                show: function(opt) {
+                    var $this = this;
+                    var dirs = ["north", "south", "west", "east"];
+                    var data = {};
+                    Object.values(dirs).forEach((dir) => {
+                        data["wall_" + dir] = $this.hasClass("tile_wall_" + dir);
+                    });
+                    if ($this.hasClass("tile_blank")) {
+                        data["tile_type"] = "blank";
+                    } else if ($this.hasClass("tile_conveyour")) {
+                        data["tile_type"] = "conveyour";   
+                    } else if ($this.hasClass("tile_pusher")) {
+                        data["tile_type"] = "pusher";
+                    }
+                    $.contextMenu.setInputValues(opt, data);
+                }, 
+                hide: function(opt) {
+                    var $this = this;
+                    var dirs = ["north", "south", "west", "east"];
+                    var data = {};
+                    $.contextMenu.getInputValues(opt, data);
+                    Object.values(dirs).forEach((dir) => {
+                        $this.removeClass("tile_wall_" + dir);
+                        if (data["wall_" + dir])
+                            $this.addClass("tile_wall_" + dir);
+                        $this.children(".laser").removeClass("tile_laser_" + dir);
+                        if (data["laser_" + dir])
+                            $this.children(".laser").addClass("tile_laser_" + dir);
+                    });
+                    $this.removeClass("tile_blank");
+                    $this.removeClass("tile_conveyour");
+                    $this.removeClass("tile_pusher");
+                    if (data["tile_type"] == "blank") {
+                        $this.addClass("tile_blank");
+                    } else if (data["tile_type"] == "conveyour") {
+                        $this.addClass("tile_conveyour");
+                    } else if (data["tile_type"] == "pusher") {
+                        $this.addClass("tile_pusher");
+                    }
+
+                }
+            }
         });
 
         Object.values(map.map_data).forEach((tile) => {

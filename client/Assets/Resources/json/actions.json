@@ -14,7 +14,7 @@
         },
         {
             "name" : "trigger_bombs",
-            "icon" : "bomb_blow.png",
+            "icon" : "detonate",
             "trigger" : {
                 "name" : "bombs",
                 "actions" : ["activate"]
@@ -25,8 +25,8 @@
         },
         {
             "name" : "trigger_player_bombs",
-            "icon" : "bomb_blow.png",
-            "sub_icon" : "all.png",
+            "icon" : "detonate",
+            "sub_icon" : "all",
             "trigger" : {
                 "name" : "player_bombs",
                 "actions" : ["activate"]
@@ -65,7 +65,7 @@
         },
         {
             "name" : "fire",
-            "icon" : "fire.png",
+            "icon" : "fire",
             "on_hit" : {
                 "actions" : [ 
                     "damage_target"
@@ -74,7 +74,7 @@
         },
         {
             "name" : "heal",
-            "icon" : "plus.png",
+            "icon" : "heal",
             "passive" : {
                 "actions" : [
                     "heal_self"
@@ -83,6 +83,7 @@
         },
         {
             "name" : "turn_left",
+            "icon" : "left",
             "passive" : {
                 "turn_body" : -1
             }
@@ -90,6 +91,7 @@
         },
         {
             "name" : "turn_right",
+            "icon" : "right",
             "passive" : {
                 "turn_body" : 1
             }
@@ -97,6 +99,8 @@
         },
         {
             "name" : "look_left",
+            "icon" : "left",
+            "sub_icon" : "left",
             "passive" : {
                 "turn_turret" : -1
             }
@@ -104,6 +108,8 @@
         },
         {
             "name" : "look_right",
+            "icon" : "right",
+            "sub_icon" : "right",
             "passive" : {
                 "turn_turret" : 1
             }
@@ -149,14 +155,14 @@
         },
         {
             "name" : "move",
-            "icon" : "arrow.png",
+            "icon" : "forward",
             "passive" : {
                 "player_move" : 1
             }
         },
         {
             "name" : "backup",
-            "icon" : "back_arrow.png",
+            "icon" : "reverse",
             "passive" : {
                 "player_move" : -1
             }
@@ -177,8 +183,8 @@
         },
         {
             "name" : "vampiric_shot",
-            "icon" : "fire.png",
-            "sub_icon" : "blood.png",
+            "icon" : "fire",
+            "sub_icon" : "leech",
             "on_hit" : {
                 "actions" : [
                     "damage_target",
@@ -188,7 +194,7 @@
         },
         {
             "name" : "bazooka",
-            "icon" : "bazooka.png",
+            "icon" : "missile",
             "passive" : {
                 "actions" : [
                     "pull_player"
