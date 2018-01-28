@@ -99,7 +99,7 @@
 		{ 
 			 "name" : "face_front",
 			 "title" : "Orient to Turret",
-			 "rarity" : 3,
+			 "rarity" : 0,
 			 "priority" : 480,
 			 "flavor" : "I see where I wanna go.",
 			 "actions" : ["align_body_to_turret"]
