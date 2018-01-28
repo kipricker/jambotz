@@ -188,42 +188,42 @@ public class Network : MonoBehaviour {
 			if (www.isNetworkError || www.isHttpError) {
 				Debug.Log (www.error);
 			} else {
-				if (m_game.GetComponent<Game> ().RoundActive())
-					break;
-
-				string json = www.downloadHandler.text;
-				GameUpdate gameUpdate = JsonUtility.FromJson<GameUpdate> (json);
-				Card[][] hands = null;
-				m_lastSeen += gameUpdate.latestActions.Length;
-				foreach (GameAction gameAction in gameUpdate.latestActions) {
-					if (gameAction.gameStarted) {
-						m_active = true;
-					}
-
-					if (gameAction.handsDealt) {
-						yield return iGetHand ();
-					}
-
-
-					if (gameAction.player_cards_sent) {
-						yield return iGetHand ();
-						m_stage++;
-					}
-
-					if (gameAction.player_played_hand.hand != null) {
-						if (hands == null) {
-							hands = new Card[2][];
+				if (!m_game.GetComponent<Game> ().RoundActive())
+				{
+					string json = www.downloadHandler.text;
+					GameUpdate gameUpdate = JsonUtility.FromJson<GameUpdate> (json);
+					Card[][] hands = null;
+					m_lastSeen += gameUpdate.latestActions.Length;
+					foreach (GameAction gameAction in gameUpdate.latestActions) {
+						if (gameAction.gameStarted) {
+							m_active = true;
 						}
-						PlayedHand played = gameAction.player_played_hand;
-						hands [played.playerNumber] = played.hand;
-						m_stage = 0;
+
+						if (gameAction.handsDealt) {
+							yield return iGetHand ();
+						}
+
+
+						if (gameAction.player_cards_sent) {
+							yield return iGetHand ();
+							m_stage++;
+						}
+
+						if (gameAction.player_played_hand.hand != null) {
+							if (hands == null) {
+								hands = new Card[2][];
+							}
+							PlayedHand played = gameAction.player_played_hand;
+							hands [played.playerNumber] = played.hand;
+							m_stage = 0;
+						}
+
+						m_gameActionQueue.Enqueue (gameAction);
 					}
 
-					m_gameActionQueue.Enqueue (gameAction);
-				}
-
-				if (hands != null) {
-					m_game.GetComponent<Game> ().PlayHands (hands);
+					if (hands != null) {
+						m_game.GetComponent<Game> ().PlayHands (hands);
+					}
 				}
 			}
 
