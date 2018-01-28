@@ -75,7 +75,7 @@ public class Arena : MonoBehaviour
 
     public void LoadMap(WorldData world)
     {
-        string[] m_orientations = new string[] { "west", "north", "east", "south" };
+        m_orientations = new string[] { "west", "north", "east", "south" };
         ClearMap();
 
         if (m_tiles.tiles == null)
@@ -178,6 +178,33 @@ public class Arena : MonoBehaviour
 
     public bool CanMove(int x0, int y0, int x1, int y1)
     {
+        int dx = (int)Mathf.Sign(x1 - x0);
+        int dy = (int)Mathf.Sign(y1 - y0);
+        if (x0 == x1)
+            dx = 0;
+        if (y0 == y1)
+            dy = 0;
+        if (dx != 0 && dy != 0)
+            return false;
+        int dir = 0;
+        if (dx != 0)
+            dir += 1;
+        if (dx > 0)
+            dir += 2;
+        if (dy > 0)
+            dir += 2;
+
+        int x = x0;
+        int y = y0;
+        while (x != x1 || y != y1)
+        {
+            Transform root = gameObject.transform.Find(string.Format("Row{0}/Col{1}/{2}", y, x, m_orientations[dir]));
+            if (root.childCount > 0)
+                return false;
+
+            x += dx;
+            y += dy;
+        }
         return true;
     }
 
