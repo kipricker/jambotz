@@ -79,7 +79,7 @@ public class HandBehaviour : MonoBehaviour {
 			selectedCards.Remove (srcSlotNumber);
 		} else if (selectedCards.Count < 2) {
 			Vector3 vec3 = cardObj.GetComponent<RectTransform> ().sizeDelta;
-			cardObj.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (vec3.x / 2, -vec3.y / 4, 0);
+			cardObj.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (3 * vec3.x / 4, -vec3.y / 2, 0);
 
 			selectedCards.Add (srcSlotNumber);
 		}
