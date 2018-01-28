@@ -221,6 +221,7 @@ public class Network : MonoBehaviour {
 
 				if (hands != null) {
 					m_game.GetComponent<Game> ().PlayHands (hands);
+					yield return new WaitForSeconds(60);
 				}
 			}
 

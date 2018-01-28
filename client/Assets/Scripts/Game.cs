@@ -17,6 +17,7 @@ public class Game : MonoBehaviour
 
     public GameObject m_arena;
 	public GameObject m_player_hand;
+	public GameObject m_opponent_hand;
 	public GameObject m_network;
     public GameObject m_p0_health;
     public GameObject m_p1_health;
@@ -101,6 +102,15 @@ public class Game : MonoBehaviour
 
     public void PlayHands(Card[][] cards)
     {
+        // Add to UI
+
+        Debug.Log("assign player hand.");
+        HandBehaviour player_hand = m_player_hand.GetComponent<HandBehaviour> ();
+        player_hand.SetHand(cards[0]);
+        Debug.Log("assign opponent hand.");
+        HandBehaviour opponent_hand = m_opponent_hand.GetComponent<HandBehaviour> ();
+        opponent_hand.SetHand(cards[1]);
+
         m_card_sequence.Clear();
         m_player_sequence.Clear();
         for (int i = cards[0].Length - 1; i >= 0; --i)
