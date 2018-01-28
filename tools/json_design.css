@@ -21,7 +21,7 @@ body {
     padding-top: 5px;
 }
 
-button.tool {
+button.tool, select, option {
     width: 80%;
     text-align: center;
 }
@@ -76,4 +76,44 @@ input.check {
 
 :disabled {
     color: lightgrey;
+}
+
+.tile {
+    position: relative;
+    width: 10px;
+    height: 10px;
+}
+.laser {
+    width: 100%;
+    height: 100%;
+}
+
+.tile_blank {
+    background-color: brown;
+}
+
+.tile_wall_north {
+    border-top: solid black 1px;
+}
+.tile_wall_south {
+    border-bottom: solid black 1px;
+}
+.tile_wall_east {
+    border-right: solid black 1px;
+}
+.tile_wall_west {
+    border-left: solid black 1px;
+}
+
+.tile_laser_north {
+    border-top: solid red 1px;
+}
+.tile_laser_south {
+    border-bottom: solid red 1px;
+}
+.tile_laser_east {
+    border-right: solid red 1px;
+}
+.tile_laser_west {
+    border-left: solid red 1px;
 }
