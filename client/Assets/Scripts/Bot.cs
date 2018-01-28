@@ -194,24 +194,32 @@ public class Bot : MonoBehaviour {
                 float y = (1.0f - m_animation_state) * arena.GridX(m_y_position) + m_animation_state * arena.GridX(m_target_y);
                 m_animation_state += m_animation_rate;
 
-                if (m_animation_state >= 1.0f)
+                if (m_status == Status.Pushing)
                 {
-                    m_x_position = m_target_x;
-                    m_y_position = m_target_y;
-                    x = arena.GridX(m_x_position);
-                    y = arena.GridX(m_y_position);
-                    if (m_status == Status.Falling)
+                    if (m_target_bot.m_status == Status.Idle && m_animation_state > 1.0f)
                     {
-                        m_status = Status.Dead;
+                        m_x_position = 2 * m_target_x - m_x_position;
+                        m_y_position = 2 * m_target_y - m_y_position;
+                        m_animation_state = 0.6f;
+                        m_status = Status.Moving;
                     }
-                    else if (m_status == Status.Pushing)
+                }
+                else
+                {
+                    if (m_animation_state >= 1.0f)
                     {
-                        if (m_target_bot.m_status == Status.Idle)
+                        m_x_position = m_target_x;
+                        m_y_position = m_target_y;
+                        x = arena.GridX(m_x_position);
+                        y = arena.GridX(m_y_position);
+                        if (m_status == Status.Falling)
+                        {
+                            m_status = Status.Dead;
+                        }
+                        else
+                        {
                             m_status = Status.Idle;
-                    }
-                    else
-                    {
-                        m_status = Status.Idle;
+                        }
                     }
                 }
                 gameObject.transform.position = new Vector3(x, z, y);
