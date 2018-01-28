@@ -18,6 +18,7 @@ public class Game : MonoBehaviour
     private Actions m_actions;
     private Cards m_cards;
     private Player[] m_players;
+    private bool m_game_running = false;
 
     int m_action_player = 0;
     bool m_arena_acted;
@@ -27,13 +28,24 @@ public class Game : MonoBehaviour
     Bot m_target_bot;
     string m_target_dir;
 
+    void SpawnBots()
+    {
+        for (int i = 0; i < m_players.Length; ++i)
+        {
+            m_players[i].bot = Instantiate(Resources.Load("objects/obj_tank") as GameObject);
+            Bot bot = m_players[i].bot.GetComponent<Bot>();
+            bot.m_arena = m_arena;
+            bot.Spawn(i);
+        }
+    }
+
 	// Use this for initialization
 	void Start ()
     {
         m_action_sequence = new Stack<string>();
         m_card_sequence = new Stack<string>();
         m_player_sequence = new Stack<int>();
-        m_players = new Player[4];
+        m_players = new Player[2];
         m_actions = Actions.FromJSON("json/actions");
         m_cards = Cards.FromJSON("json/cards");
 
@@ -43,21 +55,11 @@ public class Game : MonoBehaviour
         WorldData world = JsonUtility.FromJson<WorldData>(json_map);
         arena.LoadMap(world);
 
-        {
-            m_players[0].bot = Instantiate(Resources.Load("objects/obj_tank") as GameObject);
-            Bot bot = m_players[0].bot.GetComponent<Bot>();
-            bot.m_arena = m_arena;
-            bot.Spawn(0);
-        }
-        {
-            m_players[1].bot = Instantiate(Resources.Load("objects/obj_tank") as GameObject);
-            Bot bot = m_players[1].bot.GetComponent<Bot>();
-            bot.m_arena = m_arena;
-            bot.Spawn(1);
-        }
+        SpawnBots();
+        m_game_running = true;
 
-        /*string[] hand1 = new string[] { "move_1", "turn_right", "move_2", "look_right", "run_and_gun" };
-        string[] hand2 = new string[] { "turn_right", "move_1", "turn_left", "move_3", "heal_2" };
+        /*string[] hand1 = new string[] { "move_2", "turn_right", "move_2", "heal_2", "fire_3", "fire_2" };
+        string[] hand2 = new string[] { "turn_right", "move_2", "turn_left", "move_3", "move_2", "fire_1" };
         Card[] chand1 = new Card[hand1.Length];
         for (int i = 0; i < hand1.Length; ++i)
             chand1[i] = m_cards.GetCard(hand1[i]);
@@ -107,9 +109,37 @@ public class Game : MonoBehaviour
         m_action_player = player;
         m_arena_acted = false;
     }
+
+    void RestartGame()
+    {
+        for (int i = 0; i < m_players.Length; ++i)
+        {
+            GameObject.Destroy(m_players[i].bot);
+        }
+
+        SpawnBots();
+
+        // Reconnect network here!
+
+        m_game_running = true;
+    }
 	
 	void FixedUpdate ()
     {
+        if (!m_game_running)
+            return;
+
+        for (int i = 0; i < m_players.Length; ++i)
+        {
+            Bot bot = m_players[i].bot.GetComponent<Bot>();
+            if (bot.GetStatus() == Bot.Status.Dead)
+            {
+                m_game_running = false;
+                Invoke("RestartGame", 3.0f);
+                return;
+            }
+        }
+
         if (m_action_sequence.Count > 0)
         {
             Bot bot = m_players[m_action_player].bot.GetComponent<Bot>();
