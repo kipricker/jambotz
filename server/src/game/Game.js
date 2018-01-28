@@ -22,6 +22,7 @@ export default class Game {
     
     constructor() {
         this.id = crypto.randomBytes(16).toString('hex');
+        this.createdOn = Math.floor( Date.now() / 1000 );
     }
 
     join(player) {
