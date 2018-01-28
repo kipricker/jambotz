@@ -56,15 +56,15 @@ public class Game : MonoBehaviour
             bot.Spawn(1);
         }
 
-        string[] hand1 = new string[] { "move_1", "turn_right", "move_2", "look_right", "run_and_gun" };
-        string[] hand2 = new string[] { "turn_right", "move_1", "turn_left", "move_3", "heal_2" };
-        Card[] chand1 = new Card[hand1.Length];
-        for (int i = 0; i < hand1.Length; ++i)
-            chand1[i] = m_cards.GetCard(hand1[i]);
-        Card[] chand2 = new Card[hand2.Length];
-        for (int i = 0; i < hand2.Length; ++i)
-            chand2[i] = m_cards.GetCard(hand2[i]);
-        PlayHands(new Card[][] { chand1, chand2 });
+//        string[] hand1 = new string[] { "move_1", "turn_right", "move_2", "look_right", "run_and_gun" };
+//        string[] hand2 = new string[] { "turn_right", "move_1", "turn_left", "move_3", "heal_2" };
+//        Card[] chand1 = new Card[hand1.Length];
+//        for (int i = 0; i < hand1.Length; ++i)
+//            chand1[i] = m_cards.GetCard(hand1[i]);
+//        Card[] chand2 = new Card[hand2.Length];
+//        for (int i = 0; i < hand2.Length; ++i)
+//            chand2[i] = m_cards.GetCard(hand2[i]);
+//        PlayHands(new Card[][] { chand1, chand2 });
     }
 
     public Action GetAction(string name)

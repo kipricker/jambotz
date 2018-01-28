@@ -102,10 +102,10 @@ public class Arena : MonoBehaviour
         float x = Input.mousePosition.x;
         float y = Input.mousePosition.y;
 
-        Transform cam = Camera.main.transform;
-        Vector3 delta = new Vector3(x - m_mouse_x, 0.0f, y - m_mouse_y);
-        cam.localPosition = cam.localPosition - delta / 100.0f;
-
+//        Transform cam = Camera.main.transform;
+//        Vector3 delta = new Vector3(x - m_mouse_x, 0.0f, y - m_mouse_y);
+//        cam.localPosition = cam.localPosition - delta / 100.0f;
+//
         m_mouse_x = x;
         m_mouse_y = y;
     }
