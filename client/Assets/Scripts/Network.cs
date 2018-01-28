@@ -61,6 +61,10 @@ public class Network : MonoBehaviour {
 		StartCoroutine (iPlayHand (hand));
 	}
 
+	public void leaveGame() {
+		StartCoroutine (iLeave ());
+	}
+
 	IEnumerator iGetHand()
 	{
 		WWWForm form = new WWWForm();
@@ -106,7 +110,7 @@ public class Network : MonoBehaviour {
 		}
 	}
 
-	IEnumerator iLeave(Card[] hand)
+	IEnumerator iLeave()
 	{
 		WWWForm form = new WWWForm();
 		form.AddField("playerID", m_joinResponse.playerID);

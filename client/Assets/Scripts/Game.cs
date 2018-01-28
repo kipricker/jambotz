@@ -158,6 +158,7 @@ public class Game : MonoBehaviour
             {
                 m_game_running = false;
                 Invoke("RestartGame", 3.0f);
+				m_network.GetComponent<Network>().leaveGame ();
                 return;
             }
         }
