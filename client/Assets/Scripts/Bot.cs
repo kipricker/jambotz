@@ -59,25 +59,57 @@ public class Bot : MonoBehaviour {
         return m_status;
     }
 
+    public bool ForcedMove(string dir)
+    {
+        m_target_x = m_x_position;
+        m_target_y = m_y_position;
+        switch (dir)
+        {
+            case "west":
+                ++m_target_y;
+                break;
+            case "north":
+                --m_target_x;
+                break;
+            case "east":
+                --m_target_y;
+                break;
+            case "south":
+                ++m_target_x;
+                break;
+        }
+
+        Arena arena = m_arena.GetComponent<Arena>();
+        if (!arena.CanMove(m_x_position, m_y_position, m_target_x, m_target_y))
+            return false;
+
+        Arena.MoveInfo info = arena.GridOcupied(m_target_x, m_target_y);
+        if (!info.free)
+        {
+            return false;
+        }
+
+        m_status = Status.Moving;
+        return true;
+    }
+
     public bool Move(int n)
     {
-        switch(m_orientation)
+        m_target_x = m_x_position;
+        m_target_y = m_y_position;
+        switch (m_orientation)
         {
             case 0:
-                m_target_x = m_x_position;
-                m_target_y = m_y_position + n;
+                m_target_y += n;
                 break;
             case 1:
-                m_target_x = m_x_position - n;
-                m_target_y = m_y_position;
+                m_target_x -= n;
                 break;
             case 2:
-                m_target_x = m_x_position;
-                m_target_y = m_y_position - n;
+                m_target_y -= n;
                 break;
             case 3:
-                m_target_x = m_x_position + n;
-                m_target_y = m_y_position;
+                m_target_x += n;
                 break;
         }
 

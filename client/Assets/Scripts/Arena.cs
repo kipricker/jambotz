@@ -139,13 +139,27 @@ public class Arena : MonoBehaviour
             int tile_type = FindTile(tile_data.tile);
             if (tile_type > 0)
             {
+                float angle = 0.0f;
+                switch (tile_data.orientation)
+                {
+                    case "north":
+                        angle = 90.0f;
+                        break;
+                    case "east":
+                        angle = 180.0f;
+                        break;
+                    case "south":
+                        angle = 270.0f;
+                        break;
+                }
+
                 Transform root = gameObject.transform.Find(string.Format("Row{0}/Col{1}", y, x));
                 string asset = m_tiles.tiles[tile_type - 1].asset;
                 GameObject tile = Instantiate(Resources.Load(asset) as GameObject);
 
                 tile.transform.parent = root;
                 tile.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-                tile.transform.localEulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+                tile.transform.localEulerAngles = new Vector3(0.0f, angle, 0.0f);
             }
 
             if (tile_data.tile_add_ons != null)
