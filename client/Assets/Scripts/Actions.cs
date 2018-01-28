@@ -37,6 +37,7 @@ public struct Action
         public string[] actions;
     }
 
+    public string type;
     public string name;
     public string icon;
     public string sub_icon;

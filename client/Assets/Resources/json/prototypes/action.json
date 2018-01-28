@@ -1,4 +1,5 @@
 {
+    "type" : "offence",
     "name" : "action_name",
     "icon" : "action_icon.png",
     "sub_icon" : "",

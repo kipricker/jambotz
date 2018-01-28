@@ -64,6 +64,7 @@
 
         },
         {
+            "type" : "offence",
             "name" : "fire",
             "icon" : "fire",
             "on_hit" : {
@@ -73,6 +74,7 @@
             }
         },
         {
+            "type" : "defence",
             "name" : "heal",
             "icon" : "heal",
             "passive" : {
@@ -93,6 +95,7 @@
             }
         },
         {
+            "type" : "move",
             "name" : "turn_left",
             "icon" : "left",
             "passive" : {
@@ -101,6 +104,7 @@
 
         },
         {
+            "type" : "move",
             "name" : "turn_right",
             "icon" : "right",
             "passive" : {
@@ -109,6 +113,7 @@
 
         },
         {
+            "type" : "move",
             "name" : "look_left",
             "icon" : "left",
             "sub_icon" : "left",
@@ -118,6 +123,7 @@
 
         },
         {
+            "type" : "move",
             "name" : "look_right",
             "icon" : "right",
             "sub_icon" : "right",
@@ -165,6 +171,7 @@
             }
         },
         {
+            "type" : "move",
             "name" : "move",
             "icon" : "forward",
             "passive" : {
@@ -172,6 +179,7 @@
             }
         },
         {
+            "type" : "move",
             "name" : "backup",
             "icon" : "reverse",
             "passive" : {
@@ -179,6 +187,7 @@
             }
         },
         {
+            "type" : "move",
             "name" : "turn_to_turret",
             "icon" : "target.png",
             "passive" : {
@@ -186,6 +195,7 @@
             }
         },
         {
+            "type" : "move",
             "name" : "turn_to_body",
             "icon" : "reset.png",
             "passive" : {
@@ -193,6 +203,7 @@
             }
         },
         {
+            "type" : "offence",
             "name" : "vampiric_shot",
             "icon" : "fire",
             "sub_icon" : "leech",

@@ -30,12 +30,29 @@ public class CardBehaviour : MonoBehaviour {
 		m_flavor.text = card.flavor;
 		m_priority.text = card.priority.ToString();
 
-		int actionCount = 0;
+		int actionCount_offence = 0;
+		int actionCount_defence = 3;
+		int actionCount_move = 6;
 		foreach (string actionName in card.actions) {
 			Action action = m_actions.GetAction (actionName);
-			m_action_images [actionCount].enabled = true;
-			m_action_images [actionCount].sprite = Resources.Load<Sprite>("UI/bitmaps/" + action.icon);
-			actionCount++;
+			Debug.Log(action.type);
+			switch (action.type) {
+				case "offence":
+					m_action_images [actionCount_offence].enabled = true;
+					m_action_images [actionCount_offence].sprite = Resources.Load<Sprite>("UI/bitmaps/" + action.icon);
+					actionCount_offence++;
+				break;
+				case "defence":
+					m_action_images [actionCount_defence].enabled = true;
+					m_action_images [actionCount_defence].sprite = Resources.Load<Sprite>("UI/bitmaps/" + action.icon);
+					actionCount_defence++;
+				break;
+				case "move":
+					m_action_images [actionCount_move].enabled = true;
+					m_action_images [actionCount_move].sprite = Resources.Load<Sprite>("UI/bitmaps/" + action.icon);
+					actionCount_move++;
+				break;
+			}
 		}
 	}
 }
