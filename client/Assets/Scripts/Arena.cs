@@ -6,11 +6,19 @@ using UnityEngine;
 public struct WorldData
 {
     [System.Serializable]
+    public struct Addon
+    {
+        public string name;
+        public string[] edge;
+    }
+
+    [System.Serializable]
     public struct MapData
     {
         public int x;
         public int y;
         public string tile;
+        public Addon[] tile_add_ons;
     }
 
     [System.Serializable]
@@ -83,6 +91,33 @@ public class Arena : MonoBehaviour {
             int x = tile.x;
             int y = tile.y;
             m_grid[x, y].type = FindTile(tile.tile);
+            if (tile.tile_add_ons != null)
+            {
+                foreach (WorldData.Addon addon in tile.tile_add_ons)
+                {
+                    if (addon.name == "wall")
+                    {
+                        foreach (string edge in addon.edge)
+                        {
+                            switch (edge)
+                            {
+                                case "east":
+                                    m_grid[x, y].walls[2] = 1;
+                                    break;
+                                case "south":
+                                    m_grid[x, y].walls[3] = 1;
+                                    break;
+                                case "west":
+                                    m_grid[x, y].walls[0] = 1;
+                                    break;
+                                case "north":
+                                    m_grid[x, y].walls[1] = 1;
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         m_sx = -(w - 1) * m_world_scale / 2.0f;

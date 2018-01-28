@@ -28,7 +28,7 @@ public class Game : MonoBehaviour
 
         // Testing
         Arena arena = m_arena.GetComponent<Arena>();
-        string json_map = Resources.Load<TextAsset>("test_map").text;
+        string json_map = Resources.Load<TextAsset>("json/maps/default").text;
         WorldData world = JsonUtility.FromJson<WorldData>(json_map);
         arena.LoadMap(world);
 
@@ -36,7 +36,7 @@ public class Game : MonoBehaviour
         Bot bot = m_players[0].bot.GetComponent<Bot>();
         bot.m_arena = m_arena;
         bot.Spawn(0);
-        ActionSequence(0, new string[] { "move", "turn_left", "backup" });
+        //ActionSequence(0, new string[] { "move", "turn_left", "backup" });
         //ActionSequence(0, new string[] { "move", "turn_right", "move" });
         //ActionSequence(0, new string[] { "move", "move" });
     }
