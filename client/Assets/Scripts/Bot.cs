@@ -25,8 +25,6 @@ public class Bot : MonoBehaviour {
 
     private float m_pro_dist;
     private GameObject m_pro_obj;
-    int m_pro_dx;
-    int m_pro_dy;
 
     private int m_orientation = 0;
     private int m_target_orientation;
@@ -113,31 +111,10 @@ public class Bot : MonoBehaviour {
         m_animation_state = 0.0f;
         m_status = Status.Firing;
 
-        m_pro_obj = new GameObject("projectile");
+        m_pro_obj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         m_pro_obj.transform.parent = gameObject.transform.Find("turret");
         m_pro_obj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-
-        Light light = m_pro_obj.AddComponent<Light>();
-        light.color = new Color(1.0f, 0.0f, 0.0f);
-        light.intensity = 0.8f;
-
-        m_pro_dx = 0;
-        m_pro_dy = 0;
-        switch (m_orientation)
-        {
-            case 0:
-                m_pro_dy = 1;
-                break;
-            case 1:
-                m_pro_dx = -1;
-                break;
-            case 2:
-                m_pro_dy = -1;
-                break;
-            case 3:
-                m_pro_dx = 1;
-                break;
-        }
+        m_pro_obj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
     }
 
     void FixedUpdate ()
@@ -191,14 +168,13 @@ public class Bot : MonoBehaviour {
                 gameObject.transform.eulerAngles = new Vector3(0.0f, -a, 0.0f);
                 break;
             case Status.Firing:
-                float px = m_animation_state * m_pro_dx * m_animation_state;
-                float py = m_animation_state * m_pro_dy * m_animation_state;
+                float pos = m_animation_state * m_animation_state;
                 m_animation_state += m_animation_rate * 3.0f;
                 if (m_animation_state > m_pro_dist)
                 {
                     m_status = Status.Idle;
                 }
-                m_pro_obj.transform.localPosition = new Vector3(px, 0.0f, py);
+                m_pro_obj.transform.localPosition = new Vector3(0.0f, 0.0f, pos);
                 break;
         }
 	}
