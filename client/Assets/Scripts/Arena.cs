@@ -9,7 +9,7 @@ public struct WorldData
     public struct Addon
     {
         public string name;
-        public string[] edge;
+        public string edge;
     }
 
     [System.Serializable]
@@ -47,6 +47,19 @@ public struct Tiles
     public Tile[] tiles;
 }
 
+[System.Serializable]
+public struct Addons
+{
+    [System.Serializable]
+    public struct Addon
+    {
+        public string name;
+        public string asset;
+    }
+
+    public Addon[] tile_add_ons;
+}
+
 public class Arena : MonoBehaviour {
 
     public struct Tile
@@ -61,6 +74,7 @@ public class Arena : MonoBehaviour {
     private WorldData m_world;
     private Tile[,] m_grid;
     private Tiles m_tiles;
+    private Addons m_addons;
     private float m_sx;
     private float m_sy;
 
@@ -68,12 +82,23 @@ public class Arena : MonoBehaviour {
     {
         ClearMap();
 
-        string json = Resources.Load<TextAsset>("json/tiles").text;
-        m_tiles = JsonUtility.FromJson<Tiles>(json);
+        if (m_tiles.tiles == null)
+        {
+            string json = Resources.Load<TextAsset>("json/tiles").text;
+            m_tiles = JsonUtility.FromJson<Tiles>(json);
+        }
+        if (m_addons.tile_add_ons == null)
+        {
+            string json = Resources.Load<TextAsset>("json/tile_add_ons").text;
+            m_addons = JsonUtility.FromJson<Addons>(json);
+        }
 
         m_world = world;
         int w = world.width;
         int h = world.height;
+
+        m_sx = -(w - 1) * m_world_scale / 2.0f;
+        m_sy = -(h - 1) * m_world_scale / 2.0f;
 
         m_grid = new Tile[w, h];
         for (int y = 0; y < h; ++y)
@@ -86,82 +111,60 @@ public class Arena : MonoBehaviour {
                     m_grid[x, y].walls[i] = 0;
             }
         }
-        foreach (WorldData.MapData tile in world.map_data)
+        foreach (WorldData.MapData tile_data in world.map_data)
         {
-            int x = tile.x;
-            int y = tile.y;
-            m_grid[x, y].type = FindTile(tile.tile);
-            if (tile.tile_add_ons != null)
+            int x = tile_data.x;
+            int y = tile_data.y;
+            int tile_type = FindTile(tile_data.tile);
+            if (tile_type > 0)
             {
-                foreach (WorldData.Addon addon in tile.tile_add_ons)
-                {
-                    if (addon.name == "wall")
-                    {
-                        foreach (string edge in addon.edge)
-                        {
-                            switch (edge)
-                            {
-                                case "east":
-                                    m_grid[x, y].walls[2] = 1;
-                                    break;
-                                case "south":
-                                    m_grid[x, y].walls[3] = 1;
-                                    break;
-                                case "west":
-                                    m_grid[x, y].walls[0] = 1;
-                                    break;
-                                case "north":
-                                    m_grid[x, y].walls[1] = 1;
-                                    break;
-                            }
-                        }
-                    }
-                }
+                string asset = m_tiles.tiles[tile_type - 1].asset;
+                GameObject tile = Instantiate(Resources.Load(asset) as GameObject);
+
+                tile.transform.position = new Vector3(GridX(x), 0, GridY(y));
+                tile.transform.parent = gameObject.transform;
             }
-        }
 
-        m_sx = -(w - 1) * m_world_scale / 2.0f;
-        m_sy = -(h - 1) * m_world_scale / 2.0f;
-        for (int y = 0; y < h; ++y)
-        {
-            for (int x = 0; x < w; ++x)
+            m_grid[x, y].type = tile_type;
+            if (tile_data.tile_add_ons != null)
             {
-                int tile_type = m_grid[x, y].type;
-
-                if (tile_type > 0)
+                foreach (WorldData.Addon addon in tile_data.tile_add_ons)
                 {
-                    string asset = m_tiles.tiles[tile_type - 1].asset;
-                    GameObject tile = Instantiate(Resources.Load(asset) as GameObject);
-
-                    tile.transform.position = new Vector3(GridX(x), 0, GridY(y));
-                    tile.transform.parent = gameObject.transform;
-                }
-
-                for (int i = 0; i < 4; ++i)
-                {
-                    if (m_grid[x, y].walls[i] == 0)
-                        continue;
-
-                    float dx = 0.0f;
-                    float dy = 0.0f;
-                    if ((i & 1) > 0)
+                    float angle = 0.0f;
+                    switch (addon.edge)
                     {
-                        dx = (i & 2) / 2.0f - 0.5f;
+                        case "east":
+                            angle = 180.0f;
+                            if (addon.name == "wall")
+                                m_grid[x, y].walls[0] = 1;
+                            break;
+                        case "south":
+                            angle = 270.0f;
+                            if (addon.name == "wall")
+                                m_grid[x, y].walls[1] = 1;
+                            break;
+                        case "west":
+                            angle = 0.0f;
+                            if (addon.name == "wall")
+                                m_grid[x, y].walls[2] = 1;
+                            break;
+                        case "north":
+                            angle = 90.0f;
+                            if (addon.name == "wall")
+                                m_grid[x, y].walls[3] = 1;
+                            break;
                     }
-                    else
+
+                    int addon_type = FindAddon(addon.name);
+                    if (addon_type > 0)
                     {
-                        dy = (i & 2) / 2.0f - 0.5f;
+                        string asset = m_addons.tile_add_ons[addon_type - 1].asset;
+                        GameObject wall = Instantiate(Resources.Load(asset) as GameObject);
+
+                        wall.transform.position = new Vector3(GridX(x), 0, GridY(y));
+                        wall.transform.eulerAngles = new Vector3(0.0f, angle, 0.0f);
+                        wall.transform.parent = gameObject.transform;
                     }
-
-                    GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    wall.transform.position = new Vector3(GridX(x) + dx * m_world_scale, m_world_scale / 2.0f, GridY(y) + dy * m_world_scale);
-                    if ((i & 1) > 0)
-                        wall.transform.Rotate(0.0f, 90.0f, 0.0f);
-                    wall.transform.localScale = new Vector3(1, 1, 0.02f);
-                    wall.transform.parent = gameObject.transform;
-
-                    Renderer rend = wall.GetComponent<Renderer>();
-                    rend.material = new Material(Shader.Find("Diffuse"));
                 }
             }
         }
@@ -172,6 +175,16 @@ public class Arena : MonoBehaviour {
         for (int i = 0; i < m_tiles.tiles.Length; ++i)
         {
             if (m_tiles.tiles[i].name == name)
+                return i + 1;
+        }
+        return 0;
+    }
+
+    int FindAddon(string name)
+    {
+        for (int i = 0; i < m_addons.tile_add_ons.Length; ++i)
+        {
+            if (m_addons.tile_add_ons[i].name == name)
                 return i + 1;
         }
         return 0;
