@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HandBehaviour : MonoBehaviour {
+	public GameObject m_network;
 	public GameObject m_game;
 	public List<Card> m_cards = new List<Card> (); 
 	List<GameObject> cardObjs = new List<GameObject>();
@@ -11,12 +12,38 @@ public class HandBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+	}
+
+	public void SendCards() {
+		List<Card> cards = new List<Card> (); 
+		selectedCards.Sort ();
+		selectedCards.Reverse ();
+		foreach (int i in selectedCards) {
+			Debug.Log (m_cards [i].name);
+			cards.Add (m_cards [i]);
+			Destroy (cardObjs [i]);
+			cardObjs.RemoveAt (i);
+			m_cards.RemoveAt (i);
+		}
+		selectedCards.Clear ();
+		Debug.Log (cards.Count);
+		m_network.GetComponent<Network> ().sendCards (cards.ToArray ());
+	}
+
+	public void ProgramJambox() {
+		selectedCards.Clear ();
+		m_network.GetComponent<Network> ().playHand (m_cards.ToArray ());
+		m_cards.Clear ();
+
+		foreach (GameObject card in cardObjs) {
+			Destroy (card);
+		}
+
+		cardObjs.Clear ();
 	}
 
 	public void SetHand(Card[] cards) {

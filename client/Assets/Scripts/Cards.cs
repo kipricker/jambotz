@@ -10,6 +10,7 @@ public struct Card
     public string title;
 	public int priority;
 	public int rarity;
+	public int id;
     public string[] actions;
 }
 

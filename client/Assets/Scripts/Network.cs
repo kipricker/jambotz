@@ -50,12 +50,13 @@ public class Network : MonoBehaviour {
 		StartCoroutine (iJoinLobby());
 	}
 
-	public void sendCards() {
-		
+	public void sendCards(Card[] cards) {
+		Debug.Log (cards.Length);
+		StartCoroutine (iSendCards (cards));
 	}
 
-	public void playHand() {
-
+	public void playHand(Card[] hand) {
+		StartCoroutine (iPlayHand (hand));
 	}
 
 	IEnumerator iGetHand()
@@ -74,6 +75,42 @@ public class Network : MonoBehaviour {
 			Game game = m_game.GetComponent<Game>();
 			HandBehaviour hand = game.m_player_hand.GetComponent<HandBehaviour> ();
 			hand.SetHand(JsonUtility.FromJson<PlayedHand> (www.downloadHandler.text).hand);
+		}
+	}
+
+	IEnumerator iSendCards(Card[] cards)
+	{
+		WWWForm form = new WWWForm();
+		form.AddField("playerID", m_joinResponse.playerID);
+		form.AddField("gameID", m_joinResponse.gameID);
+		form.AddField("cards", JsonUtility.ToJson(cards));
+
+		Debug.Log (JsonUtility.ToJson (cards));
+
+		UnityWebRequest www = UnityWebRequest.Post (m_host + "/game/send-cards", form);
+		yield return www.SendWebRequest();
+
+		if (www.isNetworkError || www.isHttpError) {
+			Debug.Log (www.error);
+		} else {
+
+		}
+	}
+
+	IEnumerator iPlayHand(Card[] hand)
+	{
+		WWWForm form = new WWWForm();
+		form.AddField("playerID", m_joinResponse.playerID);
+		form.AddField("gameID", m_joinResponse.gameID);
+		form.AddField("hand", JsonUtility.ToJson(hand));
+
+		UnityWebRequest www = UnityWebRequest.Post (m_host + "/game/play-hand", form);
+		yield return www.SendWebRequest();
+
+		if (www.isNetworkError || www.isHttpError) {
+			Debug.Log (www.error);
+		} else {
+
 		}
 	}
 
@@ -107,14 +144,34 @@ public class Network : MonoBehaviour {
 			} else {
 				string json = www.downloadHandler.text;
 				GameUpdate gameUpdate = JsonUtility.FromJson<GameUpdate> (json);
-				if (!m_active && gameUpdate.active) {
-					m_active = true;
-					yield return iGetHand ();
-				}
-
+				Card[][] hands = null;
 				foreach (GameAction gameAction in gameUpdate.latestActions) {
+					if (gameAction.gameStarted) {
+						m_active = true;
+					}
+
+					if (gameAction.handsDealt) {
+						yield return iGetHand ();
+					}
+
+					if (gameAction.player_cards_sent) {
+
+					}
+
+					if (gameAction.player_played_hand.hand != null) {
+						if (hands == null) {
+							hands = new Card[2][];
+						}
+						PlayedHand played = gameAction.player_played_hand;
+						hands [played.playerNumber] = played.hand;
+					}
+
 					m_gameActionQueue.Enqueue (gameAction);
 					m_lastSeen++;
+				}
+
+				if (hands != null) {
+					m_game.GetComponent<Game> ().PlayHands (hands);
 				}
 			}
 

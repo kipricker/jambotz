@@ -13,6 +13,7 @@ public class Game : MonoBehaviour
 {
     public GameObject m_arena;
 	public GameObject m_player_hand;
+	public GameObject m_network;
 
     private Actions m_actions;
     private Cards m_cards;
@@ -65,7 +66,7 @@ public class Game : MonoBehaviour
         return m_actions.GetAction(name);
     }
 
-    void PlayHands(string[][] cards)
+    public void PlayHands(Card[][] cards)
     {
         m_card_sequence.Clear();
         m_player_sequence.Clear();
@@ -74,7 +75,7 @@ public class Game : MonoBehaviour
             for (int p = 0; p < cards.Length; ++p)
             {
                 m_player_sequence.Push(p);
-                m_card_sequence.Push(cards[p][i]);
+				m_card_sequence.Push(cards[p][i].name);
             }
         }
         Card card = m_cards.GetCard(m_card_sequence.Pop());

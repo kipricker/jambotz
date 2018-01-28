@@ -20,6 +20,7 @@ router.post('/heartbeat', express.urlencoded(), (req, res, next) => {
 router.post('/send-cards', express.urlencoded(), (req, res, next) => {
     let game = global.games[req.body.gameID];    
     if (game) {
+        console.log(JSON.parse(req.body.cards))
         game.sendCards(req.body.playerID, JSON.parse(req.body.cards));
     }
     res.sendStatus(200);

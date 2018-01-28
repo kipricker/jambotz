@@ -107,7 +107,7 @@ public class DragAndDropCell : MonoBehaviour, IDropHandler
     /// </summary>
     /// <param name="data"></param>
     public void OnDrop(PointerEventData data)
-    {
+	{
         if (DragAndDropItem.icon != null)
         {
             DragAndDropItem item = DragAndDropItem.draggedItem;
@@ -270,6 +270,7 @@ public class DragAndDropCell : MonoBehaviour, IDropHandler
 
     private IEnumerator NotifyOnDragEnd(DropDescriptor desc)
     {
+		Debug.Log ("test");
         // Wait end of drag operation
         while (DragAndDropItem.draggedItem != null)
         {
