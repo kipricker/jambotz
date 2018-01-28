@@ -55,7 +55,8 @@ public class HandBehaviour : MonoBehaviour {
 		foreach (Transform child in transform) {
 			GameObject childObj = child.gameObject;
 			cardObjs [i].transform.SetParent (childObj.transform, false);
-			cardObjs [i].transform.localPosition = Vector3.zero;
+			Vector3 vec3 = cardObjs [i].GetComponent<RectTransform> ().sizeDelta;
+			cardObjs [i].GetComponent<RectTransform> ().anchoredPosition = new Vector3 (vec3.x / 2, -vec3.y / 2, 0);;
 			i++;
 		}
 	}
