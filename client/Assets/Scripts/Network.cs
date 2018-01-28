@@ -10,8 +10,17 @@ struct JoinResponse {
 }
 
 [System.Serializable]
+struct PlayedHand {
+	public int playerNumber;
+	public Card[] hand;
+}
+
+[System.Serializable]
 struct GameAction {
-	public int move;
+	public bool gameStarted;
+	public bool handsDealt;
+	public bool player_cards_sent;
+	public PlayedHand player_played_hand;
 }
 
 [System.Serializable]
@@ -22,16 +31,16 @@ struct GameUpdate {
 }
 
 public class Network : MonoBehaviour {
-	bool waiting = false;
-	bool active = false;
+	public GameObject m_game;
 
-	int lastSeen = -1;
+	bool m_active = false;
+	int m_lastSeen = -1;
 
-	JoinResponse joinResponse = new JoinResponse();
+	JoinResponse m_joinResponse = new JoinResponse();
 
-	string host = "https://dry-spire-78198.herokuapp.com/";
+	string m_host = "localhost:3000";
 
-	Queue<GameAction> gameActionQueue = new Queue<GameAction>();
+	Queue<GameAction> m_gameActionQueue = new Queue<GameAction>();
 
 	void Start () {
 		joinLobby();
@@ -41,18 +50,43 @@ public class Network : MonoBehaviour {
 		StartCoroutine (iJoinLobby());
 	}
 
-	IEnumerator iJoinLobby()
+	public void sendCards() {
+		
+	}
+
+	public void playHand() {
+
+	}
+
+	IEnumerator iGetHand()
 	{
 		WWWForm form = new WWWForm();
-		form.AddField("data", "");
+		form.AddField("playerID", m_joinResponse.playerID);
+		form.AddField("gameID", m_joinResponse.gameID);
 
-		UnityWebRequest www = UnityWebRequest.Post (host + "/lobby/join", form);
+		UnityWebRequest www = UnityWebRequest.Post (m_host + "/game/get-hand", form);
 		yield return www.SendWebRequest();
 
 		if (www.isNetworkError || www.isHttpError) {
 			Debug.Log (www.error);
 		} else {
-			joinResponse = JsonUtility.FromJson<JoinResponse> (www.downloadHandler.text);
+			Debug.Log (www.downloadHandler.text);
+			Game game = m_game.GetComponent<Game>();
+			HandBehaviour hand = game.m_player_hand.GetComponent<HandBehaviour> ();
+			hand.SetHand(JsonUtility.FromJson<PlayedHand> (www.downloadHandler.text).hand);
+		}
+	}
+
+	IEnumerator iJoinLobby()
+	{
+		WWWForm form = new WWWForm();
+		UnityWebRequest www = UnityWebRequest.Post (m_host + "/lobby/join", form);
+		yield return www.SendWebRequest();
+
+		if (www.isNetworkError || www.isHttpError) {
+			Debug.Log (www.error);
+		} else {
+			m_joinResponse = JsonUtility.FromJson<JoinResponse> (www.downloadHandler.text);
 			StartCoroutine (heartbeat());
 		}
 	}
@@ -61,11 +95,11 @@ public class Network : MonoBehaviour {
 	{
 		while (true) {
 			WWWForm form = new WWWForm();
-			form.AddField("lastSeen", lastSeen);
-			form.AddField("playerID", joinResponse.playerID);
-			form.AddField("gameID", joinResponse.gameID);
+			form.AddField("lastSeen", m_lastSeen);
+			form.AddField("playerID", m_joinResponse.playerID);
+			form.AddField("gameID", m_joinResponse.gameID);
 
-			UnityWebRequest www = UnityWebRequest.Post(host + "/game/heartbeat", form);
+			UnityWebRequest www = UnityWebRequest.Post(m_host + "/game/heartbeat", form);
 			yield return www.SendWebRequest();
 
 			if (www.isNetworkError || www.isHttpError) {
@@ -73,9 +107,14 @@ public class Network : MonoBehaviour {
 			} else {
 				string json = www.downloadHandler.text;
 				GameUpdate gameUpdate = JsonUtility.FromJson<GameUpdate> (json);
+				if (!m_active && gameUpdate.active) {
+					m_active = true;
+					yield return iGetHand ();
+				}
+
 				foreach (GameAction gameAction in gameUpdate.latestActions) {
-					gameActionQueue.Enqueue (gameAction);
-					lastSeen++;
+					m_gameActionQueue.Enqueue (gameAction);
+					m_lastSeen++;
 				}
 			}
 

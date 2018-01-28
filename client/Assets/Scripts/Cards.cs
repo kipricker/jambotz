@@ -8,6 +8,8 @@ public struct Card
     public string name;
     public string flavor;
     public string title;
+	public int priority;
+	public int rarity;
     public string[] actions;
 }
 

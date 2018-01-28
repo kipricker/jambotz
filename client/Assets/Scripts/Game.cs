@@ -12,6 +12,7 @@ public struct Player
 public class Game : MonoBehaviour
 {
     public GameObject m_arena;
+	public GameObject m_player_hand;
 
     private Actions m_actions;
     private Cards m_cards;

@@ -4,21 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HandBehaviour : MonoBehaviour {
-
-	List<string> cards = new List<string> (new string[] {
-		"1",
-		"2",
-		"3",
-		"4",
-		"5",
-	});
-
-	List<int> selectedCards = new List<int>();
-
+	public GameObject m_game;
+	public List<Card> m_cards = new List<Card> (); 
 	List<GameObject> cardObjs = new List<GameObject>();
+	List<int> selectedCards = new List<int>();
 
 	// Use this for initialization
 	void Start () {
+
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+	public void SetHand(Card[] cards) {
+		m_cards.Clear ();
+		m_cards.AddRange(cards);
 		int cardNumber = 0;
 		foreach (Transform child in transform) {
 			GameObject childObj = child.gameObject;
@@ -28,14 +31,9 @@ public class HandBehaviour : MonoBehaviour {
 			cardObjs.Add (card);
 
 			childObj.SendMessage ("setSlotNumber", cardNumber);
-			card.SendMessage ("setCard", cards[cardNumber]);
+			card.SendMessage ("setCard", m_cards[cardNumber]);
 			cardNumber++;
 		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	void OnItemSelected(DragAndDropCell.DropDescriptor desc)
@@ -67,9 +65,9 @@ public class HandBehaviour : MonoBehaviour {
 		cardObjs.RemoveAt (srcSlotNumber);
 		cardObjs.Insert (destSlotNumber, cardObj);
 
-		string card = cards [srcSlotNumber];
-		cards.RemoveAt (srcSlotNumber);
-		cards.Insert (destSlotNumber, card);
+		Card card = m_cards [srcSlotNumber];
+		m_cards.RemoveAt (srcSlotNumber);
+		m_cards.Insert (destSlotNumber, card);
 
 		int i = 0;
 		foreach (Transform child in transform) {
