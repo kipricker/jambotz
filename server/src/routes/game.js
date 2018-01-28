@@ -8,7 +8,7 @@ global.games = {};
 router.post('/leave', express.urlencoded(), (req, res, next) => {
     let game = global.games[req.body.gameID];
     if (game) {
-        latestActions = game.leave(req.body.playerID);
+        game.leave(req.body.playerID);
     }
     res.sendStatus(200);
 });
