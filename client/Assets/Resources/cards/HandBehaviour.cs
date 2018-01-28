@@ -19,17 +19,19 @@ public class HandBehaviour : MonoBehaviour {
 	}
 
 	public void SendCards() {
-		List<Card> cards = new List<Card> (); 
-		selectedCards.Sort ();
-		selectedCards.Reverse ();
-		foreach (int i in selectedCards) {
-			cards.Add (m_cards [i]);
-			Destroy (cardObjs [i]);
-			cardObjs.RemoveAt (i);
-			m_cards.RemoveAt (i);
+		if (selectedCards.Count == 2) {
+			List<Card> cards = new List<Card> (); 
+			selectedCards.Sort ();
+			selectedCards.Reverse ();
+			foreach (int i in selectedCards) {
+				cards.Add (m_cards [i]);
+				Destroy (cardObjs [i]);
+				cardObjs.RemoveAt (i);
+				m_cards.RemoveAt (i);
+			}
+			selectedCards.Clear ();
+			m_network.GetComponent<Network> ().sendCards (cards.ToArray ());
 		}
-		selectedCards.Clear ();
-		m_network.GetComponent<Network> ().sendCards (cards.ToArray ());
 	}
 
 	public void ProgramJambox() {
