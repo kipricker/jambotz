@@ -53,7 +53,13 @@ public class Game : MonoBehaviour
         Bot bot0 = m_players[n].bot.GetComponent<Bot>();
         bot0.m_health_text = m_p0_health;
         bot0.Modifier(0);
-        Bot bot1 = m_players[(n + 1) % 2].bot.GetComponent<Bot>();
+
+        int m = (n + 1) % 2;
+        GameObject.Destroy(m_players[m].bot);
+        m_players[m].bot = Instantiate(Resources.Load("objects/obj_tank_red") as GameObject);
+        Bot bot1 = m_players[m].bot.GetComponent<Bot>();
+        bot1.m_arena = m_arena;
+        bot1.Spawn(m);
         bot1.m_health_text = m_p1_health;
         bot1.Modifier(0);
     }
