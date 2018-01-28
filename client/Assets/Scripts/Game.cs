@@ -37,6 +37,12 @@ public class Game : MonoBehaviour
 
     private int m_player_local = 0;
 
+    public bool RoundActive() {
+        if (m_action_sequence.Count > 0)
+            return true;
+        return false;
+    }
+
     void SpawnBots()
     {
         for (int i = 0; i < m_players.Length; ++i)
