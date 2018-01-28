@@ -27,6 +27,7 @@ public struct WorldData
     {
         public int x;
         public int y;
+        public string orientation;
     }
 
     public int width;
@@ -402,6 +403,22 @@ public class Arena : MonoBehaviour
     public int GetSpawnY(int n)
     {
         return m_world.starting_locations[n].y;
+    }
+
+    public int GetSpawnDir(int n)
+    {
+        switch (m_world.starting_locations[n].orientation)
+        {
+            case "east":
+                return 0;
+            case "south":
+                return 1;
+            case "west":
+                return 2;
+            case "north":
+                return 3;
+        }
+        return 0;
     }
 
     void ClearMap()

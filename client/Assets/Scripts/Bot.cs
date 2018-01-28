@@ -54,10 +54,11 @@ public class Bot : MonoBehaviour {
         Arena arena = m_arena.GetComponent<Arena>();
         m_x_position = arena.GetSpawnX(n);
         m_y_position = arena.GetSpawnY(n);
+        m_orientation = arena.GetSpawnDir(n);
 
         gameObject.transform.parent = m_arena.transform.Find("tanks");
         gameObject.transform.position = new Vector3(arena.GridX(m_x_position), 0.0f, arena.GridY(m_y_position));
-        gameObject.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+        gameObject.transform.localEulerAngles = new Vector3(0.0f, -90.0f * m_orientation, 0.0f);
 
         Animator anim = gameObject.GetComponent<Animator>();
         if (anim != null)

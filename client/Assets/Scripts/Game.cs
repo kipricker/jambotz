@@ -57,7 +57,7 @@ public class Game : MonoBehaviour
         }
 
         string[] hand1 = new string[] { "move_1", "turn_right", "move_2", "look_right", "run_and_gun" };
-        string[] hand2 = new string[] { "turn_left", "move_1", "turn_left", "move_3", "heal_2" };
+        string[] hand2 = new string[] { "turn_right", "move_1", "turn_left", "move_3", "heal_2" };
         Card[] chand1 = new Card[hand1.Length];
         for (int i = 0; i < hand1.Length; ++i)
             chand1[i] = m_cards.GetCard(hand1[i]);
