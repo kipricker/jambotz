@@ -88,27 +88,9 @@ public class Arena : MonoBehaviour
 
     private float m_mouse_x;
     private float m_mouse_y;
+    private bool m_mouse_down = false;
 
     private string[] m_orientations;
-
-    private void OnMouseDown()
-    {
-        m_mouse_x = Input.mousePosition.x;
-        m_mouse_y = Input.mousePosition.y;
-    }
-
-    void OnMouseDrag()
-    {
-        float x = Input.mousePosition.x;
-        float y = Input.mousePosition.y;
-
-//        Transform cam = Camera.main.transform;
-//        Vector3 delta = new Vector3(x - m_mouse_x, 0.0f, y - m_mouse_y);
-//        cam.localPosition = cam.localPosition - delta / 100.0f;
-//
-        m_mouse_x = x;
-        m_mouse_y = y;
-    }
 
     public void LoadMap(WorldData world)
     {
@@ -435,6 +417,23 @@ public class Arena : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		
+        if (Input.GetMouseButton(1) || Input.GetKey(KeyCode.LeftControl))
+        {
+            float x = Input.mousePosition.x;
+            float y = Input.mousePosition.y;
+            if (m_mouse_down)
+            {
+                Transform cam = Camera.main.transform;
+                Vector3 delta = new Vector3(x - m_mouse_x, 0.0f, y - m_mouse_y);
+                cam.localPosition = cam.localPosition - delta / 100.0f;
+            }
+            m_mouse_x = x;
+            m_mouse_y = y;
+            m_mouse_down = true;
+        }
+        else
+        {
+            m_mouse_down = false;
+        }
 	}
 }
