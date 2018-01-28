@@ -137,7 +137,7 @@
 			"name" : "heal_all",
 			"title" : "Heal All",
 			"flavor" : "Bees! Bees!",
-			"rarity" : 3,
+			"rarity" : 0,
 			"actions" : ["heal_all"]
 		},
 		{ 
