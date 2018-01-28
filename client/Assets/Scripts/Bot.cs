@@ -14,6 +14,7 @@ public class Bot : MonoBehaviour {
         Turning,
         TurretTurning,
         Firing,
+        Healing,
         Action
     };
 
@@ -33,6 +34,7 @@ public class Bot : MonoBehaviour {
 
     private float m_pro_dist;
     private GameObject m_pro_obj;
+    private GameObject m_heal_obj;
 
     private int m_orientation = 0;
     private int m_turret_orientation = 0;
@@ -255,6 +257,20 @@ public class Bot : MonoBehaviour {
             m_status = Status.Dead;
             GameObject.Destroy(gameObject.transform.Find("turret").gameObject);
         }
+
+        if (n > 0)
+        {
+            m_status = Status.Healing;
+            m_animation_state = 0.0f;
+            m_heal_obj = GameObject.CreatePrimitive(PrimitiveType.Plane);
+            m_heal_obj.transform.parent = gameObject.transform.Find("turret");
+            m_heal_obj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            m_heal_obj.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+
+            Material mat = Resources.Load<Material>("UI/bitmaps/Materials/Heal");
+            MeshRenderer rend = m_heal_obj.GetComponent<MeshRenderer>();
+            rend.materials = new Material[] { mat };
+        }
     }
 
     public Arena.HitInfo Fire()
@@ -402,6 +418,17 @@ public class Bot : MonoBehaviour {
                     m_status = Status.Idle;
                 }
                 m_pro_obj.transform.localPosition = new Vector3(0.0f, 0.0f, pos);
+                break;
+            case Status.Healing:
+                m_animation_state += m_animation_rate * 3.0f;
+                if (m_animation_state > 1.0f)
+                {
+                    GameObject.Destroy(m_heal_obj);
+                    m_status = Status.Idle;
+                }
+                m_heal_obj.transform.localPosition = new Vector3(0.0f, m_animation_state, 0.0f);
+                float scale = 0.1f * m_animation_state;
+                m_heal_obj.transform.localScale = new Vector3(scale, scale, scale);
                 break;
         }
 	}
