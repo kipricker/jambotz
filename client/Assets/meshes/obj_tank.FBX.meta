@@ -9,17 +9,22 @@ ModelImporter:
     100002: tank_tread_mesh
     100004: turret
     100006: turret_mesh
+    100008: tank_body
     400000: //RootNode
     400002: tank_tread_mesh
     400004: turret
     400006: turret_mesh
+    400008: tank_body
     2100000: No Name
     2300000: tank_tread_mesh
     2300002: turret_mesh
+    2300004: tank_body
     3300000: tank_tread_mesh
     3300002: turret_mesh
+    3300004: tank_body
     4300000: turret_mesh
     4300002: tank_tread_mesh
+    4300004: tank_body
     9500000: //RootNode
   externalObjects: {}
   materials:
