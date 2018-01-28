@@ -36,8 +36,8 @@ public class Bot : MonoBehaviour {
     public void Spawn(int n)
     {
         Arena arena = m_arena.GetComponent<Arena>();
-        m_x_position = arena.GetSpawnX(0);
-        m_y_position = arena.GetSpawnY(0);
+        m_x_position = arena.GetSpawnX(n);
+        m_y_position = arena.GetSpawnY(n);
 
         gameObject.transform.parent = m_arena.transform;
         gameObject.transform.position = new Vector3(arena.GridX(m_x_position), 0.0f, arena.GridY(m_y_position));

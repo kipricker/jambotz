@@ -14,17 +14,24 @@ public class Game : MonoBehaviour
     public GameObject m_arena;
 
     private Actions m_actions;
+    private Cards m_cards;
     private Player[] m_players;
 
-    int m_action_player = -1;
+    int m_action_player = 0;
     int m_action_current;
-    Action[] m_action_sequence;
+    Stack<string> m_action_sequence;
+    Stack<string> m_card_sequence;
+    Stack<int> m_player_sequence;
 
 	// Use this for initialization
 	void Start ()
     {
+        m_action_sequence = new Stack<string>();
+        m_card_sequence = new Stack<string>();
+        m_player_sequence = new Stack<int>();
         m_players = new Player[4];
         m_actions = Actions.FromJSON("json/actions");
+        m_cards = Cards.FromJSON("json/cards");
 
         // Testing
         Arena arena = m_arena.GetComponent<Arena>();
@@ -32,13 +39,22 @@ public class Game : MonoBehaviour
         WorldData world = JsonUtility.FromJson<WorldData>(json_map);
         arena.LoadMap(world);
 
-        m_players[0].bot = Instantiate(Resources.Load("objects/obj_tank") as GameObject);
-        Bot bot = m_players[0].bot.GetComponent<Bot>();
-        bot.m_arena = m_arena;
-        bot.Spawn(0);
-        ActionSequence(0, new string[] { "move", "turn_right", "backup" });
-        //ActionSequence(0, new string[] { "move", "turn_right", "move" });
-        //ActionSequence(0, new string[] { "move", "move" });
+        {
+            m_players[0].bot = Instantiate(Resources.Load("objects/obj_tank") as GameObject);
+            Bot bot = m_players[0].bot.GetComponent<Bot>();
+            bot.m_arena = m_arena;
+            bot.Spawn(0);
+        }
+        {
+            m_players[1].bot = Instantiate(Resources.Load("objects/obj_tank") as GameObject);
+            Bot bot = m_players[1].bot.GetComponent<Bot>();
+            bot.m_arena = m_arena;
+            bot.Spawn(1);
+        }
+
+        string[] hand1 = new string[] { "turn_right", "move_1", "turn_left", "move_3", "turn_right" };
+        string[] hand2 = new string[] { "turn_left", "move_1", "turn_left", "move_3", "turn_right" };
+        PlayHands(new string[][] { hand1, hand2 });
     }
 
     public Action GetAction(string name)
@@ -46,45 +62,69 @@ public class Game : MonoBehaviour
         return m_actions.GetAction(name);
     }
 
+    void PlayHands(string[][] cards)
+    {
+        m_card_sequence.Clear();
+        m_player_sequence.Clear();
+        for (int i = cards[0].Length - 1; i >= 0; --i)
+        {
+            for (int p = 0; p < cards.Length; ++p)
+            {
+                m_player_sequence.Push(p);
+                m_card_sequence.Push(cards[p][i]);
+            }
+        }
+        Card card = m_cards.GetCard(m_card_sequence.Pop());
+        ActionSequence(m_player_sequence.Pop(), card.actions);
+    }
+
     void ActionSequence(int player, string[] actions)
     {
-        m_action_sequence = new Action[actions.Length];
-        for (int i = 0; i < actions.Length; ++i)
+        m_action_sequence.Clear();
+        for (int i = actions.Length - 1; i >= 0; --i)
         {
-            m_action_sequence[i] = GetAction(actions[i]);
+            m_action_sequence.Push(actions[i]);
         }
-        m_action_current = -1;
         m_action_player = player;
     }
 	
 	void FixedUpdate ()
     {
-        if (m_action_player > -1)
+        if (m_action_sequence.Count > 0)
         {
             Bot bot = m_players[m_action_player].bot.GetComponent<Bot>();
             if (bot.GetStatus() == Bot.Status.Idle)
             {
-                ++m_action_current;
-                if (m_action_current < m_action_sequence.Length)
+                Action action = m_actions.GetAction(m_action_sequence.Pop());
+                if (action.passive.actions != null)
                 {
-                    Action action = m_action_sequence[m_action_current];
-                    if (action.passive.player_move != 0)
+                    for (int i = action.passive.actions.Length - 1; i >= 0; --i)
                     {
-                        bot.Move(action.passive.player_move);
-                    }
-                    else if (action.passive.turn_body > 0)
-                    {
-                        bot.TurnRight();
-                    }
-                    else if (action.passive.turn_body < 0)
-                    {
-                        bot.TurnLeft();
+                        m_action_sequence.Push(action.passive.actions[i]);
                     }
                 }
-                else
+                
+                if (action.passive.player_move != 0)
                 {
-                    m_action_player = -1;
+                    bot.Move(action.passive.player_move);
                 }
+                else if (action.passive.turn_body > 0)
+                {
+                    bot.TurnRight();
+                }
+                else if (action.passive.turn_body < 0)
+                {
+                    bot.TurnLeft();
+                }
+            }
+        }
+        else
+        {
+            Bot bot = m_players[m_action_player].bot.GetComponent<Bot>();
+            if (m_card_sequence.Count > 0 && bot.GetStatus() == Bot.Status.Idle)
+            {
+                Card card = m_cards.GetCard(m_card_sequence.Pop());
+                ActionSequence(m_player_sequence.Pop(), card.actions);
             }
         }
 	}
