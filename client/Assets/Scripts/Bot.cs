@@ -9,6 +9,7 @@ public class Bot : MonoBehaviour {
         Idle = 0,
         Dead,
         Moving,
+        Pushing,
         Falling,
         Turning,
         Firing,
@@ -25,6 +26,8 @@ public class Bot : MonoBehaviour {
 
     private int m_target_x;
     private int m_target_y;
+    private Bot m_target_bot;
+    private Status m_target_status;
 
     private float m_pro_dist;
     private GameObject m_pro_obj;
@@ -83,14 +86,38 @@ public class Bot : MonoBehaviour {
             return false;
 
         m_animation_state = 0.0f;
-        if (arena.GridSafe(m_target_x, m_target_y))
-        {
-            m_status = Status.Moving;
-        }
-        else
+        if (!arena.GridSafe(m_target_x, m_target_y))
         {
             m_status = Status.Falling;
+            return true;
         }
+
+        Arena.MoveInfo info = arena.GridOcupied(m_target_x, m_target_y);
+        if (!info.free)
+        {
+            int ttx = 2 * m_target_x - m_x_position;
+            int tty = 2 * m_target_y - m_y_position;
+
+            if (!arena.CanMove(m_target_x, m_target_y, ttx, tty))
+                return false;
+
+            m_target_bot = info.bot;
+            m_status = Status.Pushing;
+            m_target_bot.m_target_x = ttx;
+            m_target_bot.m_target_y = tty;
+            m_target_bot.m_animation_state = 0.0f;
+            if (arena.GridSafe(ttx, tty))
+            {
+                m_target_status = Status.Moving;
+            }
+            else
+            {
+                m_target_status = Status.Falling;
+            }
+            return true;
+        }
+
+        m_status = Status.Moving;
         return true;
     }
 
@@ -154,9 +181,14 @@ public class Bot : MonoBehaviour {
             Vector3 axis = new Vector3(m_y_position - m_target_y, 0.0f, m_target_x - m_x_position);
             gameObject.transform.Rotate(axis, -180.0f * m_animation_rate, Space.World);
         }
+        else if (m_status == Status.Pushing && m_animation_state >= 0.4 && m_animation_state < 1.0f)
+        {
+            m_target_bot.m_status = m_target_status;
+        }
         switch (m_status)
         {
             case Status.Falling:
+            case Status.Pushing:
             case Status.Moving:
                 float x = (1.0f - m_animation_state) * arena.GridX(m_x_position) + m_animation_state * arena.GridX(m_target_x);
                 float y = (1.0f - m_animation_state) * arena.GridX(m_y_position) + m_animation_state * arena.GridX(m_target_y);
@@ -171,6 +203,11 @@ public class Bot : MonoBehaviour {
                     if (m_status == Status.Falling)
                     {
                         m_status = Status.Dead;
+                    }
+                    else if (m_status == Status.Pushing)
+                    {
+                        if (m_target_bot.m_status == Status.Idle)
+                            m_status = Status.Idle;
                     }
                     else
                     {

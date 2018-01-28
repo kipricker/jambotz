@@ -70,6 +70,12 @@ public class Arena : MonoBehaviour
         public Bot bot;
     }
 
+    public struct MoveInfo
+    {
+        public bool free;
+        public Bot bot;
+    }
+
     public float m_world_scale = 1.0f;
 
     private WorldData m_world;
@@ -184,6 +190,24 @@ public class Arena : MonoBehaviour
                 return i + 1;
         }
         return 0;
+    }
+
+    public MoveInfo GridOcupied(int x, int y)
+    {
+        MoveInfo result = new MoveInfo();
+        Transform root = gameObject.transform.Find("tanks");
+        for (int i = 0; i < root.childCount; ++i)
+        {
+            Bot bot = root.GetChild(i).gameObject.GetComponent<Bot>();
+            if (bot.At(x, y))
+            {
+                result.bot = bot;
+                result.free = false;
+                return result;
+            }
+        }
+        result.free = true;
+        return result;
     }
 
     public HitInfo Trace(int x0, int y0, int dir)
