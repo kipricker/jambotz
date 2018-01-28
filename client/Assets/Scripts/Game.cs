@@ -78,10 +78,19 @@ public class Game : MonoBehaviour
         m_player_sequence.Clear();
         for (int i = cards[0].Length - 1; i >= 0; --i)
         {
-            for (int p = 0; p < cards.Length; ++p)
+            if (cards[1][i].priority >= cards[0][i].priority)
             {
-                m_player_sequence.Push(p);
-				m_card_sequence.Push(cards[p][i].name);
+                m_player_sequence.Push(0);
+				m_card_sequence.Push(cards[0][i].name);
+                m_player_sequence.Push(1);
+                m_card_sequence.Push(cards[1][i].name);
+            }
+            else
+            {
+                m_player_sequence.Push(1);
+                m_card_sequence.Push(cards[1][i].name);
+                m_player_sequence.Push(0);
+                m_card_sequence.Push(cards[0][i].name);
             }
         }
         Card card = m_cards.GetCard(m_card_sequence.Pop());
