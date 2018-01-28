@@ -115,6 +115,13 @@ export default class Game {
                 this.ended = true;
             }
         });
+
+        if (this.players.length < this.config.playerCount && !this.active) {
+            const now = Math.floor( Date.now() / 1000 );
+            if (now - this.createdOn > 60) {
+                this.ended = true;
+            } 
+        }
     }
 
     getActionsSince(lastSeen) {

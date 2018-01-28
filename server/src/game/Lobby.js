@@ -13,11 +13,10 @@ export default class Lobby {
             game = this.pendingGames[0];
             game.updateIdle();
 
-            const now = Math.floor( Date.now() / 1000 );
-            if (game.ended || now - game.createdOn > 60) {
+            if (game.ended) {
                 this.pendingGames = this.pendingGames.slice(1);
                 game = null;
-            } 
+            }
         }
 
         if (!game) {
