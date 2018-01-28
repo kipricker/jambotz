@@ -41,7 +41,7 @@ public class Bot : MonoBehaviour {
 
         gameObject.transform.parent = m_arena.transform;
         gameObject.transform.position = new Vector3(arena.GridX(m_x_position), 0.0f, arena.GridY(m_y_position));
-        gameObject.transform.eulerAngles = new Vector3(0.0f, 90.0f, 0.0f);
+        gameObject.transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
     }
 
     public Status GetStatus()
@@ -54,20 +54,20 @@ public class Bot : MonoBehaviour {
         switch(m_orientation)
         {
             case 0:
-                m_target_x = m_x_position + n;
-                m_target_y = m_y_position;
-                break;
-            case 1:
                 m_target_x = m_x_position;
                 m_target_y = m_y_position + n;
                 break;
-            case 2:
+            case 1:
                 m_target_x = m_x_position - n;
                 m_target_y = m_y_position;
                 break;
-            case 3:
+            case 2:
                 m_target_x = m_x_position;
                 m_target_y = m_y_position - n;
+                break;
+            case 3:
+                m_target_x = m_x_position + n;
+                m_target_y = m_y_position;
                 break;
         }
 
@@ -89,14 +89,14 @@ public class Bot : MonoBehaviour {
 
     public void TurnLeft()
     {
-        m_target_orientation = (m_orientation + 3) % 4;
+        m_target_orientation = (m_orientation + 1) % 4;
         m_animation_state = 0.0f;
         m_status = Status.Turning;
     }
 
     public void TurnRight()
     {
-        m_target_orientation = (m_orientation + 1) % 4;
+        m_target_orientation = (m_orientation + 3) % 4;
         m_animation_state = 0.0f;
         m_status = Status.Turning;
     }
@@ -131,8 +131,8 @@ public class Bot : MonoBehaviour {
                 gameObject.transform.position = new Vector3(x, z, y);
                 break;
             case Status.Turning:
-                float a0 = (1 - m_orientation) * 90.0f;
-                float a1 = (1 - m_target_orientation) * 90.0f;
+                float a0 = m_orientation * 90.0f;
+                float a1 = m_target_orientation * 90.0f;
                 if (a1 - a0 > 180.0f)
                 {
                     a0 += 360.0f;
@@ -146,10 +146,10 @@ public class Bot : MonoBehaviour {
                 if (m_animation_state >= 1.0f)
                 {
                     m_orientation = m_target_orientation;
-                    a = (1 - m_orientation) * 90.0f;
+                    a = m_orientation * 90.0f;
                     m_status = Status.Idle;
                 }
-                gameObject.transform.eulerAngles = new Vector3(0.0f, a, 0.0f);
+                gameObject.transform.eulerAngles = new Vector3(0.0f, -a, 0.0f);
                 break;
         }
 	}

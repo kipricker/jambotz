@@ -71,9 +71,11 @@ public class Arena : MonoBehaviour
     private float m_sx;
     private float m_sy;
 
+    private string[] m_orientations;
+
     public void LoadMap(WorldData world)
     {
-        string[] orientations = new string[] { "west", "north", "east", "south" };
+        string[] m_orientations = new string[] { "west", "north", "east", "south" };
         ClearMap();
 
         if (m_tiles.tiles == null)
@@ -106,7 +108,7 @@ public class Arena : MonoBehaviour
                 col.transform.localPosition = new Vector3(GridX(x), 0.0f, 0.0f);
                 for (int i = 0; i < 4; ++i)
                 {
-                    GameObject node = new GameObject(orientations[i]);
+                    GameObject node = new GameObject(m_orientations[i]);
                     node.transform.parent = col.transform;
                     node.transform.localEulerAngles = new Vector3(0.0f, 90.0f * i, 0.0f);
                     node.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);

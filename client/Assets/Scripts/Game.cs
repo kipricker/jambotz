@@ -36,7 +36,7 @@ public class Game : MonoBehaviour
         Bot bot = m_players[0].bot.GetComponent<Bot>();
         bot.m_arena = m_arena;
         bot.Spawn(0);
-        //ActionSequence(0, new string[] { "move", "turn_left", "backup" });
+        ActionSequence(0, new string[] { "move", "turn_right", "backup" });
         //ActionSequence(0, new string[] { "move", "turn_right", "move" });
         //ActionSequence(0, new string[] { "move", "move" });
     }
@@ -74,11 +74,11 @@ public class Game : MonoBehaviour
                     }
                     else if (action.passive.turn_body > 0)
                     {
-                        bot.TurnLeft();
+                        bot.TurnRight();
                     }
                     else if (action.passive.turn_body < 0)
                     {
-                        bot.TurnRight();
+                        bot.TurnLeft();
                     }
                 }
                 else
