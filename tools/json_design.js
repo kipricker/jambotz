@@ -67,6 +67,12 @@ $(function() {
         $(".tools").append(tool.button);
     });
 
+    var maps;
+    $.getJSON(maps_json, function(json) {
+        maps = json;
+        console.log( "Loaded maps." );
+    });
+
     var mapper = $("<select name='maps'></select>");
     Object.keys(maps).forEach((key, map_name) => {
         $(mapper).append("<option value='" + map_name + "'>");
