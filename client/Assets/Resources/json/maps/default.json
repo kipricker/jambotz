@@ -12,7 +12,7 @@
             "tile_add_ons" : [
                 {
                     "name" : "wall",
-                    "edge" : "north",
+                    "edge" : "north"
                 },
                 {
                     "name" : "wall",
