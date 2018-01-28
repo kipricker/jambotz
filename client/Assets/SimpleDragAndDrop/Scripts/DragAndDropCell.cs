@@ -260,6 +260,14 @@ public class DragAndDropCell : MonoBehaviour, IDropHandler
         }
     }
 
+	public void OnItemPointerClick() {
+		DropDescriptor desc = new DropDescriptor();
+		desc.sourceCell = this;
+		desc.item = GetComponentInChildren<DragAndDropItem>(); // Get item from current cell
+
+		gameObject.SendMessageUpwards("OnItemSelected", desc, SendMessageOptions.DontRequireReceiver);
+	}
+
     private IEnumerator NotifyOnDragEnd(DropDescriptor desc)
     {
         // Wait end of drag operation

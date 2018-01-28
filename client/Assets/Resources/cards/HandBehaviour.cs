@@ -13,6 +13,8 @@ public class HandBehaviour : MonoBehaviour {
 		"5",
 	});
 
+	List<int> selectedCards = new List<int>();
+
 	List<GameObject> cardObjs = new List<GameObject>();
 
 	// Use this for initialization
@@ -37,11 +39,30 @@ public class HandBehaviour : MonoBehaviour {
 		
 	}
 
-	void OnItemPlace(DragAndDropCell.DropDescriptor desc)
+	void OnItemSelected(DragAndDropCell.DropDescriptor desc)
 	{
 		int srcSlotNumber = desc.sourceCell.slotNumber;
+		GameObject cardObj = cardObjs [srcSlotNumber];
+
+		if (selectedCards.Contains (srcSlotNumber)) {
+			Vector3 vec3 = cardObj.GetComponent<RectTransform> ().sizeDelta;
+			cardObj.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (vec3.x / 2, -vec3.y / 2, 0);
+
+			selectedCards.Remove (srcSlotNumber);
+		} else if (selectedCards.Count < 2) {
+			Vector3 vec3 = cardObj.GetComponent<RectTransform> ().sizeDelta;
+			cardObj.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (vec3.x / 2, -vec3.y / 4, 0);
+
+			selectedCards.Add (srcSlotNumber);
+		}
+	}
+
+	void OnItemPlace(DragAndDropCell.DropDescriptor desc)
+	{
+		selectedCards.Clear ();
+
+		int srcSlotNumber = desc.sourceCell.slotNumber;
 		int destSlotNumber = desc.destinationCell.slotNumber;
-		Debug.Log (destSlotNumber);
 
 		GameObject cardObj = cardObjs [srcSlotNumber];
 		cardObjs.RemoveAt (srcSlotNumber);

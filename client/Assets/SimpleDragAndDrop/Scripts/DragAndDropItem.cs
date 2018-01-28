@@ -7,7 +7,7 @@ using System.Collections;
 /// Every "drag and drop" item must contain this script
 /// </summary>
 [RequireComponent(typeof(Image))]
-public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     static public DragAndDropItem draggedItem;                                      // Item that is dragged now
     static public GameObject icon;                                                  // Icon of dragged item
@@ -16,6 +16,10 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public delegate void DragEvent(DragAndDropItem item);
     static public event DragEvent OnItemDragStartEvent;                             // Drag start event
     static public event DragEvent OnItemDragEndEvent;                               // Drag end event
+
+	public void OnPointerClick(PointerEventData pointerEventData) {
+		gameObject.SendMessageUpwards("OnItemPointerClick", SendMessageOptions.DontRequireReceiver);
+	}
 
     /// <summary>
     /// This item is dragged
