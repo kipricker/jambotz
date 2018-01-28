@@ -91,13 +91,13 @@ public class Bot : MonoBehaviour {
         switch (dir)
         {
             case "west":
-                --m_target_y;
+                ++m_target_y;
                 break;
             case "north":
                 ++m_target_x;
                 break;
             case "east":
-                ++m_target_y;
+                --m_target_y;
                 break;
             case "south":
                 --m_target_x;
