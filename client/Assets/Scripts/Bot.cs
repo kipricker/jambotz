@@ -184,6 +184,8 @@ public class Bot : MonoBehaviour {
         else if (m_status == Status.Pushing && m_animation_state >= 0.4 && m_animation_state < 1.0f)
         {
             m_target_bot.m_status = m_target_status;
+            if (m_target_status == Status.Falling)
+                m_status = Status.Moving;
         }
         switch (m_status)
         {
