@@ -85,7 +85,29 @@ public class Arena : MonoBehaviour
     private float m_sx;
     private float m_sy;
 
+    private float m_mouse_x;
+    private float m_mouse_y;
+
     private string[] m_orientations;
+
+    private void OnMouseDown()
+    {
+        m_mouse_x = Input.mousePosition.x;
+        m_mouse_y = Input.mousePosition.y;
+    }
+
+    void OnMouseDrag()
+    {
+        float x = Input.mousePosition.x;
+        float y = Input.mousePosition.y;
+
+        Transform cam = Camera.main.transform;
+        Vector3 delta = new Vector3(x - m_mouse_x, 0.0f, y - m_mouse_y);
+        cam.localPosition = cam.localPosition - delta / 100.0f;
+
+        m_mouse_x = x;
+        m_mouse_y = y;
+    }
 
     public void LoadMap(WorldData world)
     {
@@ -109,6 +131,10 @@ public class Arena : MonoBehaviour
 
         m_sx = -(w - 1) * m_world_scale / 2.0f;
         m_sy = -(h - 1) * m_world_scale / 2.0f;
+
+        BoxCollider collide = gameObject.AddComponent<BoxCollider>();
+        collide.size = new Vector3(m_world_scale * w, 3.0f, m_world_scale * h);
+        collide.isTrigger = true;
 
         GameObject tanks = new GameObject("tanks");
         tanks.transform.parent = gameObject.transform;
