@@ -41,8 +41,8 @@ public class Network : MonoBehaviour {
 	Queue<GameAction> m_gameActionQueue = new Queue<GameAction>();
 
 
-	string m_host = "localhost:3000";
-//	string m_host = "https://dry-spire-78198.herokuapp.com/";
+//	string m_host = "localhost:3000";
+	string m_host = "https://dry-spire-78198.herokuapp.com/";
 
 
 	void Start () {
