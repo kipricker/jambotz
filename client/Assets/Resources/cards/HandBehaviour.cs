@@ -23,14 +23,12 @@ public class HandBehaviour : MonoBehaviour {
 		selectedCards.Sort ();
 		selectedCards.Reverse ();
 		foreach (int i in selectedCards) {
-			Debug.Log (m_cards [i].name);
 			cards.Add (m_cards [i]);
 			Destroy (cardObjs [i]);
 			cardObjs.RemoveAt (i);
 			m_cards.RemoveAt (i);
 		}
 		selectedCards.Clear ();
-		Debug.Log (cards.Count);
 		m_network.GetComponent<Network> ().sendCards (cards.ToArray ());
 	}
 
@@ -48,6 +46,12 @@ public class HandBehaviour : MonoBehaviour {
 
 	public void SetHand(Card[] cards) {
 		m_cards.Clear ();
+		foreach (GameObject card in cardObjs) {
+			Destroy (card);
+		}
+
+		cardObjs.Clear ();
+
 		m_cards.AddRange(cards);
 		int cardNumber = 0;
 		foreach (Transform child in transform) {

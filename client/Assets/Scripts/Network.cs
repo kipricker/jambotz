@@ -34,7 +34,7 @@ public class Network : MonoBehaviour {
 	public GameObject m_game;
 
 	bool m_active = false;
-	int m_lastSeen = -1;
+	int m_lastSeen = 0;
 
 	JoinResponse m_joinResponse = new JoinResponse();
 
@@ -51,7 +51,6 @@ public class Network : MonoBehaviour {
 	}
 
 	public void sendCards(Card[] cards) {
-		Debug.Log (cards.Length);
 		StartCoroutine (iSendCards (cards));
 	}
 
@@ -79,13 +78,20 @@ public class Network : MonoBehaviour {
 	}
 
 	IEnumerator iSendCards(Card[] cards)
-	{
+	{	
+		string json = "[";
+		foreach (Card card in cards) {
+			json += JsonUtility.ToJson (card);
+			json += ",";
+		}
+		json = json.Substring (0, json.Length - 1);
+		json += "]";
+
+
 		WWWForm form = new WWWForm();
 		form.AddField("playerID", m_joinResponse.playerID);
 		form.AddField("gameID", m_joinResponse.gameID);
-		form.AddField("cards", JsonUtility.ToJson(cards));
-
-		Debug.Log (JsonUtility.ToJson (cards));
+		form.AddField("cards", json);
 
 		UnityWebRequest www = UnityWebRequest.Post (m_host + "/game/send-cards", form);
 		yield return www.SendWebRequest();
@@ -99,10 +105,19 @@ public class Network : MonoBehaviour {
 
 	IEnumerator iPlayHand(Card[] hand)
 	{
+		string json = "[";
+		foreach (Card card in hand) {
+			json += JsonUtility.ToJson (card);
+			json += ",";
+		}
+		json = json.Substring (0, json.Length - 1);
+		json += "]";
+
+
 		WWWForm form = new WWWForm();
 		form.AddField("playerID", m_joinResponse.playerID);
 		form.AddField("gameID", m_joinResponse.gameID);
-		form.AddField("hand", JsonUtility.ToJson(hand));
+		form.AddField("hand", json);
 
 		UnityWebRequest www = UnityWebRequest.Post (m_host + "/game/play-hand", form);
 		yield return www.SendWebRequest();
@@ -145,6 +160,7 @@ public class Network : MonoBehaviour {
 				string json = www.downloadHandler.text;
 				GameUpdate gameUpdate = JsonUtility.FromJson<GameUpdate> (json);
 				Card[][] hands = null;
+				m_lastSeen += gameUpdate.latestActions.Length;
 				foreach (GameAction gameAction in gameUpdate.latestActions) {
 					if (gameAction.gameStarted) {
 						m_active = true;
@@ -154,8 +170,9 @@ public class Network : MonoBehaviour {
 						yield return iGetHand ();
 					}
 
-					if (gameAction.player_cards_sent) {
 
+					if (gameAction.player_cards_sent) {
+						yield return iGetHand ();
 					}
 
 					if (gameAction.player_played_hand.hand != null) {
@@ -167,7 +184,6 @@ public class Network : MonoBehaviour {
 					}
 
 					m_gameActionQueue.Enqueue (gameAction);
-					m_lastSeen++;
 				}
 
 				if (hands != null) {

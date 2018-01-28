@@ -97,10 +97,11 @@ export default class Game {
     }
 
     getActionsSince(lastSeen) {
-        if (this.actions.length > 0) {
-            return this.actions.slice(lastSeen + 1);
-        } else {
-            return [];
+        const actions = [];
+        for (let i = lastSeen; i < this.actions.length; i++) {
+            actions.push(this.actions[i]);
         }
+        return actions;
     }
 }
+
