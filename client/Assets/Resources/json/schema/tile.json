@@ -2,5 +2,6 @@
     "name" : "tile_name",
     "asset" : "tilesets/tile_asset_base_name",
     "parent" : "parent_tile",
+    "actions" : ["push_target"],
     "invalid_add_ons" : []
 }

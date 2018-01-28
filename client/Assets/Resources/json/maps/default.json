@@ -125,8 +125,7 @@
         },
         {
             "x" : 3, "y" : 1,
-            "tile" : "pusher",
-            "orientation" : "east"
+            "tile" : "blank"
         },
         {
             "x" : 3, "y" : 2,

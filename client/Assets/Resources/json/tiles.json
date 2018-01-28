@@ -6,11 +6,13 @@
         },
         {
             "name" : "conveyour",
-            "asset" : "tileset/tile_belt"
+            "asset" : "tileset/tile_belt",
+            "actions" : ["push_target"]
         },
         {
             "name" : "pusher",
-            "asset" : "tileset/tile_pusher"
+            "asset" : "tileset/tile_pusher",
+            "actions" : ["push_target"]
         }
     ]
 }

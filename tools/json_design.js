@@ -58,48 +58,148 @@ $(function() {
         // "variation" : "tile_variation"
 
         var map_layout = [];
-        Object.values(map.map_data).forEach((tile) => {
-            var cell = "<div class='tile'></div>";
-            var laser = "<div class='laser'></div>";
-            $(cell).append(laser);
-            $(cell).prop("top", tile.x + "px");
-            $(cell).prop("left", tile.y + "px");
-
-            $(cell).addClass(tile.tile);
-
-            Object.values(tile.tile_add_ons).forEach((add_on) => {
-                switch(add_on.name) {
-                    case "wall":
-                        $(cell).addClass('tile_wall_' + add_on.edge);
-                        break;
-                    case "laser":
-                        $(laser).addClass('tile_laser_' + add_on.edge);
-                        break;
-                }
-            })
-            $workspace.append(cell);
-        });
-        
-        Object.keys(tool.schema).forEach((key) => {
-            var value = item[key];
-            var enabled = value != undefined;
-            if (value == undefined)
-                value = tool.schema[key];
-
-            var $item = $('<div class="variable"></div>');
-            $item.append('<span class="key">' + key + '</span>');
-            if (typeof tool.schema[key] == "boolean") {
-                $item.append('<input class="text" type="checkbox" ' + (value ? "checked" : "unchecked") + " " + (enabled ? "enabled" : "disabled") + '/>');
-
-            } else {
-                $item.append('<input class="text" type="text" placeholder="' + value + '" value="' + value + '" ' + (enabled ? "enabled" : "disabled") + '/>');
+        for(i=0; i < map.height; i++) {
+            var row = [];
+            for(j=0; j < map.width; j++) {
+                var cell = $("<div class='tile'></div>").css("top", (i * 20) + "px").css("left", (j * 20) + "px");
+                row.push(cell);
+                $workspace.append(cell);
             }
-            $item.append($('<input class="check" type="checkbox" ' + (enabled ? "checked" : "unchecked") + '/>').change(function() {
-                var enabled = $(this).prop( "checked" );
-                $(this).siblings(".text").prop('disabled', !enabled);
-            }));
-            $item.append('<br/>');
-            $workspace.append($item);
+            map_layout.push(row);
+        }
+
+        $workspace.contextMenu({
+            selector: '.tile', 
+            items: {
+                tile_type: {
+                    name: "Tile Type",
+                    items: {
+                        blank : {
+                            name: "Blank",
+                            type: "radio",
+                            radio: "tile_type",
+                            value: "blank",
+                        },
+                        pusher : {
+                            name: "Pusher",
+                            type: "radio",
+                            radio: "tile_type",
+                            value: "pusher",
+                        },
+                        conveyour : {
+                            name: "Conveyour",
+                            type: "radio",
+                            radio: "tile_type",
+                            value: "conveyour",
+                        },
+                        orientation: {
+                            name: "Direction",
+                            type: "select",
+                            options: ["north", "south", "east", "west"]
+                        }
+                    }
+                },
+                walls: {
+                    name: "Walls",
+                    items: {
+                        wall_north: {
+                            name: "North",
+                            type: "checkbox",
+                            value: "north"
+                        },
+                        wall_south: {
+                            name: "South",
+                            type: "checkbox",
+                            value: "south"
+                        },
+                        wall_east: {
+                            name: "East",
+                            type: "checkbox",
+                            value: "east"
+                        },
+                        wall_west: {
+                            name: "West",
+                            type: "checkbox",
+                            value: "west"
+                        }
+                    }
+                },
+                lasers: {
+                    name: "Lasers",
+                    items: {
+                        north: {
+                            name: "North",
+                            type: "checkbox",
+                            value: "north",
+                            disabled: function(key, opt){
+                                return !opt.inputs.wall_north.$input.prop("checked");
+                            }
+                        },
+                        south: {
+                            name: "South",
+                            type: "checkbox",
+                            value: "south",
+                            disabled: function(key, opt){
+                                return !opt.inputs.wall_south.$input.prop("checked");
+                            }
+                        },
+                        east: {
+                            name: "East",
+                            type: "checkbox",
+                            value: "east",
+                            disabled: function(key, opt){
+                                return !opt.inputs.wall_east.$input.prop("checked");
+                            }
+                        },
+                        west: {
+                            name: "West",
+                            type: "checkbox",
+                            value: "west",
+                            disabled: function(key, opt){
+                                return !opt.inputs.wall_west.$input.prop("checked");
+                            }
+                        }
+                    }
+                },
+            }//, 
+            // events: {
+            //     show: function(opt) {
+            //         // this is the trigger element
+            //         var $this = this;
+            //         // import states from data store 
+            //         $.contextMenu.setInputValues(opt, $this.data());
+            //         // this basically fills the input commands from an object
+            //         // like {name: "foo", yesno: true, radio: "3", &hellip;}
+            //     }, 
+            //     hide: function(opt) {
+            //         // this is the trigger element
+            //         var $this = this;
+            //         // export states to data store
+            //         $.contextMenu.getInputValues(opt, $this.data());
+            //         // this basically dumps the input commands' values to an object
+            //         // like {name: "foo", yesno: true, radio: "3", &hellip;}
+            //     }
+            // }
+        });
+
+        Object.values(map.map_data).forEach((tile) => {
+            var laser = $("<div class='laser'></div>");
+            var cell = map_layout[tile.x][tile.y];
+            cell.addClass('tile_' + tile.tile);
+            cell.append(laser);
+
+            if (tile.tile_add_ons != undefined) {
+                Object.values(tile.tile_add_ons).forEach((add_on) => {
+                    switch(add_on.name) {
+                        case "wall":
+                            cell = cell.addClass('tile_wall_' + add_on.edge);
+                            break;
+                        case "laser":
+                            laser = laser.addClass('tile_laser_' + add_on.edge);
+                            break;
+                    }
+                })
+            }
         });
     };
 
