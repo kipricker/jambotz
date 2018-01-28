@@ -340,6 +340,8 @@ public class Arena : MonoBehaviour
 
     public bool CanMove(int x0, int y0, int x1, int y1)
     {
+        if (x1 < 0 || y1 < 0 || x1 >= m_world.width || y1 >= m_world.height)
+            return false;
         int dx = (int)Mathf.Sign(x1 - x0);
         int dy = (int)Mathf.Sign(y1 - y0);
         if (x0 == x1)

@@ -40,14 +40,22 @@
 			"flavor": "One, Two, One, Two...",
 			"actions": ["move", "move"]
 		},
-		{ 
-			"name" : "move_3",
-			"title": "Sprint",
-			"rarity" : 6,
-			"priority" : 725,
-			"flavor": "Huff Huff.",
-			"actions": ["move", "move", "move"]
-		},
+    {
+      "name": "move_3",
+      "title": "Sprint",
+      "rarity": 6,
+      "priority": 725,
+      "flavor": "Huff Huff.",
+      "actions": [ "move", "move", "move" ]
+    },
+    {
+      "name": "run_and_gun",
+      "title": "Run-and-Gun",
+      "rarity": 3,
+      "priority": 900,
+      "flavor": "In your face!",
+      "actions":  [ "move", "fire" ]
+    },
 		{ 
  			"name" : "backup",
 			"title": "Backup",

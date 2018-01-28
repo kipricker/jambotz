@@ -107,6 +107,12 @@ public class Bot : MonoBehaviour {
         if (!arena.CanMove(m_x_position, m_y_position, m_target_x, m_target_y))
             return false;
 
+        Arena.MoveInfo info = arena.GridOcupied(m_target_x, m_target_y);
+        if (!info.free)
+        {
+            return false;
+        }
+
         Transform root = arena.transform.Find(string.Format("Row{0}/Col{1}", m_y_position, m_x_position));
         m_tile_anim = root.GetChild(root.childCount - 1).gameObject.GetComponent<Animator>();
         if (m_tile_anim != null)
@@ -114,14 +120,15 @@ public class Bot : MonoBehaviour {
             m_tile_anim.speed = 1.0f;
         }
 
-        Arena.MoveInfo info = arena.GridOcupied(m_target_x, m_target_y);
-        if (!info.free)
-        {
-            return false;
-        }
-
         m_animation_state = 0.0f;
-        m_status = Status.Moving;
+        if (arena.GridSafe(m_target_x, m_target_y))
+        {
+            m_status = Status.Moving;
+        }
+        else
+        {
+            m_status = Status.Falling;
+        }
         return true;
     }
 

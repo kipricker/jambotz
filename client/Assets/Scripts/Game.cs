@@ -54,8 +54,8 @@ public class Game : MonoBehaviour
             bot.Spawn(1);
         }
 
-        string[] hand1 = new string[] { "move_1", "turn_right", "move_2", "fire_1", "heal_2" };
-        string[] hand2 = new string[] { "turn_left", "move_1", "turn_left", "move_3", "fire_1" };
+        string[] hand1 = new string[] { "move_1", "turn_right", "move_2", "look_right", "run_and_gun" };
+        string[] hand2 = new string[] { "turn_left", "move_1", "turn_left", "move_3", "heal_2" };
         PlayHands(new string[][] { hand1, hand2 });
     }
 
