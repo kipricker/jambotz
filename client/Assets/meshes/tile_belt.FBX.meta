@@ -1,29 +1,38 @@
 fileFormatVersion: 2
 guid: bd483e205fa8b7a4cbe06782b6c59802
-timeCreated: 1517037961
+timeCreated: 1517120005
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: belt 1
-    100002: //RootNode
-    100004: walls
-    100006: wallsflipped
-    400000: belt 1
-    400002: //RootNode
-    400004: walls
-    400006: wallsflipped
+    100000: Cylinder010
+    100002: Roller_001
+    100004: Roller_002
+    100006: Roller_003
+    100008: Roller_004
+    100010: Roller_005
+    100012: Roller_006
+    100014: Roller_007
+    100016: Roller_008
+    100018: Roller_009
+    100020: roller_rig_root
+    100022: //RootNode
+    400000: Cylinder010
+    400002: Roller_001
+    400004: Roller_002
+    400006: Roller_003
+    400008: Roller_004
+    400010: Roller_005
+    400012: Roller_006
+    400014: Roller_007
+    400016: Roller_008
+    400018: Roller_009
+    400020: roller_rig_root
+    400022: //RootNode
     2100000: No Name
-    2300000: belt 1
-    2300002: walls
-    2300004: wallsflipped
-    3300000: belt 1
-    3300002: walls
-    3300004: wallsflipped
-    4300000: walls
-    4300002: belt
-    4300004: wallsflipped
+    4300000: Cylinder010
     9500000: //RootNode
+    13700000: Cylinder010
   externalObjects: {}
   materials:
     importMaterials: 1
