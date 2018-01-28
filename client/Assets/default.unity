@@ -155,8 +155,6 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-<<<<<<< HEAD
-=======
     m_TransformParent: {fileID: 1030356857}
     m_Modifications:
     - target: {fileID: 224913476686859090, guid: 4d9a13cf8d77543728d06a8d63176c41,
@@ -1739,7 +1737,6 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
->>>>>>> Attempt to fix resolutions for multiple screens
     m_TransformParent: {fileID: 1030356857}
     m_Modifications:
     - target: {fileID: 224913476686859090, guid: 4d9a13cf8d77543728d06a8d63176c41,
@@ -10576,10 +10573,7 @@ RectTransform:
   - {fileID: 1611918797}
   - {fileID: 840447591}
   - {fileID: 1372751265}
-<<<<<<< HEAD
-=======
   - {fileID: 840103069}
->>>>>>> Attempt to fix resolutions for multiple screens
   m_Father: {fileID: 34906765}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
