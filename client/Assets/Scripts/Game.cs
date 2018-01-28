@@ -53,7 +53,7 @@ public class Game : MonoBehaviour
         }
 
         string[] hand1 = new string[] { "turn_right", "move_1", "turn_left", "move_3", "fire_1" };
-        string[] hand2 = new string[] { "turn_left", "move_1", "turn_left", "move_3", "fire_1" };
+        string[] hand2 = new string[] { "turn_left", "move_1", "turn_left", "fire_1", "move_3" };
         PlayHands(new string[][] { hand1, hand2 });
     }
 
@@ -118,7 +118,7 @@ public class Game : MonoBehaviour
                 }
                 else if (action.name == "fire")
                 {
-                    bot.Fire();
+                    bool hit = bot.Fire();
                 }
             }
         }

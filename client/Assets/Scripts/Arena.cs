@@ -185,6 +185,46 @@ public class Arena : MonoBehaviour
         return 0;
     }
 
+    public HitInfo Trace(int x0, int y0, int dir)
+    {
+        bool impact = false;
+        HitInfo result = new HitInfo();
+
+        int dist = 0;
+        int dx = 0;
+        int dy = 0;
+        switch (dir)
+        {
+            case 0:
+                dy = 1;
+                break;
+            case 1:
+                dx = -1;
+                break;
+            case 2:
+                dy = -1;
+                break;
+            case 3:
+                dx = 1;
+                break;
+        }
+
+        while (!impact)
+        {
+            int x = x0 + (dist + 1) * dx;
+            int y = y0 + (dist + 1) * dy;
+
+            if (!CanMove(x0, y0, x, y))
+            {
+                result.hit = false;
+                result.distance = dist + 0.5f;
+                break;
+            }
+            ++dist;
+        }
+        return result;
+    }
+
     public bool CanMove(int x0, int y0, int x1, int y1)
     {
         int dx = (int)Mathf.Sign(x1 - x0);

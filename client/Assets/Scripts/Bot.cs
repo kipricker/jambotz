@@ -105,9 +105,12 @@ public class Bot : MonoBehaviour {
         m_status = Status.Turning;
     }
 
-    public void Fire()
+    public bool Fire()
     {
-        m_pro_dist = 1.0f;
+        Arena arena = m_arena.GetComponent<Arena>();
+        Arena.HitInfo hit = arena.Trace(m_x_position, m_y_position, m_orientation);
+
+        m_pro_dist = hit.distance;
         m_animation_state = 0.0f;
         m_status = Status.Firing;
 
@@ -115,6 +118,8 @@ public class Bot : MonoBehaviour {
         m_pro_obj.transform.parent = gameObject.transform.Find("turret");
         m_pro_obj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
         m_pro_obj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+
+        return hit.hit;
     }
 
     void FixedUpdate ()
@@ -168,10 +173,11 @@ public class Bot : MonoBehaviour {
                 gameObject.transform.eulerAngles = new Vector3(0.0f, -a, 0.0f);
                 break;
             case Status.Firing:
-                float pos = m_animation_state * m_animation_state;
-                m_animation_state += m_animation_rate * 3.0f;
+                float pos = m_animation_state;
+                m_animation_state += m_animation_rate * 10.0f;
                 if (m_animation_state > m_pro_dist)
                 {
+                    GameObject.Destroy(m_pro_obj);
                     m_status = Status.Idle;
                 }
                 m_pro_obj.transform.localPosition = new Vector3(0.0f, 0.0f, pos);
