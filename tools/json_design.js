@@ -35,7 +35,10 @@ $(function() {
         });
     };
 
-    function SetupMapSpace(map) {
+
+    var global_brush = "blank";
+
+    function SetupMapSpace(map, map_name) {
 
         var map_layout = [];
 
@@ -45,7 +48,12 @@ $(function() {
 
         var $map_space = $("<div class='map_space'></div>");
 
-        var $reset = $("<button>Reset</button>");
+        var $blank_brush = $("<button class='brushes' value='blank'>Blank</button>");
+        var $conveyour_brush = $("<button class='brushes' value='conveyour'>Conveyour</button>");
+        var $laser_brush = $("<button value='laser'>Laser</button>");
+        var $wall_brush = $("<button value='wall'>Wall</button>");
+
+        
         var $save = $("<button>Save</button>").click(() => {
             var new_map = map;
             new_map.map_data = [];
@@ -147,37 +155,17 @@ $(function() {
 
             var anchor = document.createElement('a');
             anchor.href = url;
-            anchor.download = map_name + ".json";
+            anchor.download = map_name+ ".json";
             anchor.click();
         });
 
-        $workspace.append($reset);
-        $workspace.append($save);
-        
-        $workspace.append($map_space);
+        $workspace.append($blank_brush);
+        $workspace.append($conveyour_brush);
 
-        var $map_space = $("<div class='map_space'></div>");
-
-        var $reset = $("<button>Reset</button>");
-        var $save = $("<button>Save</button>").click(() => {
-            var new_map = map;
-            new_map.tile_add_ons = [];
-            for (i=0; i < new_map.width; i++) {
-                for (j=0; j < new_map.height; j++) {
-                    var cell = map_layout[i][j];
-                    var type = "";
-                    if (cell.hasClass("tile_blank")) {
-                        type = "blank";
-                    } else if (cell.hasClass("tile_conveyour")) {
-                        type = "conveyour";   
-                    } else if (cell.hasClass("tile_pusher")) {
-                        type = "pusher";
-                    }
-                }
-            }
+        $(".brushes").click(function() {
+            global_brush = $(this).val();
         });
 
-        $workspace.append($reset);
         $workspace.append($save);
         
         $workspace.append($map_space);
@@ -220,7 +208,7 @@ $(function() {
                     type = "";
                     break;
                 case "":
-                    type = "blank";
+                    type = global_brush;
                     break;
             }
 
@@ -383,16 +371,16 @@ $(function() {
             cell.addClass('tile_' + tile.tile);
 
             if (tile.orientation != undefined)
-                orientation.addClass("tile_orientation_" + tile.orientation);
+                cell.find(".orientation").addClass("tile_orientation_" + tile.orientation);
 
             if (tile.tile_add_ons != undefined) {
                 Object.values(tile.tile_add_ons).forEach((add_on) => {
                     switch(add_on.name) {
                         case "wall":
-                            cell = cell.addClass('tile_wall_' + add_on.edge);
+                            cell.addClass('tile_wall_' + add_on.edge);
                             break;
                         case "laser":
-                            laser = laser.addClass('tile_laser_' + add_on.edge);
+                            cell.find(".laser").addClass('tile_laser_' + add_on.edge);
                             break;
                     }
                 })

@@ -1,1 +1,154 @@
-{"name":"Battle Royale x10","height":10,"width":10,"starting_locations":[{"x":0,"y":0,"orientation":"east"},{"x":4,"y":4,"orientation":"west"}],"map_data":[{"tile":"blank","x":0,"y":0,"tile_add_ons":[]},{"tile":"blank","x":0,"y":6,"tile_add_ons":[]},{"tile":"blank","x":1,"y":1,"tile_add_ons":[]},{"tile":"conveyour","x":1,"y":3,"tile_add_ons":[{"name":"wall","edge":"north"},{"name":"wall","edge":"east"},{"name":"wall","edge":"west"},{"name":"laser","edge":"north"}],"orientation":"north"},{"tile":"blank","x":1,"y":5,"tile_add_ons":[]},{"tile":"blank","x":2,"y":2,"tile_add_ons":[]},{"tile":"blank","x":2,"y":3,"tile_add_ons":[]},{"tile":"blank","x":2,"y":4,"tile_add_ons":[]},{"tile":"blank","x":4,"y":2,"tile_add_ons":[{"name":"wall","edge":"north"},{"name":"wall","edge":"south"}]},{"tile":"blank","x":4,"y":3,"tile_add_ons":[{"name":"wall","edge":"north"},{"name":"wall","edge":"south"}]},{"tile":"blank","x":4,"y":4,"tile_add_ons":[{"name":"wall","edge":"north"},{"name":"wall","edge":"south"}]},{"tile":"blank","x":5,"y":1,"tile_add_ons":[]},{"tile":"blank","x":5,"y":5,"tile_add_ons":[]},{"tile":"blank","x":6,"y":0,"tile_add_ons":[]},{"tile":"blank","x":6,"y":6,"tile_add_ons":[]}]}
+{
+    "name": "Battle Royale x10",
+    "height": 10,
+    "width": 10,
+    "starting_locations": [
+        {
+            "x": 0,
+            "y": 0,
+            "orientation": "east"
+        },
+        {
+            "x": 4,
+            "y": 4,
+            "orientation": "west"
+        }
+    ],
+    "map_data": [
+        {
+            "tile": "blank",
+            "x": 0,
+            "y": 0,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 0,
+            "y": 6,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 1,
+            "y": 1,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "conveyour",
+            "x": 1,
+            "y": 3,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "north"
+                },
+                {
+                    "name": "wall",
+                    "edge": "east"
+                },
+                {
+                    "name": "wall",
+                    "edge": "west"
+                },
+                {
+                    "name": "laser",
+                    "edge": "north"
+                }
+            ],
+            "orientation": "north"
+        },
+        {
+            "tile": "blank",
+            "x": 1,
+            "y": 5,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 2,
+            "y": 2,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 2,
+            "y": 3,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 2,
+            "y": 4,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 4,
+            "y": 2,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "north"
+                },
+                {
+                    "name": "wall",
+                    "edge": "south"
+                }
+            ]
+        },
+        {
+            "tile": "blank",
+            "x": 4,
+            "y": 3,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "north"
+                },
+                {
+                    "name": "wall",
+                    "edge": "south"
+                }
+            ]
+        },
+        {
+            "tile": "blank",
+            "x": 4,
+            "y": 4,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "north"
+                },
+                {
+                    "name": "wall",
+                    "edge": "south"
+                }
+            ]
+        },
+        {
+            "tile": "blank",
+            "x": 5,
+            "y": 1,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 5,
+            "y": 5,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 6,
+            "y": 0,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 6,
+            "y": 6,
+            "tile_add_ons": []
+        }
+    ]
+}

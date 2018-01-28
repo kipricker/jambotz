@@ -1,0 +1,715 @@
+{
+    "name": "Battle Royale x10",
+    "height": 10,
+    "width": 10,
+    "starting_locations": [
+        {
+            "x": 1,
+            "y": 1,
+            "orientation": "east"
+        },
+        {
+            "x": 8,
+            "y": 8,
+            "orientation": "west"
+        },
+        {
+            "x": 1,
+            "y": 8,
+            "orientation": "north"
+        },
+        {
+            "x": 8,
+            "y": 1,
+            "orientation": "south"
+        }
+    ],
+    "map_data": [
+        {
+            "tile": "conveyour",
+            "x": 0,
+            "y": 1,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "north"
+                },
+                {
+                    "name": "wall",
+                    "edge": "west"
+                }
+            ],
+            "orientation": "north"
+        },
+        {
+            "tile": "conveyour",
+            "x": 0,
+            "y": 2,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "north"
+                }
+            ],
+            "orientation": "north"
+        },
+        {
+            "tile": "conveyour",
+            "x": 0,
+            "y": 3,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "north"
+                }
+            ],
+            "orientation": "north"
+        },
+        {
+            "tile": "conveyour",
+            "x": 0,
+            "y": 6,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "north"
+                }
+            ],
+            "orientation": "north"
+        },
+        {
+            "tile": "conveyour",
+            "x": 0,
+            "y": 7,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "north"
+                }
+            ],
+            "orientation": "north"
+        },
+        {
+            "tile": "conveyour",
+            "x": 0,
+            "y": 8,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "north"
+                },
+                {
+                    "name": "wall",
+                    "edge": "east"
+                }
+            ],
+            "orientation": "north"
+        },
+        {
+            "tile": "conveyour",
+            "x": 1,
+            "y": 0,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "north"
+                },
+                {
+                    "name": "wall",
+                    "edge": "west"
+                }
+            ],
+            "orientation": "west"
+        },
+        {
+            "tile": "blank",
+            "x": 1,
+            "y": 1,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 1,
+            "y": 2,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 1,
+            "y": 3,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 1,
+            "y": 6,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 1,
+            "y": 7,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 1,
+            "y": 8,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "conveyour",
+            "x": 1,
+            "y": 9,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "north"
+                },
+                {
+                    "name": "wall",
+                    "edge": "east"
+                }
+            ],
+            "orientation": "east"
+        },
+        {
+            "tile": "conveyour",
+            "x": 2,
+            "y": 0,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "west"
+                }
+            ],
+            "orientation": "west"
+        },
+        {
+            "tile": "blank",
+            "x": 2,
+            "y": 1,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 2,
+            "y": 2,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 2,
+            "y": 3,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "conveyour",
+            "x": 2,
+            "y": 4,
+            "tile_add_ons": [],
+            "orientation": "east"
+        },
+        {
+            "tile": "conveyour",
+            "x": 2,
+            "y": 5,
+            "tile_add_ons": [],
+            "orientation": "west"
+        },
+        {
+            "tile": "blank",
+            "x": 2,
+            "y": 6,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 2,
+            "y": 7,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 2,
+            "y": 8,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "conveyour",
+            "x": 2,
+            "y": 9,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "east"
+                }
+            ],
+            "orientation": "east"
+        },
+        {
+            "tile": "conveyour",
+            "x": 3,
+            "y": 0,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "west"
+                }
+            ],
+            "orientation": "west"
+        },
+        {
+            "tile": "blank",
+            "x": 3,
+            "y": 1,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 3,
+            "y": 2,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 3,
+            "y": 3,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 3,
+            "y": 4,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 3,
+            "y": 5,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 3,
+            "y": 6,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 3,
+            "y": 7,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 3,
+            "y": 8,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "conveyour",
+            "x": 3,
+            "y": 9,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "east"
+                }
+            ],
+            "orientation": "east"
+        },
+        {
+            "tile": "conveyour",
+            "x": 4,
+            "y": 2,
+            "tile_add_ons": [],
+            "orientation": "south"
+        },
+        {
+            "tile": "blank",
+            "x": 4,
+            "y": 3,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 4,
+            "y": 5,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "south"
+                },
+                {
+                    "name": "wall",
+                    "edge": "west"
+                },
+                {
+                    "name": "laser",
+                    "edge": "south"
+                },
+                {
+                    "name": "laser",
+                    "edge": "west"
+                }
+            ]
+        },
+        {
+            "tile": "blank",
+            "x": 4,
+            "y": 6,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "conveyour",
+            "x": 4,
+            "y": 7,
+            "tile_add_ons": [],
+            "orientation": "south"
+        },
+        {
+            "tile": "conveyour",
+            "x": 5,
+            "y": 2,
+            "tile_add_ons": [],
+            "orientation": "north"
+        },
+        {
+            "tile": "blank",
+            "x": 5,
+            "y": 3,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 5,
+            "y": 4,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "north"
+                },
+                {
+                    "name": "wall",
+                    "edge": "east"
+                },
+                {
+                    "name": "laser",
+                    "edge": "north"
+                },
+                {
+                    "name": "laser",
+                    "edge": "east"
+                }
+            ]
+        },
+        {
+            "tile": "blank",
+            "x": 5,
+            "y": 6,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "conveyour",
+            "x": 5,
+            "y": 7,
+            "tile_add_ons": [],
+            "orientation": "north"
+        },
+        {
+            "tile": "conveyour",
+            "x": 6,
+            "y": 0,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "west"
+                }
+            ],
+            "orientation": "west"
+        },
+        {
+            "tile": "blank",
+            "x": 6,
+            "y": 1,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 6,
+            "y": 2,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 6,
+            "y": 3,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 6,
+            "y": 4,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 6,
+            "y": 5,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 6,
+            "y": 6,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 6,
+            "y": 7,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 6,
+            "y": 8,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "conveyour",
+            "x": 6,
+            "y": 9,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "east"
+                }
+            ],
+            "orientation": "east"
+        },
+        {
+            "tile": "conveyour",
+            "x": 7,
+            "y": 0,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "west"
+                }
+            ],
+            "orientation": "west"
+        },
+        {
+            "tile": "blank",
+            "x": 7,
+            "y": 1,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 7,
+            "y": 2,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 7,
+            "y": 3,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "conveyour",
+            "x": 7,
+            "y": 4,
+            "tile_add_ons": [],
+            "orientation": "east"
+        },
+        {
+            "tile": "conveyour",
+            "x": 7,
+            "y": 5,
+            "tile_add_ons": [],
+            "orientation": "west"
+        },
+        {
+            "tile": "blank",
+            "x": 7,
+            "y": 6,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 7,
+            "y": 7,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 7,
+            "y": 8,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "conveyour",
+            "x": 7,
+            "y": 9,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "east"
+                }
+            ],
+            "orientation": "east"
+        },
+        {
+            "tile": "conveyour",
+            "x": 8,
+            "y": 0,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "south"
+                },
+                {
+                    "name": "wall",
+                    "edge": "west"
+                }
+            ],
+            "orientation": "west"
+        },
+        {
+            "tile": "blank",
+            "x": 8,
+            "y": 1,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 8,
+            "y": 2,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 8,
+            "y": 3,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 8,
+            "y": 6,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 8,
+            "y": 7,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "blank",
+            "x": 8,
+            "y": 8,
+            "tile_add_ons": []
+        },
+        {
+            "tile": "conveyour",
+            "x": 8,
+            "y": 9,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "south"
+                },
+                {
+                    "name": "wall",
+                    "edge": "east"
+                }
+            ],
+            "orientation": "east"
+        },
+        {
+            "tile": "conveyour",
+            "x": 9,
+            "y": 1,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "south"
+                },
+                {
+                    "name": "wall",
+                    "edge": "west"
+                }
+            ],
+            "orientation": "south"
+        },
+        {
+            "tile": "conveyour",
+            "x": 9,
+            "y": 2,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "south"
+                }
+            ],
+            "orientation": "south"
+        },
+        {
+            "tile": "conveyour",
+            "x": 9,
+            "y": 3,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "south"
+                }
+            ],
+            "orientation": "south"
+        },
+        {
+            "tile": "conveyour",
+            "x": 9,
+            "y": 6,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "south"
+                }
+            ],
+            "orientation": "south"
+        },
+        {
+            "tile": "conveyour",
+            "x": 9,
+            "y": 7,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "south"
+                }
+            ],
+            "orientation": "south"
+        },
+        {
+            "tile": "conveyour",
+            "x": 9,
+            "y": 8,
+            "tile_add_ons": [
+                {
+                    "name": "wall",
+                    "edge": "south"
+                },
+                {
+                    "name": "wall",
+                    "edge": "east"
+                }
+            ],
+            "orientation": "south"
+        }
+    ]
+}

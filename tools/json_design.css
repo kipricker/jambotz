@@ -145,22 +145,22 @@ input.check {
     border-left: solid red;
 }
 
-.tile_orientation_north {
+.tile_orientation_south {
     border-bottom: solid blue 20pt;
     top: -7pt;
     position: absolute;
 }
-.tile_orientation_south {
+.tile_orientation_north {
     border-top: solid blue 20pt;
     bottom: -7pt;
     position: absolute;
 }
-.tile_orientation_east {
+.tile_orientation_west {
     border-left: solid blue 20pt;
     right: -7pt;
     position: absolute;
 }
-.tile_orientation_west {
+.tile_orientation_east {
     border-right: solid blue 20pt;
     left: -7pt;
     position: absolute;
