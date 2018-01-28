@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "postinstall": "cd server && yarn install"
+    "postinstall": "cd server && yarn install",
+    "start": "(cd server && yarn start)"
   },
   "engines": {
     "node": "v8.3.0",
