@@ -67,19 +67,31 @@ public class HandBehaviour : MonoBehaviour {
 		}
 	}
 
+	void ToggleCardSelect(GameObject cardObj, bool selected, bool leftSide) 
+	{
+		Vector3 vec3 = cardObj.GetComponent<RectTransform> ().sizeDelta;
+		float xPos = vec3.x / 2;
+		if (selected) 
+		{
+			xPos = vec3.x / 4;
+			if (leftSide) {
+				xPos *= 3;
+			}
+		}
+		cardObj.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (xPos, -vec3.y / 2, 0);
+	}
+
 	void OnItemSelected(DragAndDropCell.DropDescriptor desc)
 	{
 		int srcSlotNumber = desc.sourceCell.slotNumber;
 		GameObject cardObj = cardObjs [srcSlotNumber];
 
 		if (selectedCards.Contains (srcSlotNumber)) {
-			Vector3 vec3 = cardObj.GetComponent<RectTransform> ().sizeDelta;
-			cardObj.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (vec3.x / 2, -vec3.y / 2, 0);
+			ToggleCardSelect(cardObj, false, true);
 
 			selectedCards.Remove (srcSlotNumber);
 		} else if (selectedCards.Count < 2) {
-			Vector3 vec3 = cardObj.GetComponent<RectTransform> ().sizeDelta;
-			cardObj.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (3 * vec3.x / 4, -vec3.y / 2, 0);
+			ToggleCardSelect(cardObj, true, true);
 
 			selectedCards.Add (srcSlotNumber);
 		}

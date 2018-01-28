@@ -34,7 +34,6 @@ public class CardBehaviour : MonoBehaviour {
 		int actionCount_move = 6;
 		foreach (string actionName in card.actions) {
 			Action action = m_actions.GetAction (actionName);
-			Debug.Log(action.type);
 			switch (action.type) {
 				case "offence":
 					m_action_images [actionCount_offence].enabled = true;
