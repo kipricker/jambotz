@@ -18,6 +18,8 @@ public class Game : MonoBehaviour
     public GameObject m_arena;
 	public GameObject m_player_hand;
 	public GameObject m_network;
+    public GameObject m_p0_health;
+    public GameObject m_p1_health;
 
     private Actions m_actions;
     private Cards m_cards;
@@ -32,6 +34,8 @@ public class Game : MonoBehaviour
     Bot m_target_bot;
     string m_target_dir;
 
+    private int m_player_local = 0;
+
     void SpawnBots()
     {
         for (int i = 0; i < m_players.Length; ++i)
@@ -41,6 +45,17 @@ public class Game : MonoBehaviour
             bot.m_arena = m_arena;
             bot.Spawn(i);
         }
+    }
+
+    public void SetLocal(int n)
+    {
+        m_player_local = n;
+        Bot bot0 = m_players[n].bot.GetComponent<Bot>();
+        bot0.m_health_text = m_p0_health;
+        bot0.Modifier(0);
+        Bot bot1 = m_players[(n + 1) % 2].bot.GetComponent<Bot>();
+        bot1.m_health_text = m_p1_health;
+        bot1.Modifier(0);
     }
 
 	// Use this for initialization

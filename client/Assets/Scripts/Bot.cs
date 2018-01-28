@@ -19,6 +19,7 @@ public class Bot : MonoBehaviour {
     };
 
     public GameObject m_arena;
+    public GameObject m_health_text;
     public float m_animation_rate = 0.01f;
 
     private int m_health = 5;
@@ -260,6 +261,13 @@ public class Bot : MonoBehaviour {
             return;
 
         m_health += n;
+
+        if (m_health_text != null)
+        {
+            UnityEngine.UI.Text text = m_health_text.GetComponent<UnityEngine.UI.Text>();
+            text.text = string.Format("HP: {0}", m_health);
+        }
+
         if (m_health <= 0)
         {
             m_status = Status.Dead;

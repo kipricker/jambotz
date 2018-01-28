@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 struct JoinResponse {
 	public string playerID;
 	public string gameID;
+    public int playerNumber;
 }
 
 [System.Serializable]
@@ -167,7 +168,9 @@ public class Network : MonoBehaviour {
 			Debug.Log (www.error);
 		} else {
 			m_joinResponse = JsonUtility.FromJson<JoinResponse> (www.downloadHandler.text);
-			StartCoroutine (heartbeat());
+            Game game = m_game.GetComponent<Game>();
+            game.SetLocal(m_joinResponse.playerNumber);
+            StartCoroutine (heartbeat());
 		}
 	}
 
