@@ -1,25 +1,25 @@
 fileFormatVersion: 2
-guid: 9d9afdaecfa18dd4e9a25f6f27e712c3
-timeCreated: 1517092073
+guid: 7cbb0fccc42372a4081d227f3df27c9c
+timeCreated: 1517157542
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: tread_mesh
+    100002: tank_tread_mesh
     100004: turret
     100006: turret_mesh
     400000: //RootNode
-    400002: tread_mesh
+    400002: tank_tread_mesh
     400004: turret
     400006: turret_mesh
     2100000: No Name
-    2300000: tread_mesh
+    2300000: tank_tread_mesh
     2300002: turret_mesh
-    3300000: tread_mesh
+    3300000: tank_tread_mesh
     3300002: turret_mesh
-    4300000: tread_mesh
-    4300002: turret_mesh
+    4300000: turret_mesh
+    4300002: tank_tread_mesh
     9500000: //RootNode
   externalObjects: {}
   materials:
