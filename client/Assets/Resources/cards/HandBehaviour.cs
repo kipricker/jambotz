@@ -20,7 +20,6 @@ public class HandBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		int cardNumber = 0;
-//		GameObject tile = Instantiate(Resources.Load("cards/Card") as GameObject);
 		foreach (Transform child in transform) {
 			GameObject childObj = child.gameObject;
 			GameObject card = Instantiate(Resources.Load("cards/Card") as GameObject);

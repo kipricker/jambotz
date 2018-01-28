@@ -1,5 +1,7 @@
 import crypto from 'crypto';
 
+import cardDefaults from '../../../client/Assets/Resources/json/prototypes/card';
+import cardDefinitions from '../../../client/Assets/Resources/json/cards';
 import Card from './Card';
 
 function randomInt(low, high) {
@@ -10,20 +12,20 @@ function randomInt(low, high) {
 }
 
 export default class Deck {
-    cards = [
-        { name: 'a' },
-        { name: 'b' },
-        { name: 'c' },
-        { name: 'd' },
-        { name: 'e' },
-        { name: 'f' },
-        { name: 'g' },
-        { name: 'h' },
-        { name: 'i' },
-        { name: 'j' },
-        { name: 'k' },
-    ];
+    cards = [];
     discarded = [];
+
+    constructor() {
+        let cardID = 0;
+        cardDefinitions.cards.forEach((definition) => {
+            const fullCardDef = Object.assign({}, cardDefaults, definition);
+            for (let i = 0; i < fullCardDef.rarity; i++) {
+                const card = Object.assign({}, fullCardDef, { id: cardID, priority: fullCardDef.priority + i });
+                cardID++;
+                this.cards.push(card);
+            }
+        });
+    }
 
     shuffle() {        
         const shuffled = [];
@@ -53,5 +55,9 @@ export default class Deck {
 
     discardCard(card) {
         this.discarded.push(card);
+    }
+
+    discardCards(cards) {
+        this.discarded.concat(cards);
     }
 }

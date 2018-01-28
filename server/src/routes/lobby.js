@@ -23,6 +23,7 @@ router.post('/join', express.urlencoded(), (req, res, next) => {
     const game = lobby.findGame(player);
 
     res.status(200).json({
+        playerNumber: player.number,
         playerID: player.id,
         gameID: game.id,
     });

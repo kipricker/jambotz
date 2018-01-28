@@ -13,20 +13,19 @@ export default class Game {
     playersLUT = {};
     players = [];
     active = false;
-    actions = [
-        { move: 1},
-        { move: 1},
-        { move: 1},
-        { move: 1},
-    ];
+    actions = [];
 
     deck = new Deck();
+
+    turnCards = {};
+    turnHands = [];
     
     constructor() {
         this.id = crypto.randomBytes(16).toString('hex');
     }
 
     join(player) {
+        player.number = this.players.length;
         this.players.push(player);
         this.playersLUT[player.id] = player;
         if (this.players.length >= this.config.playerCount) {
@@ -38,26 +37,60 @@ export default class Game {
         this.active = true;
         this.deck.shuffle();
         this.deal();
+
+        this.actions.push({ gameStarted: true });
+        this.actions.push({ handsDealt: true });
     }
 
     deal() {
-        const p1 = this.players[0];
-        const p2 = this.players[1];
         const handSize = this.config.handSize;
-        while (p1.hand.length < handSize || p2.hand.length < handSize) {
-            if (p1.hand.length < handSize) {
+        for (let i = 0; i < handSize; i++) {
+            this.players.forEach((player) => {
                 const card = this.deck.pullCard();
-                p1.hand.push(card);
-            }
-
-            if (p2.hand.length < handSize) {
-                const card = this.deck.pullCard();
-                p2.hand.push(card);                    
-            }
+                player.dealCard(card);
+            });
         }
     }
 
-    getPlayerHand(playerID) {
+    playHand(playerID, hand) {
+        if (hand.length === 5) {
+            const player = this.playersLUT[playerID];
+            const action = {}; 
+            this.turnHands.push({
+                player_played_hand: { playerNumber: player.number, hand }, 
+            });
+        }            
+        if (this.turnHands === this.config.playerCount) {
+            this.players.forEach((player) => {
+                const hand = player.discardHand();
+                this.deck.discardCards(hand);
+            });
+            this.actions.concat(this.turnHands);
+            this.turnHands = [];
+
+            this.deal();
+        }
+    }
+
+    sendCards(playerID, cards) {
+        if (cards.length === 2) {
+            const player = this.playersLUT[playerID];
+            const action = {};
+            this.turnCards[player.number] = cards;
+        }
+        if (Object.keys(this.turnCards).length === this.config.playerCount) {
+            for (let i = 0; i < this.players.length; i++) {
+                const p1 = this.players[i];
+                const p2 = i + 1 < this.players.length ? this.players[i + 1] : this.players[0];
+                const p1Cards = p1.removeCards(this.turnCards[i]);
+                p2.addCards(p1Cards);
+            }
+            this.actions.push({ player_cards_sent: true });
+            this.turnCards = {};
+        }
+    }
+
+    getHand(playerID) {
         return this.playersLUT[playerID].hand;
     }
 
