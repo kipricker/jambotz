@@ -35,12 +35,15 @@ public class Network : MonoBehaviour {
 
 	bool m_active = false;
 	int m_lastSeen = 0;
+	public int m_stage = 0;
 
 	JoinResponse m_joinResponse = new JoinResponse();
-
-	string m_host = "https://dry-spire-78198.herokuapp.com/";
-
 	Queue<GameAction> m_gameActionQueue = new Queue<GameAction>();
+
+
+	string m_host = "localhost:3000";
+//	string m_host = "https://dry-spire-78198.herokuapp.com/";
+
 
 	void Start () {
 		joinLobby();
@@ -99,7 +102,28 @@ public class Network : MonoBehaviour {
 		if (www.isNetworkError || www.isHttpError) {
 			Debug.Log (www.error);
 		} else {
+			m_stage++;
+		}
+	}
 
+	IEnumerator iLeave(Card[] hand)
+	{
+		WWWForm form = new WWWForm();
+		form.AddField("playerID", m_joinResponse.playerID);
+		form.AddField("gameID", m_joinResponse.gameID);
+
+		UnityWebRequest www = UnityWebRequest.Post (m_host + "/game/leave", form);
+		yield return www.SendWebRequest();
+
+		if (www.isNetworkError || www.isHttpError) {
+			Debug.Log (www.error);
+		} else {
+			m_active = false;
+			m_lastSeen = 0;
+			m_joinResponse = new JoinResponse();
+			m_gameActionQueue = new Queue<GameAction>();
+
+			yield return iJoinLobby ();
 		}
 	}
 
@@ -125,7 +149,7 @@ public class Network : MonoBehaviour {
 		if (www.isNetworkError || www.isHttpError) {
 			Debug.Log (www.error);
 		} else {
-
+			m_stage++;
 		}
 	}
 
@@ -173,6 +197,7 @@ public class Network : MonoBehaviour {
 
 					if (gameAction.player_cards_sent) {
 						yield return iGetHand ();
+						m_stage++;
 					}
 
 					if (gameAction.player_played_hand.hand != null) {
@@ -181,6 +206,7 @@ public class Network : MonoBehaviour {
 						}
 						PlayedHand played = gameAction.player_played_hand;
 						hands [played.playerNumber] = played.hand;
+						m_stage = 0;
 					}
 
 					m_gameActionQueue.Enqueue (gameAction);

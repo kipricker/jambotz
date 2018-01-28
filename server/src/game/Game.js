@@ -13,6 +13,7 @@ export default class Game {
     playersLUT = {};
     players = [];
     active = false;
+    ended = false;
     actions = [];
 
     deck = new Deck();
@@ -34,12 +35,20 @@ export default class Game {
         }
     }
 
+    leave(player) {
+        this.ended = true;
+    }
+
     startGame() {
         this.active = true;
         this.actions.push({ gameStarted: true });
 
         this.deck.shuffle();
         this.deal();
+
+        this.players.forEach((player) => {
+            player.idleTimer = Math.floor( Date.now() / 1000 );
+        });
     }
 
     deal() {
@@ -94,6 +103,18 @@ export default class Game {
 
     getHand(playerID) {
         return this.playersLUT[playerID].hand;
+    }
+
+    updateIdle(playerID) {
+        if (playerID) {
+            this.playersLUT[playerID].idleTimer = Math.floor( Date.now() / 1000 );
+        }
+        this.players.forEach((player) => {
+            const now = Math.floor( Date.now() / 1000 );
+            if (now - player.idleTimer > 10) {
+                this.ended = true;
+            }
+        });
     }
 
     getActionsSince(lastSeen) {

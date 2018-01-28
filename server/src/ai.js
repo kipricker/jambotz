@@ -4,8 +4,8 @@ require("babel-polyfill");
 import axios from 'axios';
 import qs from 'qs';
 
-// axios.defaults.baseURL = 'http://localhost:3000';
-axios.defaults.baseURL = 'https://dry-spire-78198.herokuapp.com/';
+axios.defaults.baseURL = 'http://localhost:3000';
+// axios.defaults.baseURL = 'https://dry-spire-78198.herokuapp.com/';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let lastSeen = 0;
@@ -49,9 +49,11 @@ const heartbeat = async () => {
 let stage = 0;
 
 const run = async () => {
-    await joinRoom();
-
     setInterval(async () => {
+        if (!p1) {
+            await joinRoom();
+        }
+
         const hb = await heartbeat();
 
         lastSeen += hb.latestActions.length;
@@ -78,6 +80,11 @@ const run = async () => {
                 console.log('beep boop beep');
             }
         });
+
+        if (hb.ended) {
+            p1 = null;
+            console.log('game ended');
+        }
     }, 1000);
 }
 

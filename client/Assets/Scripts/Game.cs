@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public struct Player
 {
@@ -11,6 +12,9 @@ public struct Player
 
 public class Game : MonoBehaviour
 {
+	public Button m_trade_button;
+	public Button m_transmit_button;
+
     public GameObject m_arena;
 	public GameObject m_player_hand;
 	public GameObject m_network;
@@ -126,6 +130,24 @@ public class Game : MonoBehaviour
 	
 	void FixedUpdate ()
     {
+		int currentStage = m_network.GetComponent<Network>().m_stage;
+		switch (currentStage) {
+		case 0: 
+			m_trade_button.gameObject.SetActive(true);
+			m_transmit_button.gameObject.SetActive(false);
+			break;
+		case 2: 
+			m_trade_button.gameObject.SetActive(false);
+			m_transmit_button.gameObject.SetActive(true);
+			break;
+		case 1:
+		case 3:
+		default:
+			m_trade_button.gameObject.SetActive(false);
+			m_transmit_button.gameObject.SetActive(false);
+			break;
+		}
+
         if (!m_game_running)
             return;
 
