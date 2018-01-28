@@ -38,8 +38,6 @@ export default class Deck {
     }
 
     shuffleInDiscarded() {
-
-
         this.cards = this.discarded;
         this.shuffle();
     }
