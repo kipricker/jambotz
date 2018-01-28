@@ -3,96 +3,112 @@
 		{ 
  			"name" : "fire_1",
 			"title": "One Shot",
+			"rarity" : 15,
 			"flavor": "One shot, one kill.",
 			"actions": ["fire"]
 		},
 		{ 
 			"name" : "fire_2",
 			"title": "Double Tap",
+			"rarity" : 10,
 			"flavor": "Pow pow!",
 			"actions": ["fire", "fire"]
 		},
 		{ 
  			"name" : "fire_3",
 			"title": "Triple Threat",
+			"rarity" : 6,
 			"flavor": "Ooof.",
 			"actions": ["fire", "fire", "fire"]
 		},
 		{ 
  			"name" : "move_1",
 			"title": "Move it!",
+			"rarity" : 15,
 			"flavor": "Git!",
 			"actions": ["move"]
 		},
 		{ 
  			"name" : "move_2",
 			"title": "Double Time",
+			"rarity" : 10,
 			"flavor": "One, Two, One, Two...",
 			"actions": ["move", "move"]
 		},
 		{ 
 			"name" : "move_3",
 			"title": "Sprint",
+			"rarity" : 6,
 			"flavor": "Huff Huff.",
 			"actions": ["move", "move", "move"]
 		},
 		{ 
  			"name" : "backup",
 			"title": "Backup",
+			"rarity" : 6,
 			"flavor": "Uh, just a second here.",
 			"actions": ["backup"]
 		},
 		{ 
  			"name" : "uturn",
 			"title": "U-turn",
+			"rarity" : 4,
 			"flavor": "Nu-uh.",
 			"actions": ["turn_left", "turn_left"]
 		},
 		{ 
  			"name" : "turn_left",
 			"title": "Turn Left",
+			"rarity" : 9,
 			"flavor": "How Hansel won.",
 			"actions": ["turn_left"]
 		},
 		{ 
 			"name" : "turn_right",
 			"title": "Turn Right",
+			"rarity" : 9,
 			"flavor": "I can't turn left...",
 			"actions": ["turn_right"]
 		},
 		{ 
 			"name" : "look_left",
 			"title": "Look Left",
+			"rarity" : 9,
 			"flavor": "Nothing there...",
 			"actions": ["look_left"]
 		},
 		{ 
 			"name" : "look_right",
 			"title": "Look Right",
+			"rarity" : 9,
 			"flavor": "There's a chicken...",
 			"actions": ["look_right"]
 		},
 		{ 
 			 "name" : "face_front",
 			 "title" : "Orient to Turret",
+			 "rarity" : 3,
 			 "flavor" : "I see where I wanna go.",
 			 "actions" : ["align_body_to_turret"]
 		},
 		{ 
 			 "name" : "turn_facing",
 			 "title" : "Orient to Body",
+			 "rarity" : 3,
 			 "flavor" : "I should look where I'm going!",
 			 "actions" : ["align_turret_to_body"]
 		},
 		{ 
 			"name" : "vampiric_shot",
 			"title" : "Leech bullet",
+			"rarity" : 0,
 			"flavor" : "What's yours is now mine!",
 			"actions" : ["vampiric_shot"]
 		},
 		{ 
  			"name" : "bazooka",
 			"title" : "Big Shot",
+			"rarity" : 0,
 			"flavor" : "Whoa!",
 			"actions" : ["bazooka"]
 		}

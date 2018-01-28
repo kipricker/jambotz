@@ -33,3 +33,7 @@ input.text {
 input.check {
     display: inline-block;
 }
+
+.variable {
+    display: inline-block;
+}

@@ -18,10 +18,13 @@ $(function() {
             if (value == undefined)
                 value = tool.schema[key];
 
-            $workspace.append('<span class="key">' + key + '</span>');
-            $workspace.append('<input class="text" type="text" placeholder="' + value + '" value="' + value + '" ' + (enabled ? "enabled" : "disabled") + '/>'));
-            $workspace.append('<input class="check" type="checkbox" ' + (enabled ? "checked" : "uncheched") + '/>');
-            $workspace.append('<br/>');
+            $workspace.append('<div class="variable"><span class="key">' + key + '</span>');
+            $workspace.append('<input class="text" type="text" placeholder="' + value + '" value="' + value + '" ' + (enabled ? "enabled" : "disabled") + '/>');
+            $workspace.append($('<input class="check" type="checkbox" ' + (enabled ? "checked" : "unchecked") + '/>').change(function() {
+                var enabled = $(this).prop( "checked" );
+                $(this).siblings(".text").prop('disabled', !enabled);
+            }));
+            $workspace.append('<br/></div>');
         });
     };
 
