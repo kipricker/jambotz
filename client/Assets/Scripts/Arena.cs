@@ -158,6 +158,12 @@ public class Arena : MonoBehaviour
                 string asset = m_tiles.tiles[tile_type - 1].asset;
                 GameObject tile = Instantiate(Resources.Load(asset) as GameObject);
 
+                Animator anim = tile.GetComponent<Animator>();
+                if (anim != null)
+                {
+                    anim.speed = 0.0f;
+                }
+
                 tile.transform.parent = root;
                 tile.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                 tile.transform.localEulerAngles = new Vector3(0.0f, angle, 0.0f);
