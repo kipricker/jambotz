@@ -110,6 +110,9 @@ public class Bot : MonoBehaviour {
 
     public void Modifier(int n)
     {
+        if (m_status == Status.Dead)
+            return;
+
         m_health += n;
         if (m_health <= 0)
         {
@@ -165,7 +168,14 @@ public class Bot : MonoBehaviour {
                     m_y_position = m_target_y;
                     x = arena.GridX(m_x_position);
                     y = arena.GridX(m_y_position);
-                    m_status = Status.Idle;
+                    if (m_status == Status.Falling)
+                    {
+                        m_status = Status.Dead;
+                    }
+                    else
+                    {
+                        m_status = Status.Idle;
+                    }
                 }
                 gameObject.transform.position = new Vector3(x, z, y);
                 break;
