@@ -1,0 +1,10 @@
+{
+  "name": "jambotz",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "postinstall": "cd server && yarn install"
+  },
+  "author": "",
+  "license": "MIT"
+}
