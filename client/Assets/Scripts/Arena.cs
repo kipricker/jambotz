@@ -18,6 +18,7 @@ public struct WorldData
         public int x;
         public int y;
         public string tile;
+        public string orientation;
         public Addon[] tile_add_ons;
     }
 
@@ -60,19 +61,11 @@ public struct Addons
     public Addon[] tile_add_ons;
 }
 
-public class Arena : MonoBehaviour {
-
-    public struct Tile
-    {
-        public int type;
-        public int orientation;
-        public int[] walls;
-    }
-
+public class Arena : MonoBehaviour
+{
     public float m_world_scale = 1.0f;
 
     private WorldData m_world;
-    private Tile[,] m_grid;
     private Tiles m_tiles;
     private Addons m_addons;
     private float m_sx;
@@ -80,6 +73,7 @@ public class Arena : MonoBehaviour {
 
     public void LoadMap(WorldData world)
     {
+        string[] orientations = new string[] { "west", "north", "east", "south" };
         ClearMap();
 
         if (m_tiles.tiles == null)
@@ -100,17 +94,26 @@ public class Arena : MonoBehaviour {
         m_sx = -(w - 1) * m_world_scale / 2.0f;
         m_sy = -(h - 1) * m_world_scale / 2.0f;
 
-        m_grid = new Tile[w, h];
         for (int y = 0; y < h; ++y)
         {
+            GameObject row = new GameObject(string.Format("Row{0}", y));
+            row.transform.parent = gameObject.transform;
+            row.transform.localPosition = new Vector3(0.0f, 0.0f, GridY(y));
             for (int x = 0; x < w; ++x)
             {
-                m_grid[x, y].type = 0;
-                m_grid[x, y].walls = new int[4];
+                GameObject col = new GameObject(string.Format("Col{0}", x));
+                col.transform.parent = row.transform;
+                col.transform.localPosition = new Vector3(GridX(x), 0.0f, 0.0f);
                 for (int i = 0; i < 4; ++i)
-                    m_grid[x, y].walls[i] = 0;
+                {
+                    GameObject node = new GameObject(orientations[i]);
+                    node.transform.parent = col.transform;
+                    node.transform.localEulerAngles = new Vector3(0.0f, 90.0f * i, 0.0f);
+                    node.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                }
             }
         }
+
         foreach (WorldData.MapData tile_data in world.map_data)
         {
             int x = tile_data.x;
@@ -118,52 +121,33 @@ public class Arena : MonoBehaviour {
             int tile_type = FindTile(tile_data.tile);
             if (tile_type > 0)
             {
+                Transform root = gameObject.transform.Find(string.Format("Row{0}/Col{1}", y, x));
                 string asset = m_tiles.tiles[tile_type - 1].asset;
                 GameObject tile = Instantiate(Resources.Load(asset) as GameObject);
 
-                tile.transform.position = new Vector3(GridX(x), 0, GridY(y));
-                tile.transform.parent = gameObject.transform;
+                tile.transform.parent = root;
+                tile.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                tile.transform.localEulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
             }
 
-            m_grid[x, y].type = tile_type;
             if (tile_data.tile_add_ons != null)
             {
                 foreach (WorldData.Addon addon in tile_data.tile_add_ons)
                 {
-                    float angle = 0.0f;
-                    switch (addon.edge)
-                    {
-                        case "east":
-                            angle = 180.0f;
-                            if (addon.name == "wall")
-                                m_grid[x, y].walls[0] = 1;
-                            break;
-                        case "south":
-                            angle = 270.0f;
-                            if (addon.name == "wall")
-                                m_grid[x, y].walls[1] = 1;
-                            break;
-                        case "west":
-                            angle = 0.0f;
-                            if (addon.name == "wall")
-                                m_grid[x, y].walls[2] = 1;
-                            break;
-                        case "north":
-                            angle = 90.0f;
-                            if (addon.name == "wall")
-                                m_grid[x, y].walls[3] = 1;
-                            break;
-                    }
-
                     int addon_type = FindAddon(addon.name);
                     if (addon_type > 0)
                     {
+                        string dir = addon.edge;
+                        if (dir == "")
+                            dir = "west";
+                        Transform root = gameObject.transform.Find(string.Format("Row{0}/Col{1}/{2}", y, x, dir));
+
                         string asset = m_addons.tile_add_ons[addon_type - 1].asset;
                         GameObject wall = Instantiate(Resources.Load(asset) as GameObject);
 
-                        wall.transform.position = new Vector3(GridX(x), 0, GridY(y));
-                        wall.transform.eulerAngles = new Vector3(0.0f, angle, 0.0f);
-                        wall.transform.parent = gameObject.transform;
+                        wall.transform.parent = root;
+                        wall.transform.localEulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+                        wall.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                     }
                 }
             }
@@ -199,7 +183,8 @@ public class Arena : MonoBehaviour {
     {
         if (x < 0 || y < 0 || x >= m_world.width || y >= m_world.height)
             return false;
-        return m_grid[x, y].type > 0;
+        Transform root = gameObject.transform.Find(string.Format("Row{0}/Col{1}", y, x));
+        return root.childCount > 4;
     }
 
     public float GridX(int x)
