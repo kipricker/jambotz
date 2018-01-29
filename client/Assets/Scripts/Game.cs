@@ -83,7 +83,7 @@ public class Game : MonoBehaviour
 
         // Testing
         Arena arena = m_arena.GetComponent<Arena>();
-        string json_map = Resources.Load<TextAsset>("json/maps/ggjam").text;
+        string json_map = Resources.Load<TextAsset>("json/maps/new").text;
         WorldData world = JsonUtility.FromJson<WorldData>(json_map);
         arena.LoadMap(world);
 

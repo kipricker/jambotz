@@ -218,6 +218,98 @@
 			"actions": [
 				"bazooka"
 			]
+		},
+		{
+			"name": "juke_right",
+			"title": "Juke Right",
+			"flavor": "Fake out!",
+			"rarity": 6,
+			"actions": [
+				"turn_right",
+				"move",
+				"turn_left",
+				"move"
+			]
+		},
+		{
+			"name": "juke_left",
+			"title": "Juke Left",
+			"flavor": "Fake out!",
+			"rarity": 6,
+			"actions": [
+				"turn_left",
+				"move",
+				"turn_right",
+				"move"
+			]
+		},
+		{
+			"name": "hit_hide_right",
+			"title": "Hit & Hide",
+			"flavor": "Whimper",
+			"rarity": 4,
+			"actions": [
+				"fire",
+				"backup",
+				"turn_right",
+				"backup",
+				"heal"
+			]
+		},
+		{
+			"name": "hit_hide_left",
+			"title": "Hit & Hide",
+			"flavor": "Whimper",
+			"rarity": 4,
+			"actions": [
+				"fire",
+				"backup",
+				"turn_left",
+				"backup",
+				"heal"
+			]
+		},
+		{
+			"name": "hit_run",
+			"title": "Hit & Run",
+			"flavor": "I'm telling mom!",
+			"rarity": 2,
+			"actions": [
+				"fire",
+				"uturn",
+				"move"
+			]
+		},
+		{
+			"name": "hit_run_3",
+			"title": "Smack & Run",
+			"flavor": "I've got places to be.",
+			"rarity": 1,
+			"actions": [
+				"fire",
+				"fire",
+				"fire",
+				"uturn",
+				"move",
+				"move",
+				"move"
+			]
+		},
+		{
+			"name": "from_behind",
+			"title": "Back Stab",
+			"flavor": "Whoosh!",
+			"rarity": 0,
+			"actions": [
+				"turn_right",
+				"move",
+				"turn_right",
+				"move",
+				"turn_right",
+				"move",
+				"turn_right",
+				"fire"
+			]
 		}
 	]
 }
